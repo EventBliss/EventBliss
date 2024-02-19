@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.content-nav{
+    display: flex;
+    justify-content: center;
+    background-color: #775944;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 85px;
+    padding: 5px 10%;
+    font-size: 18px;
+    color: white;
+    position: fixed;
+    z-index: 6;
+    margin-bottom: 10px;
+}
+
+.content-nav .logo{
+    cursor: pointer;
+}
+
+.content-nav .logo img{
+    height: 70px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+.content-nav .logo img:hover{
+    transform: scale(1.2);
+}
+
+.links{
+    display: inline-block;
+    position: relative;
+    margin-right: 20px;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    transition: color 0.3s ease;
+    color: white;
+}
+
+.user{
+    display: inline-block;
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    transition: color 0.3s ease;
+    color: white;
+}
+
+.links:hover , .user:hover{
+    color: #F6CAA7;
+}
+
+.links::before , .user::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #F6CAA7;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+.links:hover::before, .user:hover::before{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
