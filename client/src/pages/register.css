@@ -42,9 +42,11 @@ form{
 
 .credenciales input{
     margin: 5px 0 15px;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
+    border: 1px solid #D2D2D2;
     border-radius: 3px;
+    width: 100%;
 }
 
 form a{
@@ -53,14 +55,15 @@ form a{
 
 .olvideMP{
     color: black;
-    font-size: 15px;
+    font-size: 12px;
+    padding-bottom: 20px;
 }
 
 .enviar{
     display: block;
     width: 50%;
     background: rgb(118,88,68);
-    margin: 10px;
+    margin: 10px 0;
     padding: 15px 0;
     color: #FFFFFF;
     text-align: center;
@@ -69,6 +72,7 @@ form a{
 
 .cambiar-password{
     text-align: center;
+    font-size: 14px;
 }
 
 .imagen{

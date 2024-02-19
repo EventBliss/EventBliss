@@ -9,16 +9,16 @@ function LoginForm() {
         <h1>Iniciar sesión</h1>
         <form>
           <label htmlFor="email">Email*</label><br />
-          <input type="email" id="email" name="email" defaultValue="Introduce tu email" required /><br />
+          <input type="email" id="email" name="email" placeholder='Introduce tu email' required /><br />
 
           <label htmlFor="password">Contraseña*</label><br />
-          <input type="password" id="password" name="password" required /><br />
+          <input type="password" id="password" name="password" placeholder='Introduce tu contraseña' required />
 
           <a href="#" className="olvideMP">Olvidé mi contraseña</a><br />
 
           <input type="submit" value="Iniciar Sesión" className="enviar" />
 
-          <p className="cambiar-password">¿No tienes una cuenta? <a href="#">Regístrate</a></p>
+          <p className="cambiar-password">¿No tienes una cuenta? <a href="../pages/SignupPage.jsx">Regístrate</a></p>
         </form>
       </div>
 
