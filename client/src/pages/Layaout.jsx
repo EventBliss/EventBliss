@@ -6,7 +6,7 @@ import ActiveMenu from "../components/ActiveMenu";
 
 
 function Layout() {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   console.log(isMenuOpen)
 
