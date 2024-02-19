@@ -1,0 +1,41 @@
+body { min-width: 100vh; }
+
+header{
+    background-color: #1e120d5e;
+    color: white;
+    min-width: 100vh;
+    padding-bottom: 1%;
+}
+
+.navbar {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 69px;
+    width: 100%;
+    padding: 0 5% ;
+}
+
+
+.navbar-sections{
+    display: flex;
+    
+}
+
+
+.navbar-sections-links{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+    flex-direction: row;
+    justify-content: space-around; /* Ahora se aplica a la lista en lugar del contenedor */
+    align-items: center;
+    width: 400px;
+}
+
+/* .navbar-sections-links li {
+    border-right: 2px solid red;
+    align-items: center;
+} */

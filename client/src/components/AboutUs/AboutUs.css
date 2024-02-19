@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: rgb(193,147,110);
+    background: linear-gradient(90deg, rgba(193,147,110,1) 0%, rgba(246,202,167,1) 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.first-section, .second-section .fourth-section{
+    padding: 0 5% ;
+}
+
+.container {
+    max-width: auto;
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('../../assets/img/AboutUs-images/backghround1.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Añadimos box-shadow al contenedor */
+}
+
+.container-title {
+    color: white;
+    font-size: 3em;
+    text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.first-section .container-info,
+.second-section .container-info{
+    margin: 50px 20px;
+    
+}
+
+.container-text {
+    flex: 1 1 50%;
+    max-width: 50%;
+    padding: 10px 10px 10px 25px;
+    color: white;
+    font-size: 1.8em;
+    text-align: left;
+
+}
+
+.container-info .container-info-image {
+    flex: 1 1 50%;
+    max-width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+.container-info-image img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px; /* Mantenemos border-radius para la imagen del contenedor */
+
+}
+
+.first-section .container-info-image img {
+    box-shadow:  18px -18px 0px #775944 /* Mantenemos box-shadow para la imagen del contenedor */
+}
+
+.second-section .container-info-image img {
+    max-width: 60%;
+    height: auto;
+}
+
+.container-info-image img:nth-child(2) {
+    transform: translate(20%, -10%); /* Ajusta el valor según sea necesario */
+
+}
+
+.second-section {
+    color: white;
+    background-color: #896751;
+    padding: 2% 5%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.fourth-section{
+    height: 80%;
+    background: linear-gradient(rgba(246,202,167,0.35), rgba(246,202,167,0.35)), url('../../assets/img/AboutUs-images/SE4Photo.jpg');
+    background-size: cover;
+    background-position: center;
+
+}
+
+.fourth-section .container-text{
+    text-align: left;
+    margin: 10%;
+    font-size: 2em;
+}
+
+.fourth-section .container-text p{
+    color: black;
+    font-weight: bold;
+}
+
+
+.fourth-section .container-text h4{
+    margin-top: 5%;
+
+}
+
+
+/* Estilos específicos para dispositivos de pantalla más pequeña */
+/* Puedes definir estilos específicos para dispositivos móviles aquí */
+@media only screen and (max-width: 767px) {
+    .container-info {
+        justify-content: center;
+    }
+
+    .container-title {
+        font-size: 2em;
+    }
+    
+    .container-info .container-text,
+    .container-info .container-info-image .container-photos {
+        flex: 1 1 100%;
+        max-width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .container-info-image img {
+        width: 80%;
+        height: auto;
+        margin-top: 5%;
+    }
+
+    /* .second-photo {
+        transform: translate(20%, -18%);
+    } */
+}
