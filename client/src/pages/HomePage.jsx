@@ -16,33 +16,33 @@ function HomePage() {
             Event<span>Bills</span>
           </h1>
           <h2>
-            ¡Tu evento, nuestra <span className="pasion">pasión</span>!
+            ¡Your event, our <span className="pasion">passion</span>!
           </h2>
         </div>
       </div>
         <h1 className="titulo">
-          ¿Qué somos para <span>ti</span>?
+          ¿What are we for <span>you</span>?
         </h1>
         <div className="description">
           <div className="content-description">
             <p>
-              En Eventi Bills, no simplemente planificamos eventos, creamos
-              momentos inolvidables que reflejan tu visión única. Nuestro equipo
-              de expertos se dedica a entender tus deseos y transformarlos en
-              una realidad cautivadora.
+              At EventBills, we don't simply plan events, we create
+              unforgettable moments that reflect your unique vision. Our team
+              of experts is dedicated to understanding your desires and transforming them into
+              a captivating reality.
               <br />
               <br />
-              Con nosotros, no solo obtienes un servicio de planificación de
-              eventos; obtienes un compañero dedicado que se preocupa por cada
-              aspecto de tu celebración. Desde bodas mágicas hasta eventos
-              corporativos impecables, estamos aquí para hacer que cada momento
-              sea especial.
+              With us, you not only get a planning service
+              events; you get a dedicated companion who cares about every
+              aspect of your celebration. From magical weddings to events
+              impeccable corporate, we are here to make every moment
+              be special.
               <br />
               <br />
-              Opta por la excelencia, elige Eventi Bills. Tu historia merece ser
-              contada con elegancia y perfección. ¡Permítenos ser parte de tu
-              próximo gran evento y descubre la diferencia que marcamos en cada
-              celebración!
+              Opt for excellence, choose Eventi Bills. Your story deserves to be
+              told with elegance and perfection. Let us be part of your
+              next big event and discover the difference we make in each
+              celebration!
             </p>
           </div>
           <img src={event} alt="" className="ft-description"/>
@@ -51,18 +51,18 @@ function HomePage() {
       <div className="we-do">
         <div>
             <img src={contratame} alt="" />
-            <h1>Contrata</h1>
-            <p>Lo que deseas de nosotros</p>
+            <h1>Hire</h1>
+            <p>What you want from us</p>
         </div>
         <div>
             <img src={gestiona} alt="" />
-            <h1>Gestiona</h1>
-            <p>La logistica de tu evento</p>
+            <h1>Manage</h1>
+            <p>The logistics of your event</p>
         </div>
         <div>
             <img src={disfruta} alt="" />
-            <h1>Disfruta</h1>
-            <p>De lo demas, nos encargamos</p>
+            <h1>Enjoy</h1>
+            <p>We take care of the rest</p>
         </div>
       </div>
       <div className="slide">
