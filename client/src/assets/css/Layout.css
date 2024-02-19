@@ -81,15 +81,12 @@
     transform-origin: bottom left;
 }
 
-.dropdown-menu{
-    display: none;
-}
 
 @media screen and (max-width: 768px) {
     .nav-links , .user-links{
         display: none;
     }
-    .dropdown-menu{
+    .Drop-menu{
         display: flex;
     }
 }

@@ -1,14 +1,24 @@
 import { Link, Outlet } from "react-router-dom";
 import "../assets/css/Layout.css"
 import Footer from "./Footer";
+import { useState } from "react";
+import ActiveMenu from "../components/ActiveMenu";
 
 
 function Layout() {
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+
+  console.log(isMenuOpen)
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div>
       <header className="content-nav">
         <div className="logo">
-            <img src="https://www.tailorbrands.com/wp-content/uploads/2020/07/mcdonalds-logo.jpg" alt="" />
+            {/* <img src="https://www.tailorbrands.com/wp-content/uploads/2020/07/mcdonalds-logo.jpg" alt="" /> */}
         </div>
         <nav>  
           <div className="nav-links">
@@ -23,8 +33,10 @@ function Layout() {
             <Link className="user">Login</Link>/
             <Link className="user">Sign In</Link>
           </div>
+          <button className="Drop-menu" onClick={toggleMenu} >Menu</button>
       </header>
       <section>
+        <ActiveMenu bool={isMenuOpen}/>
         <Outlet/>
       </section>
       <Footer/>

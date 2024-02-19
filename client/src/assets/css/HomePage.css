@@ -32,10 +32,10 @@
   word-break:break-all;
 }
 
-h1,
-h2 {
+.text-welcome h1,
+.text-welcome h2 {
   color: white;
-  margin-left: 30px;
+  padding-left: 20px;
 }
 
 span,
@@ -59,11 +59,14 @@ h2,
   align-items: center;
 }
 
+.content-all h1{
+  color: white;
+}
+
 .description {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding: 10px;
 }
 
 .titulo {
@@ -75,11 +78,12 @@ h2,
 .description img {
   width: 500px;
   height: 450px;
-  border-radius: 20px;
+  border-radius: 13px;
 }
 
 .content-description {
   color: white;
+  width: auto;
   margin-left: 40px;
   margin-right: 40px;
   font-size: 25px;
@@ -88,11 +92,8 @@ h2,
 
 .ft-description {
   transition: transform 0.9s ease;
-  width: 500px;
-  max-width: 100%;
-
-  height: auto; 
-  border-radius: 20px;
+  height: auto;
+  max-width: 90%;
 }
 
 .ft-description:hover {
@@ -104,7 +105,7 @@ h2,
   width: auto;
   height: 400px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
-  z-index: 7;
+  z-index: 6;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -156,15 +157,16 @@ h2,
 
   .text-welcome {
     padding-left: 0;
-    margin-top: -70px;
+    margin-top: -20%;
   }
   .text-welcome h1, .text-welcome span{
     font-size: 50px;
-    margin-top: -35px;
+    margin-top: -3px;
   }
 
   .text-welcome h2, .text-welcome .pasion{
     font-size: 25px;
+    margin-top: 25px;
   }
   h1, h2, span,.pasion {
     margin-left: auto;
@@ -178,12 +180,18 @@ h2,
     font-size: 35px;
   }
 
-  .content-description{
-    font-size: 15px;
+  .description{
+    grid-template-columns: 1fr;
   }
 
   .ft-description{
-    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+  }
+
+  .content-description{
+    font-size: 15px;
   }
 
   .we-do{
