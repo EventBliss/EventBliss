@@ -2,6 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import "../assets/css/Layout.css"
 import Footer from "./Footer";
 
+
 function Layout() {
   return (
     <div>
@@ -18,7 +19,7 @@ function Layout() {
             <Link className="links">Contact</Link> 
           </div>
         </nav>
-        <div>
+          <div className="user-links">
             <Link className="user">Login</Link>/
             <Link className="user">Sign In</Link>
           </div>

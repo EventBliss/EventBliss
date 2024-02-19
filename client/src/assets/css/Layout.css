@@ -16,8 +16,11 @@
     font-size: 18px;
     color: white;
     position: fixed;
-    z-index: 6;
-    margin-bottom: 10px;
+    z-index: 10;
+}
+
+.Drop-menu{
+    display: none;
 }
 
 .content-nav .logo{
@@ -78,4 +81,15 @@
     transform-origin: bottom left;
 }
 
+.dropdown-menu{
+    display: none;
+}
 
+@media screen and (max-width: 768px) {
+    .nav-links , .user-links{
+        display: none;
+    }
+    .dropdown-menu{
+        display: flex;
+    }
+}

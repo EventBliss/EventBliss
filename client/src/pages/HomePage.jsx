@@ -8,6 +8,7 @@ import disfruta from "../assets/img/disfruta.png"
 function HomePage() {
   return (
     <div>
+      <div className="content-all">
       <div className="content-welcome">
         <img src={imageWelcome} alt="" className="imageWelcome" />
         <div className="text-welcome">
@@ -19,7 +20,6 @@ function HomePage() {
           </h2>
         </div>
       </div>
-      <div className="content-all">
         <h1 className="titulo">
           ¿Qué somos para <span>ti</span>?
         </h1>
