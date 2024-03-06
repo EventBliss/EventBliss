@@ -1,0 +1,65 @@
+.balloons-container {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Ajusta la altura según sea necesario */
+}
+
+.balloon {
+  position: absolute;
+  border-radius: 50%; /* Forma de globo */
+  background-color: transparent;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidad */
+  transform-style: preserve-3d; /* Permite transformaciones 3D */
+}
+
+.string {
+  position: absolute;
+  bottom: -10px; /* Posición de la cuerda */
+  left: 50%; /* Centra la cuerda */
+  width: 2px; /* Grosor de la cuerda */
+  height: 100px; /* Longitud de la cuerda */
+  background-color: #000; /* Color de la cuerda */
+}
+
+.red {
+  background: radial-gradient(#ff595e 60%, #ff0000 100%); /* Degradado para simular 3D */
+  animation: rise 8s linear infinite, sway 4s ease-in-out infinite alternate;
+}
+
+.blue {
+  background: radial-gradient(#4ea8de 60%, #0000ff 100%); /* Degradado para simular 3D */
+  animation: rise 6s linear infinite, sway 3s ease-in-out infinite alternate;
+}
+
+.yellow {
+  background: radial-gradient(#ffd166 60%, #ffff00 100%); /* Degradado para simular 3D */
+  animation: rise 10s linear infinite, sway 5s ease-in-out infinite alternate;
+}
+
+.green {
+  background: radial-gradient(#76c893 60%, #008000 100%); /* Degradado para simular 3D */
+  animation: rise 7s linear infinite, sway 6s ease-in-out infinite alternate;
+}
+
+.purple {
+  background: radial-gradient(#9b7ede 60%, #800080 100%); /* Degradado para simular 3D */
+  animation: rise 9s linear infinite, sway 7s ease-in-out infinite alternate;
+}
+
+@keyframes rise {
+  0% {
+    bottom: -20px; /* Altura inicial */
+  }
+  100% {
+    bottom: calc(100% + 20px); /* Altura final (fuera de la pantalla) */
+  }
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: translateX(0) rotateY(0deg); /* Rotación en el eje Y */
+  }
+  50% {
+    transform: translateX(-10px) rotateY(10deg); /* Movimiento hacia la izquierda y rotación */
+  }
+}
