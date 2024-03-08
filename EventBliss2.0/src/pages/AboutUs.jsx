@@ -17,7 +17,7 @@ export function AboutUs(){
                     <div className="text">
                         <span className="text-[#3B3B3B] border-b-2 border-[#FD8B11] uppercase font-bold">About us</span>
                         <h2 className="my-4 font-bold text-[#3B3B3B] text-3xl sm:text-4xl">About <span className="text-[#FD8B11]">Our Company</span></h2>
-                        <p className="text-[#3B3B3B]">
+                        <p className="text-[#3B3B3B] sm: mb-6">
                         At EventBliss, we are committed to creating unique and memorable experiences in the world of events. With a passion for innovation and excellence, our team strives to deliver creative and effective solutions that exceed our clients expectations.
                         </p>
                     </div>
@@ -27,9 +27,11 @@ export function AboutUs(){
 
             <div className="relative w-full">
                 <img className="h-[500px] w-full object-cover rounded-md" src="https://www.wtcmanila.com.ph/wp-content/uploads/2022/08/rear-view-of-audience-in-the-conference-hall-or-se-2021-08-30-06-51-57-utc-1.jpg" alt="Random image"/>
-                <div className="absolute inset-0 bg-gray-900 opacity-60 rounded-md"></div>
-                <div className="absolute inset-0 flex items-center justify-center text-center px-[200px]">
-                    <h2 className="text-white text-2xl font-bold leading-[60px]">At EventBliss, we value creativity, collaboration, and a commitment to excellence in everything we do. Our team is made up of passionate and dedicated professionals who work tirelessly to deliver innovative, high-quality solutions that make a difference in the events industry. </h2>
+                <div className="absolute inset-0 bg-gray-900 opacity-70 shadow-xl"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-center px-4 md:px-8 lg:px-16 xl:px-20">
+                    <h2 className="text-white text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold leading-[2.5rem] md:leading-[2.5rem] lg:leading-[2.5rem] xl:leading-[4rem] 2xl:leading-[3rem]">
+                        At EventBliss, we value creativity, collaboration, and a commitment to excellence in everything we do. Our team is made up of passionate and dedicated professionals who work tirelessly to deliver innovative, high-quality solutions that make a difference in the events industry.
+                    </h2>
                 </div>
             </div>
 
