@@ -30,7 +30,7 @@ export function Layout() {
                                     <Link to="/" id='btn-layout' >Products</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/" id='btn-layout'>About us</Link>
+                                    <Link to="/AboutUs" id='btn-layout'>About us</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
                                     <Link to="/" id='btn-layout'>Contact</Link>
@@ -66,7 +66,7 @@ export function Layout() {
                             <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">Products</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">About us</Link>
+                            <Link to="/AboutUs" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">About us</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
                             <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">Contact</Link>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Slide } from "./Slide";
+import { Slide } from "../components/Slide";
 
 export function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -45,7 +45,7 @@ export function HomePage() {
         <div className="container mx-auto flex flex-wrap items-center justify-center py-8">
           <div
             className={`w-full md:w-1/2 px-4 order-1 md:order-none mb-4 md:mb-0 transition-all duration-1000 ease-in-out transform py-10 ${
-              isVisible(-1, 988) ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              isVisible(-1, 988) ? "lg:translate-y-0 lg:opacity-100" : "lg:translate-y-10 lg:opacity-0"
             }`}
           >
             <div className="relative w-full h-full" style={{ height: textHeight }}>
@@ -61,7 +61,7 @@ export function HomePage() {
           <div
             id="text-container"
             className={`w-full md:w-1/2 px-4 order-2 md:order-none transition-all duration-1000 ease-in-out transform ${
-              isVisible(-1, 988) ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              isVisible(-1, 988) ? "lg:translate-y-0 lg:opacity-100" : "lg:translate-y-10 lg:opacity-0"
             }`}
           >
             <div className={`animated-container bg-white rounded-lg shadow-lg overflow-hidden p-8`}>
@@ -82,7 +82,7 @@ export function HomePage() {
 
         <div>
           <div className={`w-full flex items-center transition-all duration-1000 ease-in-out transform py-10 ${
-              isVisible(500, 1150) ? "xl:translate-y-0 xl:opacity-100" : "xl:translate-y-10 xl:opacity-0"
+              isVisible(500, 1150) ? "lg::translate-y-0 lg:opacity-100" : "lg::translate-y-10 lg:opacity-0"
             }`}>
             <div className="w-full flex justify-center">
               <input type="radio" id="tab1" className="sr-only" name="tab-group" checked={validation} onChange={()=> Validation()}/>
@@ -100,7 +100,7 @@ export function HomePage() {
         
             <div className="flex justify-center">
               <div className={`text-center items-center justify-center max-w-[800px] transition-all duration-1000 ease-in-out transform ${
-              isVisible(650, 2000) ? "xl:translate-y-0 opacity-100" : "xl:translate-y-10 opacity-0"
+              isVisible(650, 2000) ? "lg:translate-y-0 lg:opacity-100" : "lg:translate-y-10 lg:opacity-0"
             }` }>
                 <h3 className="text-[25px] xl:text-[30px] font-bold text-[#FD8B11] mt-[70px]">Nuestros servicios</h3>
                 <h1 className=" text-[35px] xl:text-[57px] font-bold text-[#3B3B3B]">PARA EL CLIENTE</h1>
@@ -109,7 +109,7 @@ export function HomePage() {
             </div>
             <div className="flex justify-center items-center flex-col text-center">
               <div className={`grid grid-cols-2 xl:grid-cols-4 px-4 py-6 transition-all duration-1000 ease-in-out transform ${
-              isVisible(900, 2000) ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              isVisible(900, 2000) ? "lg:translate-y-0 lg:opacity-100" : "lg:translate-y-10 lg:opacity-0"
             }`}>
 
                 <div className="w-auto h-auto bg-[#FD8B11] ">
