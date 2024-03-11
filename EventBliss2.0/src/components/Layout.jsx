@@ -34,10 +34,10 @@ export function Layout() {
                                     <Link to="/" id='btn-layout' onClick={scrollTop}>Products</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="AboutUs" id='btn-layout' onClick={scrollTop}>About us</Link>
+                                    <Link to="/AboutUs" id='btn-layout' onClick={scrollTop}>About us</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/" id='btn-layout' onClick={scrollTop}>Contact</Link>
+                                    <Link to="/Contact" id='btn-layout' onClick={scrollTop}>Contact</Link>
                                 </div>
                             </div>
                             <div className="flex items-center">
@@ -61,22 +61,22 @@ export function Layout() {
                     <div className={`md:hidden overflow-hidden ${isOpen ? 'max-h-screen transition-all duration-[1.2s] ease-in-out' : 'max-h-0 transition-all duration-[1s] ease-out'}`}>
                         <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3">
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 ">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" >Home</Link>
+                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Home</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base mb-[20px]">Event</Link>
+                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Event</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">Products</Link>
+                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Products</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="AboutUs" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">About us</Link>
+                            <Link to="AboutUs" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>About us</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">Contact</Link>
+                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Contact</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base">Sign In</Link>
+                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Sign In</Link>
                             </div>
                         </div>
                     </div>
