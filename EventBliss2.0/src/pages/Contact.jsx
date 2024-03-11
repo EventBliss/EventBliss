@@ -8,11 +8,11 @@ export function Contact() {
                     Contact
                 </p>
                 <h3 className="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight">
-                    Get In <span className="text-[#FD8B11]">Touch</span>
+                    Contact <span className="text-[#FD8B11]">us!</span>
                 </h3>
                 <p className="mt-4 leading-7 text-gray-200">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industrys standard dummy text ever since the 1500s.
+                We are happy to hear from you! At EventBliss, we value every comment, question or suggestion you have. If you 
+                need more information about our services, want to collaborate with us or just want to say hello, <br />don´t hesitate to contact our team.
                 </p>
     
                 <div className="flex items-center mt-5">
@@ -32,7 +32,7 @@ export function Contact() {
                             </g>
                         </g>
                     </svg>
-                    <span className="text-sm">House #14, Street #12, Darulaman Road, Kabul, Afghanistan.</span>
+                    <span className="text-sm">House #14, Street #12, Santo Domingo, Dominican Republic.</span>
                 </div>
                 <div className="flex items-center mt-5">
                 <svg className="h-6 mr-2 text-[#FD8B11]" fill="currentColor" version="1.1" id="Capa_1"
@@ -72,7 +72,7 @@ export function Contact() {
                             </path>
                         </g>
                     </svg>
-                    <span className="text-sm">+93 749 99 65 50</span>
+                    <span className="text-sm">+1 829 587 4565</span>
                 </div>
                 <div className="flex items-center mt-5">
                 <svg className="h-6 mr-2 text-[#FD8B11]" fill="currentColor" version="1.1" id="Capa_1"
@@ -91,7 +91,7 @@ export function Contact() {
                             </g>
                         </g>
                     </svg>
-                    <span className="text-sm">24/7</span>
+                    <span className="text-sm">9am-6pm (Monday - Saturday)</span>
                 </div>
     
             </div>
