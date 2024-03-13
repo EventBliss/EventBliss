@@ -5,7 +5,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=200)
 
-    def __init__(self):
+    def __str__(self):
         return self.name
     class Meta:
         verbose_name = 'Category'
@@ -15,14 +15,13 @@ class Events(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     photos = models.URLField(max_length= 3000)
-    start_time = models.DateTimeField()
-    duration = models.DateTimeField()
     category = models.ManyToManyField(Category)
-    location = models.CharField(max_length= 500)
+    location = models.CharField(max_length= 500,blank=True)
     amount_of_people = models.IntegerField(default=50)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    package = models.BooleanField(default=False)
 
-    def __init__(self):
+    def __str__(self):
         return self.name
     
     class Meta:
