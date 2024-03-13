@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import '../assets/css/Layout.css';
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 export function Layout() {
     const [isOpen, setIsOpen] = useState(false);
@@ -50,11 +51,25 @@ export function Layout() {
                                         )}
                                     </svg>
                                 </button>
-                                <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}>
-                                        Sign In
-                                    </Link>
-                                </div>
+                                <SignedOut>
+                                    <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
+                                        
+                                        <Link to="/SingIn" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}>
+                                            Sign Up
+                                        </Link>
+                                    </div>
+
+                                    <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
+                                        <Link to="/LogIn" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}>
+                                            Log In
+                                        </Link>
+                                    </div>
+                                </SignedOut>
+
+                                <SignedIn>
+                                    <UserButton></UserButton>
+                                </SignedIn>
+                                
                             </div>
                         </div>
                     </div>
