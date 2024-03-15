@@ -1,6 +1,8 @@
 import axios  from 'axios'
 import { useEffect } from 'react';
 
+
+//----------EVENTS----------//
 const eventApi = axios.create({
     baseURL: 'http://localhost:8000/api/v1/events/',
 });
@@ -15,7 +17,7 @@ export const getEvents = () => {
  * @returns events
  */
 
-function ListEvents(){
+export function ListEvents(){
     const [events,setEvents] = useState();
   
     useEffect(() => {
@@ -28,3 +30,28 @@ function ListEvents(){
 
     return events;
 };
+//----------EVENTS----------//
+
+
+
+//----------CLIENT----------//
+const clientAPI = axios.create({
+  baseURL: 'http://localhost:8000/api/v1/clients/',
+});
+
+export const createClient = (client) => {
+  return clientAPI.post('/',client);
+};
+//----------CLIENT----------//
+
+
+
+//----------ORGANIZER----------//
+const organizerAPI = axios.create({
+  baseURL: 'http://localhost:8000/api/v1/clients/',
+});
+
+export const createOrganizer = (organizer) => {
+  return organizerAPI.post('/',organizer);
+};
+//----------ORGANIZER----------//
