@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import '../assets/css/Layout.css';
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, UserButton, SignOutButton } from "@clerk/clerk-react";
 
 export function Layout() {
     const [isOpen, setIsOpen] = useState(false);
@@ -53,8 +53,7 @@ export function Layout() {
                                 </button>
                                 <SignedOut>
                                     <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                        
-                                        <Link to="/SingIn" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}>
+                                        <Link to="/SignUpClient" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}>
                                             Sign Up
                                         </Link>
                                     </div>
@@ -67,7 +66,18 @@ export function Layout() {
                                 </SignedOut>
 
                                 <SignedIn>
-                                    <UserButton></UserButton>
+                                    
+                                        <UserButton className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}></UserButton>
+                                    <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
+                                        <SignOutButton className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}></SignOutButton>
+                                    </div>
+                                    <div>
+                                        <Link to="/Dashboard" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}> Dashboarhk</Link>
+                                    </div>
+
+                                    <div>
+                                        <Link to="/AdmDashboard" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}> ADDDashboarhk</Link>
+                                    </div>
                                 </SignedIn>
                                 
                             </div>
@@ -90,9 +100,29 @@ export function Layout() {
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
                             <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Contact</Link>
                             </div>
-                            <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Sign In</Link>
-                            </div>
+                            <SignedOut>
+                                <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
+                                    <Link to="/SignUpClient" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>
+                                        Sign Up
+                                    </Link>
+                                </div>
+
+                                <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
+                                    <Link to="/LogIn" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>
+                                        Log In
+                                    </Link>
+                                </div>
+                            </SignedOut>
+
+                            <SignedIn>
+                                <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
+                                <SignOutButton><Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Sign Out</Link></SignOutButton>
+                                </div>
+
+                                <UserButton afterSignOutUrl='/' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}></UserButton>
+
+                            </SignedIn>
+                            
                         </div>
                     </div>
                 </nav>

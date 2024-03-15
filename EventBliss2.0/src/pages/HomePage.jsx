@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Slide } from "../components/Slide";
 
+
 export function HomePage() {
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const [textHeight, setTextHeight] = useState(0);
   const [validation, setValidation] = useState(true)
