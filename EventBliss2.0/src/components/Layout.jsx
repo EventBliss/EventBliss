@@ -71,13 +71,7 @@ export function Layout() {
                                     <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
                                         <SignOutButton className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}></SignOutButton>
                                     </div>
-                                    <div>
-                                        <Link to="/Dashboard" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}> Dashboarhk</Link>
-                                    </div>
-
-                                    <div>
-                                        <Link to="/AdmDashboard" id='btn-layout' className={`rounded-md text-sm font-medium hidden md:block ${isOpen ? 'hidden' : ''}`}> ADDDashboarhk</Link>
-                                    </div>
+                                    
                                 </SignedIn>
                                 
                             </div>

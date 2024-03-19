@@ -1,32 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/HomePage";
 import { AboutUs } from "./pages/AboutUs";
 import { Contact } from "./pages/Contact";
 import { SignUpClient } from "./pages/SignUpClient";
 import { LogIn } from "./pages/LogIn";
-import { useUser } from "@clerk/clerk-react";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
+import { ProtectedRoute } from "./components/ProtectedRoute"
 
 function App() {
-  const [validation, setValidation] = useState(null);
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user && user.organizationMemberships && user.organizationMemberships.length > 0) {
-      if (user.organizationMemberships[0].role === 'org:member') {
-        setValidation(false);
-      } else if (user.organizationMemberships[0].role === 'org:admin') {
-        setValidation(true);
-      }
-    } else {
-      console.log(user);
-    }
-  }, [user]);
-
-
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -36,8 +20,14 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/SignUpClient" element={<SignUpClient />} />
           <Route path="/LogIn" element={<LogIn />} />
-          <Route path="/user" element={<User />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/user" element={
+          <ProtectedRoute>
+            <User/>
+          </ProtectedRoute>} />
+          <Route path="/admin" element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>
