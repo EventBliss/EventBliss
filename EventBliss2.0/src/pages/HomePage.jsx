@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Slide } from "../components/Slide";
+import { useUser } from '@clerk/clerk-react';
 
 export function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
