@@ -1,5 +1,5 @@
 import axios  from 'axios'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 //----------EVENTS----------//
@@ -35,7 +35,7 @@ export function ListEvents(){
 
 
 //----------CLIENT----------//
-const clientAPI = axios.create({
+export const clientAPI = axios.create({
   baseURL: 'http://localhost:8000/api/v1/clients/',
 });
 
