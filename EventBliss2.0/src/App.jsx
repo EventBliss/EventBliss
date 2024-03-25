@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/HomePage";
 import { AboutUs } from "./pages/AboutUs";
@@ -8,14 +8,19 @@ import { LogIn } from "./pages/LogIn";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
+import { useUser } from "@clerk/clerk-react";
+import { DataBackend } from "./DataBackend";
 
 function App() {
-  
+
+  DataBackend();
+
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Navigate to='/EventBliss' />}/>
+          <Route path="/EventBliss" element={<HomePage/>} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/SignUpClient" element={<SignUpClient />} />
