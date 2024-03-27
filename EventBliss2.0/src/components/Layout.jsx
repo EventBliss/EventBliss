@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import '../assets/css/Layout.css';
-import favicon from "/favicon.png"
+import favicon from "/favicon-wh.png"
 import { SignedIn, SignedOut, UserButton, SignOutButton } from "@clerk/clerk-react";
 
 export function Layout() {

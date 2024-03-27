@@ -1,4 +1,4 @@
-import { SignIn, SignedIn } from "@clerk/clerk-react";
+import { SignIn } from "@clerk/clerk-react";
 
 
 export function LogIn() {
@@ -17,19 +17,17 @@ export function LogIn() {
   // }, [user]);
 
   return (
-    <div className="bg-[#E6E5E4] ">
-      <div className="max-w-screen-lg mx-auto py-28 ">
-        <div className="grid grid-cols-1 md:grid-cols-12 border rounded-r-md">
-          {/* Renderizar el formulario de inicio de sesión */}
-          <SignIn />
-
-          {/* Si el usuario está autenticado */}
-          <SignedIn>
-            {/* Si el usuario aún no ha sido redirigido, mostrar un mensaje de carga */}
-            <div>Cargando...</div>
-          </SignedIn>
+    <div className="relative">
+      <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{ 
+        backgroundImage: 'url("https://www.frenchweddingstyle.com/wp-content/uploads/2019/05/fall-wedding-table-top-.jpg")',
+      }}></div>
+      <div className="max-w-screen-lg mx-auto py-20 md:py-20 relative z-10">
+        <div className="flex flex-row justify-center">
+          <div>
+            <SignIn />
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -8,7 +8,6 @@ import { LogIn } from "./pages/LogIn";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
-import { useUser } from "@clerk/clerk-react";
 import { DataBackend } from "./DataBackend";
 
 function App() {
