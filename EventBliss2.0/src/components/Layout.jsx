@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import '../assets/css/Layout.css';
+import favicon from "/favicon-wh.png"
 import { SignedIn, SignedOut, UserButton, SignOutButton } from "@clerk/clerk-react";
 
 export function Layout() {
@@ -22,7 +23,7 @@ export function Layout() {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-16">
                             <div className="flex items-center">
-                                <Link to="/" id='btn-layout' className="text-white text-xl font-bold">Logo</Link>
+                                <img src={favicon} id='btn-layout' className='w-10' alt="" />
                             </div>
                             <div className="hidden md:flex items-center justify-center flex-1">
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
