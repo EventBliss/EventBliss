@@ -7,7 +7,8 @@ import { SignUpClient } from "./pages/SignUpClient";
 import { LogIn } from "./pages/LogIn";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
-import { ProtectedRoute } from "./components/ProtectedRoute"
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { FormsEvent } from "./pages/FormsEvent";
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/SignUpClient" element={<SignUpClient />} />
           <Route path="/LogIn" element={<LogIn />} />
+          <Route path="/FormsEvent" element={<FormsEvent />} />
           <Route path="/user" element={
           <ProtectedRoute>
             <User/>
