@@ -10,7 +10,6 @@ import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { Products } from "./pages/Products";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 import { FormsEvent } from "./pages/FormsEvent";
 
 function App() {
