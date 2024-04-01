@@ -30,20 +30,17 @@ export function ListEvents(){
 
     return events;
 };
-//----------EVENTS----------//
 
 //----------CATEGORIES----------//
 /**
  * this function get all the categories
+ * @param events the list of events
  * @returns the different types of categories
  */
-export function Categories(){
-    const [category,setCategory] = useState([]);
-    const events = ListEvents();
-    setCategory(events.category);
-    return category
+export function Categories(events){
+    const event_categories = events.map((event) => event.category_names)
+    return event_categories
 };
-//----------CATEGORIES----------//
 
 
 //----------CLIENT----------//
@@ -54,8 +51,6 @@ export const clientAPI = axios.create({
 export const createClient = (client) => {
   return clientAPI.post('/',client);
 };
-//----------CLIENT----------//
-
 
 
 //----------ORGANIZER----------//
@@ -66,4 +61,3 @@ const organizerAPI = axios.create({
 export const createOrganizer = (organizer) => {
   return organizerAPI.post('/',organizer);
 };
-//----------ORGANIZER----------//
