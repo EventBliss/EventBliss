@@ -1,42 +1,35 @@
 import { useUser } from "@clerk/clerk-react";
-import { createClient } from "./components/Api";
-import { useState,useEffect } from "react";
-import { clientAPI } from "./components/Api";
+import { createClient,clientAPI } from "./components/Api";
+import { useEffect, useState, useRef } from "react";
 
 export function DataBackend() {
-    const { user, isSignedIn } = useUser();
+    const { user } = useUser();
     const [clients, setClients] = useState([]);
-    console.log(clients)
+
     useEffect(() => {
         async function loadClients() {
             const response = await clientAPI();
             setClients(response.data);
         }
         loadClients();
-        console.log(clients)
-
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (user) {
-            const email = user.emailAddresses;
-            const userEmail = email[0].emailAddress;
-
-            const foundClient = clients.some(client => client.email === userEmail);
-            console.log('sii' + foundClient);
-            if (foundClient) {
-                console.log('si hay un usuario');
-            } else {
-                console.log('se esta creando un usuario');
+            const email = user.emailAddresses[0].emailAddress;
+            const username = user.fullName;
+            const phone_number = user.phoneNumbers[0].phoneNumber;
+            const foundClient = clients.some(client => client.email === email);
+            
+            if (!foundClient) {
                 createClient({
-                    name: 'Christal',
-                    email: userEmail,
-                    phone: Number(8098795134)
-                });
-                console.log("se cREO EL USER MMG");
-            }
-        }
-    }, [user]);
+                    name: username,
+                    email: email,
+                    phone: phone_number
+                })
+            };
+        };
+    }, [user,clients]);
 
-    return null; // O puedes retornar algún componente aquí si lo deseas
+    return null;
 }
