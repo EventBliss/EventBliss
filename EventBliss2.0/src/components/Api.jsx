@@ -32,6 +32,18 @@ export function ListEvents(){
 };
 //----------EVENTS----------//
 
+//----------CATEGORIES----------//
+/**
+ * this function get all the categories
+ * @returns the different types of categories
+ */
+export function Categories(){
+    const [category,setCategory] = useState([]);
+    const events = ListEvents();
+    setCategory(events.category);
+    return category
+};
+//----------CATEGORIES----------//
 
 
 //----------CLIENT----------//

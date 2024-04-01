@@ -10,7 +10,7 @@ import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
 
 function App() {
-
+  
   return (
     <BrowserRouter>
       <Routes>

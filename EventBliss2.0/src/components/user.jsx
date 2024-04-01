@@ -1,9 +1,10 @@
-import { DataBackend } from "../DataBackend"
-export function User(){
-    DataBackend()
-    return(
+import { DataBackend } from "../DataBackend";
+
+export function User() {
+    DataBackend();
+    return (
         <div>
-        <h1>usuario</h1>
+            <h1>Usuario</h1>
         </div>
-    )
+    );
 }
