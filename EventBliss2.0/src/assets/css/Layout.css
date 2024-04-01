@@ -1,0 +1,66 @@
+#btn-layout {
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+#btn-layout:hover {
+    color: #FD8B11;
+}
+
+#btn-layout::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #FD8B11;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+#btn-layout:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+@keyframes slideIn {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 300px; 
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        max-height: 300px;
+        opacity: 1;
+    }
+    to {
+        max-height: 0;
+        opacity: 0;
+    }
+}
+
+.menu-content {
+    overflow-y: hidden; 
+}
+.menu-container {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+.open {
+    animation-name: slideIn;
+}
+
+.closed {
+    animation-name: slideOut;
+}
