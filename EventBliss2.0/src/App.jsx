@@ -10,9 +10,11 @@ import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { Products } from "./pages/Products";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { FormsEvent } from "./pages/FormsEvent";
 
 function App() {
-
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -23,6 +25,7 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/SignUpClient" element={<SignUpClient />} />
           <Route path="/LogIn" element={<LogIn />} />
+          <Route path="/FormsEvent" element={<FormsEvent />} />
           <Route path="/user" element={
           <ProtectedRoute>
             <User/>
