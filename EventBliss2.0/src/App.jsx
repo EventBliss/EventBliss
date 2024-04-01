@@ -10,9 +10,11 @@ import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { Products } from "./pages/Products";
+import { useUser } from "@clerk/clerk-react";
 
 function App() {
-
+  const { isSignedIn, user } = useUser();
+  console.log(user.organizationMemberships)
   return (
     <BrowserRouter>
       <Routes>

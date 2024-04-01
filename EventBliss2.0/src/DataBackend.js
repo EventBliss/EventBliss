@@ -33,7 +33,7 @@ export function DataBackend() {
                     email: userEmail,
                     phone: Number(8098795134)
                 });
-                console.log("se cREO EL USER MMG");
+                console.log("Se creo un usuario");
             }
         }
     }, [user]);

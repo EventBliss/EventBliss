@@ -8,10 +8,6 @@ import { SignedIn, SignedOut, UserButton, SignOutButton } from "@clerk/clerk-rea
 export function Layout() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleNavbar = () => {
-        setIsOpen(!isOpen);
-    };
-
     const scrollTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -43,7 +39,7 @@ export function Layout() {
                                 </div>
                             </div>
                             <div className="flex items-center">
-                                <button onClick={toggleNavbar} className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 md:hidden">
+                                <button onClick={() => setIsOpen(!isOpen)} className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 md:hidden">
                                     <svg className={`h-6 w-6 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         {isOpen ? (
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
