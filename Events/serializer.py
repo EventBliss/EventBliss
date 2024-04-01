@@ -9,7 +9,7 @@ class EventsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Events
-        fields = ['organizer_name','name', 'description','category_names','location','amount_of_people','price','package']
+        fields = ['organizer_name','name', 'description','photos','category_names','location','amount_of_people','price','package']
         
     def get_category_names(self, instance):
         return [category.name for category in instance.category.all()]
