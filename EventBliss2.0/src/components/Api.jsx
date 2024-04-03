@@ -61,3 +61,7 @@ const organizerAPI = axios.create({
 export const createOrganizer = (organizer) => {
   return organizerAPI.post('/',organizer);
 };
+
+const organizerEvents = (activeOrganizer) => {
+    
+}
