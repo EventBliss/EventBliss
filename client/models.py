@@ -37,7 +37,9 @@ class Organizer(models.Model):
         existing_client = Organizer.objects.filter(email=self.email).first()
         if existing_client:
             return
-    
+        
+        super(Organizer, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Organizer'
         verbose_name_plural = 'Organizers'
