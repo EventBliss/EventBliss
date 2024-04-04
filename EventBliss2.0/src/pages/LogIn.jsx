@@ -19,7 +19,7 @@ export function LogIn() {
   return (
     <div className="relative">
       <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{ 
-        backgroundImage: 'url("https://www.frenchweddingstyle.com/wp-content/uploads/2019/05/fall-wedding-table-top-.jpg")',
+        backgroundImage: 'url("https://cdn.pixabay.com/photo/2016/03/27/18/53/drinks-1283608_1280.jpg")',
       }}></div>
       <div className="max-w-screen-lg mx-auto py-20 md:py-20 relative z-10">
         <div className="flex flex-row justify-center">
