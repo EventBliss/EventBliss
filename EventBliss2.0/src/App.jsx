@@ -10,10 +10,18 @@ import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { Products } from "./pages/Products";
+<<<<<<< HEAD
+import { useUser } from "@clerk/clerk-react";
+
+function App() {
+  const { isSignedIn, user } = useUser();
+  console.log(user.organizationMemberships)
+=======
 import { FormsEvent } from "./pages/FormsEvent";
 
 function App() {
   
+>>>>>>> e7084506c36d86ba6efb8e22285d8083d1913be7
   return (
     <BrowserRouter>
       <Routes>

@@ -23,6 +23,16 @@ export function DataBackend() {
             
             if (!foundClient) {
                 createClient({
+<<<<<<< HEAD
+                    name: 'Christal',
+                    email: userEmail,
+                    phone: Number(8098795134)
+                });
+                console.log("Se creo un usuario");
+            }
+        }
+    }, [user]);
+=======
                     name: username,
                     email: email,
                     phone: phone_number
@@ -30,6 +40,7 @@ export function DataBackend() {
             };
         };
     }, [user,clients]);
+>>>>>>> e7084506c36d86ba6efb8e22285d8083d1913be7
 
     return null;
 }
