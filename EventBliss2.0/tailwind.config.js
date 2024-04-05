@@ -102,7 +102,6 @@ export default {
       },
     },
   },
-<<<<<<< HEAD
   safelist: [
     {
       pattern:
@@ -133,8 +132,7 @@ export default {
     },
   ],
   plugins: [require("daisyui"), require('@headlessui/tailwindcss'), require('@tailwindcss/forms')],
-=======
-  plugins: [require("daisyui")],
+
 
    // daisyUI config (optional - here are the default values)
   daisyui: {
@@ -148,5 +146,4 @@ export default {
     themeRoot: ":root", // The element that receives theme color CSS variables
   },
 
->>>>>>> e7084506c36d86ba6efb8e22285d8083d1913be7
 }
