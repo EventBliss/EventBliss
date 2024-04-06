@@ -27,8 +27,8 @@ export function DataBackend() {
                     email: email,
                     phone: phone_number
                 })
-            };
-        };
+            }
+        }
     }, [user,clients]);
 
     return null;
