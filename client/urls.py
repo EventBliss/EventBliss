@@ -4,11 +4,8 @@ from .views import ClientView,OrganizerView
 
 router = routers.DefaultRouter()
 router.register(r'clients',ClientView,'client')
-
-seconsRouter = routers.DefaultRouter()
-seconsRouter.register(r'organizers',OrganizerView,'organizer')
+router.register(r'organizers',OrganizerView,'organizer')
 
 urlpatterns = [
     path('v1/',include(router.urls)),
-    path('v1/',include(seconsRouter.urls))
 ]
