@@ -8,10 +8,6 @@ import { SignedIn, SignedOut, UserButton, SignOutButton } from "@clerk/clerk-rea
 export function Layout() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleNavbar = () => {
-        setIsOpen(!isOpen);
-    };
-
     const scrollTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -30,10 +26,10 @@ export function Layout() {
                                     <Link to="/" id='btn-layout' onClick={scrollTop}>Home</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/" id='btn-layout' onClick={scrollTop}>Event</Link>
+                                    <Link to="/Events" id='btn-layout' onClick={scrollTop}>Events</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/" id='btn-layout' onClick={scrollTop}>Products</Link>
+                                    <Link to="/Products" id='btn-layout' onClick={scrollTop}>Products</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
                                     <Link to="/AboutUs" id='btn-layout' onClick={scrollTop}>About us</Link>
@@ -43,7 +39,7 @@ export function Layout() {
                                 </div>
                             </div>
                             <div className="flex items-center">
-                                <button onClick={toggleNavbar} className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 md:hidden">
+                                <button onClick={() => setIsOpen(!isOpen)} className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 md:hidden">
                                     <svg className={`h-6 w-6 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         {isOpen ? (
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -84,7 +80,7 @@ export function Layout() {
                             <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Home</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Event</Link>
+                            <Link to="/Events" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Event</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
                             <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Products</Link>
@@ -93,7 +89,7 @@ export function Layout() {
                             <Link to="AboutUs" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>About us</Link>
                             </div>
                             <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Contact</Link>
+                            <Link to="/Contact" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Contact</Link>
                             </div>
                             <SignedOut>
                                 <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
