@@ -22,16 +22,16 @@ export function Products() {
 
     const filterEvents = (type) => {
         if (events) {
-            if (type === 'All') {
-            return events;
+            if (type === "All") {
+                return events.filter(event => event.package === true);
             } else {
-                return events.filter((event) => event.category_names.includes(type));
+                return events.filter((event) => event.category_names.includes(type) && event.package === true);
             }
         } else {
-            return []
+            return [];
         }
-        
     };
+    
 
     return (
         <div className="bg-[#E6E5E4]">
@@ -46,7 +46,7 @@ export function Products() {
                 <Menu as="div" className="flex justify-end text-left sm:m-0 mr-3">
                     <div>
                         <Menu.Button className="inline-flex items-end w-full justify-center gap-x-1.5 rounded-md bg-white px-8 py-2 text-2xl font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            Filter
+                            {selectedCategory}
                             <svg className="-mr-1 h-6 w-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                             </svg>
@@ -99,7 +99,7 @@ export function Products() {
                                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                 'block px-4 py-2 text-sm'
                                             )}
-                                            onClick={() => setSelectedCategory("Graduation")}
+                                            onClick={() => setSelectedCategory("Birthdays")}
                                         >
                                             Birthdays
                                         </a>
@@ -138,9 +138,9 @@ export function Products() {
                                             See more
                                         </Link>
                                     )}
-                                    <p>Guest Rank: {event.amount_of_people} guests</p>
+                                    <p>Estimated price: ${event.price} US</p>
                                     <div className="card-actions justify-end">
-                                        <button className="btn btn-primary">Buy Now</button>
+                                        <button className="btn btn-primary">Book now</button>
                                     </div>
                                 </div>
                             </div>
