@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from client.models import Client, Organizer
-from .models import EventRequest, Events
+from .models import Category, EventRequest, Events
 
 
 
@@ -10,12 +10,14 @@ class EventsSerializer(serializers.ModelSerializer):
     organizer_email = serializers.CharField(source='organizer.email',read_only=True)
     category_names = serializers.SerializerMethodField()
 
+
     class Meta:
         model = Events
-        fields = ['id','organizer','organizer_name','organizer_email','name', 'description','photos','category_names','category','price','package','created']
+        fields = ['id','organizer','organizer_name','organizer_email','name', 'description','image','category_names','category','price','package','created']
         
     def get_category_names(self, instance):
         return [category.name for category in instance.category.all()]
+
 
 
 class EventRequestSerializer(serializers.ModelSerializer):
@@ -26,4 +28,8 @@ class EventRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventRequest
         fields= ['id','client','client_name','organizer','organizer_name','organizer_email','event','event_name','event_location','status','event_date','comment','created']
-    
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields= '__all__'
