@@ -7,6 +7,10 @@ const eventApi = axios.create({
     baseURL: 'http://localhost:8000/api/v1/events/',
 });
 
+export const categoryApi = axios.create({
+  baseURL: 'http://127.0.0.1:8000/api/v1/categories/',
+});
+
 export const getEvents = () => {
     return eventApi.get('/');
 };
@@ -39,6 +43,22 @@ export function ListEvents(){
     },[]);
 
     return events;
+};
+
+export function CreateEvent(data,organizers,organizerEmail){
+  const organizerId = organizers.find(organizer => organizer.email == organizerEmail)?.id
+  const {name,price,category,image,description,isPackage} = data
+
+  const eventData = {
+    organizer: organizerId,
+    name: name,
+    description: description,
+    photos: image,
+    category: category,
+    price: price,
+    package: isPackage == 'No' ? false : true ,
+  }  
+  return eventApi.post('/',eventData)
 };
 
 //----------CATEGORIES----------//
@@ -137,7 +157,7 @@ export const deleteEventRequest = (eventRequestId) => {
 
 
 //----------ORGANIZER----------//
-const organizerAPI = axios.create({
+export const organizerAPI = axios.create({
   baseURL: 'http://localhost:8000/api/v1/organizers/',
 });
 

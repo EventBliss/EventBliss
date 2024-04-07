@@ -1,7 +1,7 @@
 export function TypeEvent(){
     return(
         <select className="select select-bordered w-full max-w-xs">
-            <option disabled selected>Event Type</option>
+            <option defaultValue>Event Type</option>
             <option>Birthday</option>
             <option>Baby Shower</option>
             <option>Christening</option>
