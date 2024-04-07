@@ -19,8 +19,8 @@ export function FormsEvent() {
     loadOrganizersAndCategories();
   },[]);
   
-  const getImageFileObject = (imageDataUrl) => {
-    setValue('image', imageDataUrl.dataUrl)
+  const getImageFileObject = (e) => {
+    setValue('image', e.file)
   };
 
   const onSubmit =  async (data) => {
@@ -94,7 +94,6 @@ export function FormsEvent() {
                 {...register('price', {required: true})}
               />
             </div>
-
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="ubication"
@@ -109,7 +108,6 @@ export function FormsEvent() {
                 {...register('location', {required: true})}
               />
             </div>
-
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="tipoEvento"
@@ -120,7 +118,6 @@ export function FormsEvent() {
               <select className="select select-bordered w-full max-w-xs"
               multiple
                 {...register('category', {required: true})}>
-                <option defaultValue>Event Type</option>
                 {categories.map((category) =>
                   <option key={category.id} value={category.id}>{category.name}</option>
                 )
@@ -155,8 +152,7 @@ export function FormsEvent() {
               imgExtension={['.jpg', '.png']}
               maxFileSize={5242880}
               singleImage={true}
-              onFileAdded={(img) => getImageFileObject(img)}
-              {...register('image', {required: true})}
+              onFileAdded={(e) => getImageFileObject(e)}
               />
             </div>
 
