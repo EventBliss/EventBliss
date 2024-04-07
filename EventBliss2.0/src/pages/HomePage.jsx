@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Slide } from "../components/Slide";
-import { organizerRequests, updateEventRequest } from "../components/Api";
 
 export function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -38,8 +37,7 @@ export function HomePage() {
 
   console.log(validation)
 
-  const [eventRequests,requestApproved,requestInProgress,resquestDenied,requestFinished] = organizerRequests('ashley1@gmail.com')
-  console.log('peticiones terminadas',requestApproved)
+
   return (
     <div>
       <div>

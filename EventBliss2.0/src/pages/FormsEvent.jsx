@@ -1,24 +1,30 @@
-import { useState } from "react";
-import { UploadImage } from "../components/UploadImage";
-import { TypeEvent } from "../components/TypeEvent";
+import { useState,useEffect } from "react";
+import { useForm } from 'react-hook-form';
+import { CreateEvent,organizerAPI,categoryApi } from "../components/Api";
+import ImageUploader from 'react-image-upload';
+import 'react-image-upload/dist/index.css'
 
 export function FormsEvent() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [dateTime, setDateTime] = useState("");
-  const [ubication, setUbication] = useState("");
-  const [image, setImage] = useState("");
-  const [participants, setParticipants] = useState("");
-  const [price, setPrice] = useState("");
+  const [organizers,setOrganizers] = useState([]);
+  const [categories,setCategories]= useState([]);
+  const {register,handleSubmit,setValue} = useForm();
 
-  const handleImagenChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file.name);
+  useEffect(() => {
+    async function loadOrganizersAndCategories(){
+      const response = await organizerAPI();
+      const categories = await categoryApi()
+      setCategories(categories.data)
+      setOrganizers(response.data)
+    };
+    loadOrganizersAndCategories();
+  },[]);
+  
+  const getImageFileObject = (e) => {
+    setValue('image', e.file)
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
+  const onSubmit =  async (data) => {
+      await CreateEvent(data, organizers,'ashley1@gmail.com');
   };
 
   return (
@@ -34,7 +40,7 @@ export function FormsEvent() {
       <div className="bg-[#E6E5E4]">
         <div className="max-w-screen-lg mx-auto py-28">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="md:col-span-8 p-10 bg-white rounded-md shadow-lg space-y-4 relative z-10 grid grid-cols-2 gap-6"
           >
             <div className="col-span-2">
@@ -57,101 +63,23 @@ export function FormsEvent() {
                 type="text"
                 id="name"
                 className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
+                {...register('name', {required: true})}
               />
             </div>
-
             <div className="w-full px-3 mb-6">
               <label
-                htmlFor="description"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Description *
-              </label>
-              <textarea
-                id="description"
-                rows="3"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="dateTime"
+                htmlFor="package"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
               >
-                Date & Time *
+                Is a Package? 
               </label>
-              <input
-                type="datetime-local"
-                id="dateTime"
-                className="bg-gray-200 text-gray-700 appearance-none block w-full text-sm border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                value={dateTime}
-                onChange={(e) => setDateTime(e.target.value)}
-                required
-              />
+              <select className="select select-bordered w-full max-w-xs"
+                {...register('isPackage', {required: true})}>
+                <option defaultValue>No</option>
+                <option>Yes</option>
+  
+              </select>
             </div>
-
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="ubication"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                Ubication *
-              </label>
-              <input
-                type="text"
-                id="ubication"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                value={ubication}
-                onChange={(e) => setUbication(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="tipoEvento"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                Event type *
-              </label>
-              <TypeEvent />
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="image"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                Event Image Example
-              </label>
-              <UploadImage onChange={handleImagenChange} />
-              <span className="block text-xs text-gray-500">{image}</span>
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="participants"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                Number of participants *
-              </label>
-              <input
-                type="number"
-                id="participants"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                value={participants}
-                onChange={(e) => setParticipants(e.target.value)}
-                required
-              />
-            </div>
-
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="price"
@@ -163,9 +91,68 @@ export function FormsEvent() {
                 type="number"
                 id="price"
                 className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
+                {...register('price', {required: true})}
+              />
+            </div>
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="ubication"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2"
+              >
+                Ubication *
+              </label>
+              <input
+                type="text"
+                id="ubication"
+                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                {...register('location', {required: true})}
+              />
+            </div>
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="tipoEvento"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2"
+              >
+                Event type *
+              </label>
+              <select className="select select-bordered w-full max-w-xs"
+              multiple
+                {...register('category', {required: true})}>
+                {categories.map((category) =>
+                  <option key={category.id} value={category.id}>{category.name}</option>
+                )
+                }
+                
+              </select>
+            </div>
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+              >
+                Description *
+              </label>
+              <textarea
+                id="description"
+                rows="4"
+                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                {...register('description', {required: true})}
+
+              />
+            </div>
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="image"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2"
+              >
+                Event Image
+              </label>
+              <ImageUploader
+              buttonText="Choose images"
+              imgExtension={['.jpg', '.png']}
+              maxFileSize={5242880}
+              singleImage={true}
+              onFileAdded={(e) => getImageFileObject(e)}
               />
             </div>
 
