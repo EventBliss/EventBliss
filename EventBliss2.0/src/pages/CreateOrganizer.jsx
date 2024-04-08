@@ -1,23 +1,13 @@
-import { useState,useEffect } from "react";
 import { useForm } from 'react-hook-form';
-import { CreateEvent,organizerAPI,categoryApi } from "../components/Api";
 import 'react-image-upload/dist/index.css';
 import Swal from 'sweetalert2';
+import { TextInput, Textarea, MultiSelect, MultiSelectItem, NumberInput } from '@tremor/react';
 
 
 export function CreateOrganizer() {
     const {register,handleSubmit,setValue} = useForm();
   
-    useEffect(() => {
-      async function loadOrganizersAndCategories(){
-        const response = await organizerAPI();
-        const categories = await categoryApi()
-        setCategories(categories.data)
-        setOrganizers(response.data)
-      };
-      loadOrganizersAndCategories();
-    },[]);
-    
+
     const onSubmit =  async (data) => {
         Swal.fire({
           title: 'Created organizer!',
@@ -62,11 +52,7 @@ export function CreateOrganizer() {
               >
                 Name / Company *
               </label>
-              <input
-                type="text"
-                id="name"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                required/>
+              <TextInput />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -75,10 +61,17 @@ export function CreateOrganizer() {
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
                 >
                     Phone Number * </label>
-                <input 
-                type="tel" 
-                id="phone" className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                required/>
+                <NumberInput enableStepper={false} />
+            </div>
+
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+              >
+                Description *
+              </label>
+              <Textarea placeholder="Type here..."/>
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -88,11 +81,7 @@ export function CreateOrganizer() {
               >
                  Ubication *
               </label>
-              <input
-                type="text"
-                id="ubication"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                required/>
+              <TextInput />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -102,27 +91,7 @@ export function CreateOrganizer() {
               >
                 Email *
               </label>
-              <input
-                type="email"
-                id="name"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                required/>
-            </div>
-
-
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Description *
-              </label>
-              <textarea
-                id="description"
-                rows="4"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                required
-              />
+              <TextInput />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -132,10 +101,44 @@ export function CreateOrganizer() {
               >
                 Social Networks / Website 
               </label>
+              <TextInput />
+            </div>
+
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+              >
+                Event Type * 
+              </label>
+              <MultiSelect>
+                <MultiSelectItem value="1">Weddings</MultiSelectItem>
+                <MultiSelectItem value="2">Birthday</MultiSelectItem>
+                <MultiSelectItem value="3">Graduation</MultiSelectItem>
+              </MultiSelect>
+            </div>
+
+            <div className="w-full px-3 mb-6">
+              
+              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2" for="multiple_files"> Images Events</label>
+              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white" id="multiple_files" type="file" multiple/>
+
+            </div>
+
+            <div className="w-full px-3 mb-6">
+              
+              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"> Profile Photo * </label>
+              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"  type="file"/>
+
+            </div>
+
+            <div className='w-full px-3 mb-6'>
+              <label htmlFor="fileInput" className="appearance-none block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2">Upload Curriculum </label>
               <input
-                type="text"
-                id="name"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="file"
+                id="fileInput"
+                accept=".pdf"
+                className='appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white'
               />
             </div>
 
@@ -144,7 +147,7 @@ export function CreateOrganizer() {
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#FD8B11] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Create Event
+                Switch
               </button>
             </div>
           </form>
