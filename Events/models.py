@@ -1,16 +1,8 @@
-from typing import Any
 from django.db import models
-from client.models import Client, Organizer
+from client.models import Client, Organizer,Category
 
 # Create your models here.
-class Category(models.Model):
-    name = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.name
-    class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
 
 class Events(models.Model):
     name = models.CharField(max_length=200)
