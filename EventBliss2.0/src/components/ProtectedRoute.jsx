@@ -10,12 +10,14 @@ export const ProtectedRoute = ({ children }) => {
         if (isSignedIn && user) {
             if (user.organizationMemberships && user.organizationMemberships.length > 0) {
                 const userRole = user.organizationMemberships[0].role;
+                console.log(userRole)
                 if (userRole === 'org:member') {
                     navigate('/user'); 
                 } else if (userRole === 'org:admin') {
                     navigate('/admin'); 
                 }
             } else {
+                console.log('tamo aqui')
                 // Si el usuario está autenticado pero no tiene membresías en la organización, redirigir a una página por defecto
                 navigate('/'); // Puedes cambiar esto a la ruta que desees
             }

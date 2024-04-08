@@ -1,16 +1,18 @@
 import { useState,useEffect } from "react";
 import { useForm } from 'react-hook-form';
-import { CreateEvent,organizerAPI,categoryApi } from "../components/Api";
 import ImageUploader from 'react-image-upload';
 import 'react-image-upload/dist/index.css';
 import Swal from 'sweetalert2';
+import { CreateEvent } from "../components/api/event/post";
+import { organizerAPI } from "../components/api/organizer";
+import { categoryApi } from "../components/api/category";
 
 
 export function FormsEvent() {
   const [organizers,setOrganizers] = useState([]);
   const [categories,setCategories]= useState([]);
   const {register,handleSubmit,setValue} = useForm();
-  const [showAlert, setShowAlert] = useState(false);
+  const [, setShowAlert] = useState(false);
 
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export function FormsEvent() {
       const categories = await categoryApi()
       setCategories(categories.data)
       setOrganizers(response.data)
-    };
+    }
     loadOrganizersAndCategories();
   },[]);
   
