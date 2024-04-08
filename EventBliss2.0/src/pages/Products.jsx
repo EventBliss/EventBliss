@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { ListEvents } from "../components/Api";
 import { Link } from "react-router-dom";
+import { ListEvents } from '../components/api/event/get';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -126,7 +126,7 @@ export function Products() {
             </div>
             <div className="container mx-auto py-8">
                 <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16'>
-                    {filterEvents(selectedCategory).map((event, index) => (
+                    {filterEvents(selectedCategory).map((event) => (
                         <a href="" key={event.id}>
                             <div className="card w-96 bg-base-100 shadow-xl">
                                 <figure ><img className='h-52 w-full' src={event.photos} alt={event.name} /></figure>

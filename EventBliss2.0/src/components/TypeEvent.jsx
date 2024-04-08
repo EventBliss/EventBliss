@@ -1,5 +1,5 @@
-import { categoryApi } from "../components/Api";
 import { useState,useEffect } from "react";
+import { categoryApi } from "./api/category";
 
 export function TypeEvent(){
     const [categories,setCategories]= useState([]);
@@ -8,7 +8,7 @@ export function TypeEvent(){
         async function loadOrganizersAndCategories(){
           const categories = await categoryApi()
           setCategories(categories.data)
-        };
+        }
         loadOrganizersAndCategories();
       },[]);
     return(
