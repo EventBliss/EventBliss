@@ -1,4 +1,4 @@
-import { DataBackend } from "../DataBackend"
+import { DataBackend } from "./api/DataBackend"
 export function Admin(){
     DataBackend()
     return(

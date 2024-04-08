@@ -5,12 +5,19 @@ import { AboutUs } from "./pages/AboutUs";
 import { Contact } from "./pages/Contact";
 import { SignUpClient } from "./pages/SignUpClient";
 import { LogIn } from "./pages/LogIn";
+import { Events } from "./pages/Events";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import { FormsEvent } from "./pages/FormsEvent";
+import { ProtectedRoute } from "./components/ProtectedRoute"
+import { Products } from "./pages/Products";
+import { useUser } from "@clerk/clerk-react";
+import { FormsEvent } from "./pages/FormsEvent"
+import { CreateOrganizer } from "./pages/CreateOrganizer";
+
 
 function App() {
+  const { isSignedIn, user } = useUser();
+    // console.log(user.organizationMemberships)
   
   return (
     <BrowserRouter>
@@ -31,6 +38,9 @@ function App() {
           <ProtectedRoute>
             <Admin />
           </ProtectedRoute>} />
+          <Route path="/Events" element={<Events/>}/>
+          <Route path="/Products" element={<Products/>}/>
+          <Route path="/NewOrg" element={<CreateOrganizer/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

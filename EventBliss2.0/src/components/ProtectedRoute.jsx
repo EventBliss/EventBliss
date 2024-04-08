@@ -7,27 +7,22 @@ export const ProtectedRoute = ({ children }) => {
     const { isSignedIn, user } = useUser();
 
     useEffect(() => {
-        // Si el usuario está autenticado y se ha cargado su información
         if (isSignedIn && user) {
-            // Verificar el rol del usuario y redirigir en consecuencia
             if (user.organizationMemberships && user.organizationMemberships.length > 0) {
                 const userRole = user.organizationMemberships[0].role;
+                console.log(userRole)
                 if (userRole === 'org:member') {
-                    navigate('/user'); // Redirigir al componente de usuario normal
+                    navigate('/user'); 
                 } else if (userRole === 'org:admin') {
-                    navigate('/admin'); // Redirigir al componente de administrador
+                    navigate('/admin'); 
                 }
+            } else {
+                console.log('tamo aqui')
+                // Si el usuario está autenticado pero no tiene membresías en la organización, redirigir a una página por defecto
+                navigate('/'); // Puedes cambiar esto a la ruta que desees
             }
         }
     }, [isSignedIn, user, navigate]);
-
-    // Si el usuario no está autenticado, redirigir al inicio de sesión
-    if (!isSignedIn) {
-        navigate('/SignUpClient');
-        return null;
-    }
-
-
-    // Si el usuario está autenticado pero aún no se ha determinado su rol, no renderizar nada
+    
     return children;
 };

@@ -1,14 +1,12 @@
 from django.urls import path,include
 from rest_framework import routers
-from .views import ClientView,OrganizerView
+from .views import ClientView,OrganizerView,CategoryView
 
 router = routers.DefaultRouter()
 router.register(r'clients',ClientView,'client')
-
-seconsRouter = routers.DefaultRouter()
-seconsRouter.register(r'organizers',OrganizerView,'organizer')
+router.register(r'organizers',OrganizerView,'organizer')
+router.register(r'categories',CategoryView)
 
 urlpatterns = [
     path('v1/',include(router.urls)),
-    path('v1/',include(seconsRouter.urls))
 ]
