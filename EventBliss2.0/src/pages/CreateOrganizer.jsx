@@ -5,10 +5,10 @@ import { TextInput, Textarea, MultiSelect, MultiSelectItem, NumberInput } from '
 
 
 export function CreateOrganizer() {
-    const {register,handleSubmit,setValue} = useForm();
+    const {handleSubmit} = useForm();
   
 
-    const onSubmit =  async (data) => {
+    const onSubmit =  async () => {
         Swal.fire({
           title: 'Created organizer!',
           icon: 'success',
@@ -40,7 +40,7 @@ export function CreateOrganizer() {
             <div className="col-span-2">
               <div className="text-center">
                 <h3 className="block uppercase text-3xl font-bold dark:text-[#FD8B11]">
-                  Switch to organizer 
+                  Become An Organizer 
                 </h3>
               </div>
             </div>
@@ -52,16 +52,16 @@ export function CreateOrganizer() {
               >
                 Name / Company *
               </label>
-              <TextInput />
+              <TextInput placeholder="Organizer's Name" />
             </div>
 
             <div className="w-full px-3 mb-6">
                 <label 
-                htmlfor="phone"
+                htmlFor="phone"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
                 >
                     Phone Number * </label>
-                <NumberInput enableStepper={false} />
+                <NumberInput enableStepper={false} placeholder="Organizer's Phone" />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -71,7 +71,7 @@ export function CreateOrganizer() {
               >
                 Description *
               </label>
-              <Textarea placeholder="Type here..."/>
+              <Textarea placeholder="Organizer's Description"/>
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -81,7 +81,7 @@ export function CreateOrganizer() {
               >
                  Ubication *
               </label>
-              <TextInput />
+              <TextInput placeholder='' />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -91,7 +91,7 @@ export function CreateOrganizer() {
               >
                 Email *
               </label>
-              <TextInput />
+              <TextInput placeholder="********@*****.***"/>
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -101,7 +101,7 @@ export function CreateOrganizer() {
               >
                 Social Networks / Website 
               </label>
-              <TextInput />
+              <TextInput placeholder=''/>
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -109,9 +109,9 @@ export function CreateOrganizer() {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
-                Event Type * 
+                Types of Event Realized * 
               </label>
-              <MultiSelect>
+              <MultiSelect placeholder='Select Types of Event'>
                 <MultiSelectItem value="1">Weddings</MultiSelectItem>
                 <MultiSelectItem value="2">Birthday</MultiSelectItem>
                 <MultiSelectItem value="3">Graduation</MultiSelectItem>
@@ -120,7 +120,7 @@ export function CreateOrganizer() {
 
             <div className="w-full px-3 mb-6">
               
-              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2" for="multiple_files"> Images Events</label>
+              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2" htmlFor="multiple_files"> Images Events</label>
               <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white" id="multiple_files" type="file" multiple/>
 
             </div>
@@ -147,7 +147,7 @@ export function CreateOrganizer() {
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#FD8B11] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Switch
+                Send Request
               </button>
             </div>
           </form>
