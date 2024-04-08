@@ -24,6 +24,7 @@ export function HomePage() {
       const height = textContainer.offsetHeight;
       setTextHeight(height);
     }
+    
   }, []);
 
   const isVisible = (position1, position2) => {
@@ -35,6 +36,7 @@ export function HomePage() {
   }
 
   console.log(validation)
+
 
   return (
     <div>
