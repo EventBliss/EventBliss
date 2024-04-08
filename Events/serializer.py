@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from client.models import Client, Organizer
-from .models import Category, EventRequest, Events
+from client.models import Category
+from .models import EventRequest, Events
 
 
 

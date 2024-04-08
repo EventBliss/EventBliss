@@ -13,7 +13,3 @@ class EventRequestView(viewsets.ModelViewSet):
     serializer_class = EventRequestSerializer
     queryset = EventRequest.objects.all()
 
-
-class CategorySerializer(viewsets.ModelViewSet):
-    serializer_class = CategorySerializer
-    queryset = Category.objects.all()

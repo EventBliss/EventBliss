@@ -1,5 +1,4 @@
-import { ListEvents } from "../components/Api";
-
+import { ListEvents } from "../components/api/event/get";
 export function Events() {
 
     const events = ListEvents()
@@ -24,7 +23,7 @@ export function Events() {
         <div className="container mx-auto py-8">
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                {filterEvents("Weddings").map((events, index) => (
+                {filterEvents("Weddings").map((events) => (
                 <div key={events.id} className="bg-white rounded-lg overflow-hidden group relative shadow-md">
                     <img src={events.image} alt={events.name} className="w-full h-60 object-cover object-center" />
                     <div className="absolute h-full w-full bg-black/50 -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
