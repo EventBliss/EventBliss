@@ -2,12 +2,16 @@ import { useState,useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { CreateEvent,organizerAPI,categoryApi } from "../components/Api";
 import ImageUploader from 'react-image-upload';
-import 'react-image-upload/dist/index.css'
+import 'react-image-upload/dist/index.css';
+import Swal from 'sweetalert2';
+
 
 export function FormsEvent() {
   const [organizers,setOrganizers] = useState([]);
   const [categories,setCategories]= useState([]);
   const {register,handleSubmit,setValue} = useForm();
+  const [showAlert, setShowAlert] = useState(false);
+
 
   useEffect(() => {
     async function loadOrganizersAndCategories(){
@@ -25,19 +29,38 @@ export function FormsEvent() {
 
   const onSubmit =  async (data) => {
       await CreateEvent(data, organizers,'ashley1@gmail.com');
+      setShowAlert(true);  
+      setValue('name', '');
+      setValue('isPackage', '');
+      setValue('price', '');
+      setValue('location', '');
+      setValue('category', '');
+      setValue('description', '');
+
+      Swal.fire({
+        title: 'Created Event!',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000
+      });
+
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2500);
   };
 
   return (
     <div className="relative">
+
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-40 pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center opacity-40"
         style={{
           backgroundImage:
             'url("https://cdn.pixabay.com/photo/2020/09/18/21/13/wedding-photography-5582980_1280.jpg")',
         }}
       ></div>
 
-      <div className="bg-[#E6E5E4]">
+      <div className="">
         <div className="max-w-screen-lg mx-auto py-28">
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -51,7 +74,6 @@ export function FormsEvent() {
               </div>
             </div>
 
-            {/*Campo nombre del evento */}
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="name"
@@ -62,7 +84,7 @@ export function FormsEvent() {
               <input
                 type="text"
                 id="name"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 {...register('name', {required: true})}
               />
             </div>
@@ -71,9 +93,9 @@ export function FormsEvent() {
                 htmlFor="package"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
               >
-                Is a Package? 
+                Can be reserved? *
               </label>
-              <select className="select select-bordered w-full max-w-xs"
+              <select className="select select-bordered appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 {...register('isPackage', {required: true})}>
                 <option defaultValue>No</option>
                 <option>Yes</option>
@@ -90,7 +112,7 @@ export function FormsEvent() {
               <input
                 type="number"
                 id="price"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 {...register('price', {required: true})}
               />
             </div>
@@ -104,7 +126,7 @@ export function FormsEvent() {
               <input
                 type="text"
                 id="ubication"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 {...register('location', {required: true})}
               />
             </div>
@@ -115,7 +137,7 @@ export function FormsEvent() {
               >
                 Event type *
               </label>
-              <select className="select select-bordered w-full max-w-xs"
+              <select className="select select-bordered appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" role="menu"
               multiple
                 {...register('category', {required: true})}>
                 {categories.map((category) =>

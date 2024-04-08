@@ -12,6 +12,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute"
 import { Products } from "./pages/Products";
 import { useUser } from "@clerk/clerk-react";
 import { FormsEvent } from "./pages/FormsEvent"
+import { CreateOrganizer } from "./pages/CreateOrganizer";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           </ProtectedRoute>} />
           <Route path="/Events" element={<Events/>}/>
           <Route path="/Products" element={<Products/>}/>
+          <Route path="/NewOrg" element={<CreateOrganizer/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
