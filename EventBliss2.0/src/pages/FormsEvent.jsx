@@ -5,8 +5,6 @@ import { TypeEvent } from "../components/TypeEvent";
 export function FormsEvent() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [dateTime, setDateTime] = useState("");
-  const [ubication, setUbication] = useState("");
   const [image, setImage] = useState("");
   const [participants, setParticipants] = useState("");
   const [price, setPrice] = useState("");
@@ -63,24 +61,9 @@ export function FormsEvent() {
               />
             </div>
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Description *
-              </label>
-              <textarea
-                id="description"
-                rows="3"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </div>
 
-            <div className="w-full px-3 mb-6">
+
+          {/* <div className="w-full px-3 mb-6">
               <label
                 htmlFor="dateTime"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
@@ -95,7 +78,7 @@ export function FormsEvent() {
                 onChange={(e) => setDateTime(e.target.value)}
                 required
               />
-            </div>
+      </div>
 
             <div className="w-full px-3 mb-6">
               <label
@@ -112,7 +95,7 @@ export function FormsEvent() {
                 onChange={(e) => setUbication(e.target.value)}
                 required
               />
-            </div>
+            </div>*/}
 
             <div className="w-full px-3 mb-6">
               <label
@@ -122,6 +105,23 @@ export function FormsEvent() {
                 Event type *
               </label>
               <TypeEvent />
+            </div>
+
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+              >
+                Description *
+              </label>
+              <textarea
+                id="description"
+                rows="3"
+                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -151,6 +151,8 @@ export function FormsEvent() {
                 required
               />
             </div>
+
+            
 
             <div className="w-full px-3 mb-6">
               <label
