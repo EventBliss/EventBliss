@@ -40,7 +40,7 @@ function App() {
           </ProtectedRoute>} />
           <Route path="/Events" element={<Events/>}/>
           <Route path="/Products" element={<Products/>}/>
-          <Route path="/NewOrg" element={<CreateOrganizer/>}/>
+          <Route path="/becomeAnOrganizer" element={<CreateOrganizer/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
