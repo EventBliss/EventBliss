@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { ListEvents } from '../../components/Api';
+import { ListEvents } from "../../components/api/event/get"
 import { Button, Dialog, DialogPanel } from '@tremor/react';
 
 export function ProductCardsModal() {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { ListEvents, categoryApi } from "../../components/Api";
+import { categoryApi } from "../../components/api/category/index";
+import { ListEvents } from "../../components/api/event/get"
 
 export function Events() {
     const events = ListEvents();

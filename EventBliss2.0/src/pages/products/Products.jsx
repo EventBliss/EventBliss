@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { ListEvents, categoryApi } from "../../components/Api";
+import { categoryApi } from "../../components/api/category/index";
+import { ListEvents } from "../../components/api/event/get"
 import { Link } from "react-router-dom";
 
 function classNames(...classes) {
