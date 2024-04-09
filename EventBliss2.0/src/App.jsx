@@ -13,6 +13,7 @@ import { Products } from "./pages/products/Products";
 import { ProductCardsModal } from "./pages/products/ProductCardsModal";
 import { useUser } from "@clerk/clerk-react";
 import { FormsEvent } from "./pages/FormsEvent"
+import { CreateOrganizer } from "./pages/CreateOrganizer";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route path="/Events" element={<Events/>}/>
           <Route path="/Products" element={<Products/>}/>
           <Route path="/Products/:id" element={<ProductCardsModal/>}/>
+          <Route path="/becomeAnOrganizer" element={<CreateOrganizer/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
