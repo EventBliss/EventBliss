@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from client.models import Category
 from .models import EventRequest, Events
 
@@ -28,8 +27,3 @@ class EventRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventRequest
         fields= ['id','client','client_name','organizer','organizer_name','organizer_email','event','event_name','event_location','status','event_date','comment','created']
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields= '__all__'

@@ -9,7 +9,7 @@ export function CreateEvent(data,organizers,organizerEmail){
     formData.append('name', name);
     formData.append('description', description);
     formData.append('image', image); 
-    category.forEach(category => formData.append('category', category));
+    category.forEach(categories => formData.append('category', categories));
     formData.append('price', price);
     formData.append('package', isPackage === 'No' ? false : true);
   

@@ -27,32 +27,25 @@ export function DataBackend() {
             const phone_number = user.phoneNumbers[0].phoneNumber;
             const foundClient = clients.some(client => client.email === email);
             const foundedOrganizer = organizers.some(organizer => organizer.email === email)
-            console.log(user.organizationMemberships)
 
-            
             if (user.organizationMemberships && user.organizationMemberships.length > 0) {
-                const userRole = user.organizationMemberships[0].role;
-                if (userRole === 'org:member') {
-                    if (!foundClient){
-                        console.log('Cliente')
-                        createClient({
-                            name: username,
-                            email: email,
-                            phone: phone_number
-                        });
-                    }
-                } else if (userRole === 'org:admin') {
-                    if(!foundedOrganizer){
-                        console.log('organizador')
-                        createOrganizer({
-                            name: username,
-                            email: email,
-                            phone: phone_number
-                        });
-                    }
+                if(!foundedOrganizer){
+                    console.log('organizador')
+                    createOrganizer({
+                        name: username,
+                        email: email,
+                        phone: phone_number
+                    });
                 }
             }else{
-                console.log('no ta pasando nada')
+                if (!foundClient){
+                    console.log('Cliente')
+                    createClient({
+                        name: username,
+                        email: email,
+                        phone: phone_number
+                    });
+                }
             }
         }
     }, [user,clients]);

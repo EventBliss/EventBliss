@@ -1,16 +1,39 @@
-import { useForm } from 'react-hook-form';
+import { useForm,Controller } from 'react-hook-form';
 import 'react-image-upload/dist/index.css';
 import Swal from 'sweetalert2';
-import { TextInput, Textarea, MultiSelect, MultiSelectItem, NumberInput } from '@tremor/react';
+import { Textarea, MultiSelect, MultiSelectItem, NumberInput } from '@tremor/react';
+import { TextInputComp } from '../components/TextInput';
+import { categoryApi } from '../components/api/category';
+import { useEffect,useState } from 'react';
+import { createOrganizer } from '../components/api/organizer/post';
+import { organizerAPI } from '../components/api/organizer';
 
 
 export function CreateOrganizer() {
-    const {handleSubmit} = useForm();
-  
+    const {handleSubmit,register,control,reset} = useForm();
+    const [categories,setCategories] = useState([]);
+    const [organizers,setOrganizers] = useState([])
 
-    const onSubmit =  async () => {
+    useEffect(() => {
+      async function loadCategories(){
+        const response = await categoryApi();
+        const orgResponse = await organizerAPI();
+        setOrganizers(orgResponse.data)
+        setCategories(response.data)
+      }
+      loadCategories()
+    },[]);
+
+    const onSubmit =  async (data) => {
+      const userEmail = data.email;
+      if (userEmail == organizers.map((organizer) => organizer.email)){
+        console.log("A user with the same email has made this request")
+      }else{
+        console.log(data)
+        createOrganizer(data)
+        reset()
         Swal.fire({
-          title: 'Created organizer!',
+          title: 'Request Sended!',
           icon: 'success',
           showConfirmButton: false,
           timer: 3000
@@ -19,6 +42,9 @@ export function CreateOrganizer() {
         setTimeout(() => {
           window.location.href = '/';
         }, 2500);
+
+
+      }
     };
   
     return (
@@ -45,15 +71,14 @@ export function CreateOrganizer() {
               </div>
             </div>
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Name / Company *
-              </label>
-              <TextInput placeholder="Organizer's Name" />
-            </div>
+            <TextInputComp 
+              name='name'
+              label='Name / Company *'
+              placeholder="Organizer's Name"
+              type=''
+              register={register}
+            />
+
 
             <div className="w-full px-3 mb-6">
                 <label 
@@ -61,7 +86,11 @@ export function CreateOrganizer() {
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
                 >
                     Phone Number * </label>
-                <NumberInput enableStepper={false} placeholder="Organizer's Phone" />
+                <NumberInput 
+                enableStepper={false} 
+                placeholder="Organizer's Phone"
+                {...register('phone', {required: true})}
+                 />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -71,38 +100,49 @@ export function CreateOrganizer() {
               >
                 Description *
               </label>
-              <Textarea placeholder="Organizer's Description"/>
+              <Textarea 
+              placeholder="Organizer's Description"
+              {...register('cover_letter', {required: true})}
+              />
             </div>
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="ubication"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                 Ubication *
-              </label>
-              <TextInput placeholder='' />
-            </div>
+            <TextInputComp 
+              name='location'
+              label='Location *'
+              placeholder="Location"
+              type=''
+              register={register}
+            />
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Email *
-              </label>
-              <TextInput placeholder="********@*****.***"/>
-            </div>
+            <TextInputComp 
+              name='email'
+              label='Email *'
+              placeholder="********@*****.***"
+              type='email'
+              register={register}
+            />
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Social Networks / Website 
-              </label>
-              <TextInput placeholder=''/>
-            </div>
+            <TextInputComp 
+              name='linkedin'
+              label='LinkedIn'
+              placeholder="Url"
+              type='url'
+              register={register}
+            />
+            <TextInputComp 
+              name='instagram'
+              label='Instagram'
+              placeholder="Url"
+              type='url'
+              register={register}
+            />
+            <TextInputComp 
+              name='other'
+              label='Other'
+              placeholder="Url"
+              type='url'
+              register={register}
+            />
 
             <div className="w-full px-3 mb-6">
               <label
@@ -111,24 +151,36 @@ export function CreateOrganizer() {
               >
                 Types of Event Realized * 
               </label>
-              <MultiSelect placeholder='Select Types of Event'>
-                <MultiSelectItem value="1">Weddings</MultiSelectItem>
-                <MultiSelectItem value="2">Birthday</MultiSelectItem>
-                <MultiSelectItem value="3">Graduation</MultiSelectItem>
-              </MultiSelect>
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              
-              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2" htmlFor="multiple_files"> Images Events</label>
-              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white" id="multiple_files" type="file" multiple/>
-
+              <Controller
+                name="eventTypes"
+                control={control}
+                render={({ field }) => (
+                  <MultiSelect
+                    placeholder='Select Types of Event'
+                    onChange={(selectedOptions) => field.onChange(selectedOptions)}
+                    value={field.value}
+                  >
+                    {categories.map((category) => (
+                      <MultiSelectItem
+                        key={category.id}
+                        value={category.id}
+                      >
+                        {category.name}
+                      </MultiSelectItem>
+                    ))}
+                  </MultiSelect>
+                )}
+              />
             </div>
 
             <div className="w-full px-3 mb-6">
               
               <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"> Profile Photo * </label>
-              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"  type="file"/>
+              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"  
+              type="file" 
+              accept='image/*'
+              {...register('profile_photo', {required: true})}
+              />
 
             </div>
 
@@ -136,7 +188,7 @@ export function CreateOrganizer() {
               <label htmlFor="fileInput" className="appearance-none block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2">Upload Curriculum </label>
               <input
                 type="file"
-                id="fileInput"
+                {...register('curriculum', {required: true})}
                 accept=".pdf"
                 className='appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white'
               />
