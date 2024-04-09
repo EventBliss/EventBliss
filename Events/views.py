@@ -1,6 +1,6 @@
-from .models import Events,EventRequest,Category
+from .models import Events,EventRequest
 from rest_framework import viewsets
-from .serializer import EventsSerializer,EventRequestSerializer,CategorySerializer
+from .serializer import EventsSerializer,EventRequestSerializer
 # Create your views here.
 
 class EventsView(viewsets.ModelViewSet):
