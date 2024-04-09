@@ -10,12 +10,14 @@ class EventsSerializer(serializers.ModelSerializer):
     organizer_email = serializers.CharField(source='organizer.email',read_only=True)
     category_names = serializers.SerializerMethodField()
 
+
     class Meta:
         model = Events
-        fields = ['id','organizer','organizer_name','organizer_email','name', 'description','photos','category_names','category','price','package','created']
+        fields = ['id','organizer','organizer_name','organizer_email','name', 'description','image','category_names','category','price','package','created']
         
     def get_category_names(self, instance):
         return [category.name for category in instance.category.all()]
+
 
 
 class EventRequestSerializer(serializers.ModelSerializer):

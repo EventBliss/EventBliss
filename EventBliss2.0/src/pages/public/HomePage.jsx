@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Slide } from "../components/Slide";
+import { Slide } from "../../components/Slide";
 
 export function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -134,12 +134,12 @@ export function HomePage() {
                   <p className="p-4">We provide advice and support throughout the entire planning and execution process of your event, from the selection of suppliers to the coordination of the day of the event.</p>
                 </div>
 
-                <div className="w-auto h-auto bg-[#dfdede] text-gray-800  xl:bg-[#FD8B11] xl:text-white">
+                <div className="w-auto h-auto  bg-[#FD8B11] text-white">
                   <h2 className="text-lg font-semibold p-4">Photography and Videography Services</h2>
                   <p className="p-4">Provide photography and videography services to capture special party moments, ensuring clients have lasting memories of their celebration.</p>
                 </div>
 
-                <div className="w-auto h-auto bg-[#FD8B11] text-gray-100 xl:bg-[#dfdede] xl:text-gray-800">
+                <div className="w-auto h-auto  bg-[#dfdede] text-gray-800">
                   <h2 className="text-lg font-semibold p-4">Live Entertainment</h2>
                   <p className="p-4">Arrange live entertainment for the party, such as performances by magicians, clowns, circus performers, musicians or DJs, to keep guests entertained and create a festive atmosphere.</p>
                 </div>

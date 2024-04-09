@@ -15,7 +15,7 @@ class Category(models.Model):
 class Events(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-    photos = models.TextField()
+    image = models.ImageField(upload_to='EventsImages')
     category = models.ManyToManyField(Category)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     package = models.BooleanField(default=False)
