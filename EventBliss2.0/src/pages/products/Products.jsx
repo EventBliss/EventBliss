@@ -1,7 +1,8 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { categoryApi } from "../../components/api/category/index";
+import { ListEvents } from "../../components/api/event/get"
 import { Link } from "react-router-dom";
-import { ListEvents } from '../components/api/event/get';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -9,8 +10,16 @@ function classNames(...classes) {
 
 export function Products() {
     const events = ListEvents();
-
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const categoriesData = await categoryApi();
+            setCategories(categoriesData.data);
+        }
+        fetchData();
+    }, []);
 
     const truncateDescription = (description, maxLength) => {
         if (description.length > maxLength) {
@@ -65,7 +74,7 @@ export function Products() {
                             <div className="py-1">
                                 <Menu.Item>
                                     {({ active }) => (
-                                        <a
+                                        <Link
                                             href="#"
                                             className={classNames(
                                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -74,77 +83,51 @@ export function Products() {
                                             onClick={() => setSelectedCategory("All")}
                                         >
                                             All
-                                        </a>
+                                        </Link>
                                     )}
                                 </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
-                                            )}
-                                            onClick={() => setSelectedCategory("Weddings")}
-                                        >
-                                            Weddings
-                                        </a>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
-                                            )}
-                                            onClick={() => setSelectedCategory("Birthdays")}
-                                        >
-                                            Birthdays
-                                        </a>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
-                                            )}
-                                            onClick={() => setSelectedCategory("Seminars")}
-                                        >
-                                            Seminars
-                                        </a>
-                                    )}
-                                </Menu.Item>
+                                {categories.map((category) => (
+                                    <Menu.Item key={category.id}>
+                                        {({ active }) => (
+                                            <Link
+                                                href="#"
+                                                className={classNames(
+                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                    'block px-4 py-2 text-sm'
+                                                )}
+                                                onClick={() => setSelectedCategory(category.name)}
+                                            >
+                                                {category.name}
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                ))}
                             </div>
                         </Menu.Items>
                     </Transition>
                 </Menu>
             </div>
             <div className="container mx-auto py-8">
-                <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16'>
+                <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-2 md:gap-16 gap-16 xl:grid-cols-3 mx-6'>
                     {filterEvents(selectedCategory).map((event) => (
-                        <a href="" key={event.id}>
-                            <div className="card w-96 bg-base-100 shadow-xl">
-                                <figure ><img className='h-52 w-full' src={event.photos} alt={event.name} /></figure>
+                        <Link to={`/Products/${event.id}`} key={event.id}>
+                            <div className="card w-96 h-[550px] bg-base-100 shadow-xl">
+                                <figure ><img className='h-52 w-full' src={event.image} alt={event.name} /></figure>
                                 <div className="card-body">
                                     <h2 className="card-title">{event.name}</h2>
                                     <p>{truncateDescription(event.description, 200)}</p>
                                     {event.description.length > 200 && (
-                                        <Link to={`/event/${event.id}`} className="text-blue-500 hover:underline focus:outline-none">
+                                        <Link to={`/Products/${event.id}`} className="text-blue-500 hover:underline focus:outline-none">
                                             See more
                                         </Link>
                                     )}
-                                    <p>Estimated price: ${event.price} US</p>
+                                    <p>Estimated price: ${event.price} USD</p>
                                     <div className="card-actions justify-end">
                                         <button className="btn btn-primary">Book now</button>
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                     ))}
                 </div>
             </div>
