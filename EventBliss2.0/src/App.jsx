@@ -9,17 +9,13 @@ import { Events } from "./pages/public/Events";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
-import { Products } from "./pages/products/Products";
-import { ProductCardsModal } from "./pages/products/ProductCardsModal";
-import { useUser } from "@clerk/clerk-react";
+import { Products } from "./pages/Products";
 import { FormsEvent } from "./pages/FormsEvent"
 import { CreateOrganizer } from "./pages/CreateOrganizer";
 
 
 function App() {
-  const { isSignedIn, user } = useUser();
-    // console.log(user.organizationMemberships)
-  
+
   return (
     <BrowserRouter>
       <Routes>
