@@ -121,7 +121,7 @@ export function Products() {
                                             See more
                                         </Link>
                                     )}
-                                    <p>Estimated price: ${event.price} US</p>
+                                    <p>Estimated price: ${event.price} USD</p>
                                     <div className="card-actions justify-end">
                                         <button className="btn btn-primary">Book now</button>
                                     </div>
