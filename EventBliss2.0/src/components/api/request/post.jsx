@@ -1,6 +1,6 @@
 import {axios} from 'axios'
-import { useState,useEffect } from 'react';
 import { useListClients } from '../client';
+import { useListOrganizers } from '../organizer/get';
 
 //----------REQUEST----------//
 const eventRequestsAPI = axios.create({
@@ -22,12 +22,12 @@ const postEVentRequest = (data) => {
  * @returns 
  */
 export const createEventRequest = (organizerEmail,clientEmail,eventId,location,comment,date) =>{
-    const {data:client} = useListClients()
-    co
-  
+    const {data:clientData} = useListClients()
+    const {data: organizerData} = useListOrganizers();
+
     const postRequest = async (organizerEmail,clientEmail,eventId,location,comment,date) => {
-      const clientId = clients.find(client => client.email === clientEmail)?.id;
-      const organizerId = organizers.find(organizer => organizer.email === organizerEmail)?.id;
+      const clientId = clientData.find(client => client.email === clientEmail)?.id;
+      const organizerId = organizerData.find(organizer => organizer.email === organizerEmail)?.id;
       if (clientId && organizerId) {
         try {
           await postEVentRequest({
