@@ -1,14 +1,14 @@
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Link } from "react-router-dom";
-import { ListEvents } from '../components/api/event/get';
+import { useListEvents } from '../components/api/event/get';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export function Products() {
-    const events = ListEvents();
+    const {data} = useListEvents();
 
     const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -21,11 +21,11 @@ export function Products() {
     };
 
     const filterEvents = (type) => {
-        if (events) {
+        if (data) {
             if (type === "All") {
-                return events.filter(event => event.package === true);
+                return data.filter(event => event.package === true);
             } else {
-                return events.filter((event) => event.category_names.includes(type) && event.package === true);
+                return data.filter((event) => event.category_names.includes(type) && event.package === true);
             }
         } else {
             return [];

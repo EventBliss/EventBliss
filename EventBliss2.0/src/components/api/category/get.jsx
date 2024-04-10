@@ -6,11 +6,12 @@ import axios from 'axios'
  * @returns events
  */
 
-export function useListEvents() {
+export function useListCategory() {
   const API = import.meta.env.VITE_BACKEND_API;
 
-  return useQuery(['Events'], async () => {
-    const response = await axios.get(`${API}events`);
+  return useQuery(['Categoty'], async () => {
+    const response = await axios.get(`${API}categories`);
+    console.log(response.data)
     return response.data;
   });
 }
