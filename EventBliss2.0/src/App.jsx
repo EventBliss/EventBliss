@@ -9,7 +9,8 @@ import { Events } from "./pages/public/Events";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
-import { Products } from "./pages/Products";
+import { Products } from "./pages/products/Products";
+import { ProductCardsModal } from "./pages/products/ProductCardsModal";
 import { FormsEvent } from "./pages/FormsEvent"
 import { CreateOrganizer } from "./pages/CreateOrganizer";
 
