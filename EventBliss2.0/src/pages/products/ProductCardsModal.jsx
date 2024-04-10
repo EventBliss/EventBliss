@@ -1,24 +1,20 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ListEvents } from "../../components/api/event/get";
+import { useListEvents } from "../../components/api/event/get";
 import { Button } from "@tremor/react";
 
 export function ProductCardsModal() {
   const { id } = useParams();
   const parsedID = parseInt(id);
-  const events = ListEvents();
+  const {data} = useListEvents()
   const [selectedEvent, setSelectedEvent] = useState({});
 
   useEffect(() => {
-    if (events) {
-      console.log(typeof parsedID);
-      console.log(events);
-      const event = events.find((event) => event.id === parsedID);
-      if (event) {
-        setSelectedEvent(event);
-      }
+     { data && data
+      const event = data.find((event) => event.id === parsedID);
+      setSelectedEvent(event);
     }
-  }, [events, parsedID]);
+  }, [data, parsedID]);
 
   if (!selectedEvent) {
     // Si el evento no se ha encontrado, puedes mostrar un mensaje de error o redirigir a una página de error
