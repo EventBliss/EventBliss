@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { HomePage } from "./pages/HomePage";
-import { AboutUs } from "./pages/AboutUs";
-import { Contact } from "./pages/Contact";
-import { SignUpClient } from "./pages/SignUpClient";
-import { LogIn } from "./pages/LogIn";
-import { Events } from "./pages/Events";
+import { HomePage } from "./pages/public/HomePage";
+import { AboutUs } from "./pages/public/AboutUs";
+import { Contact } from "./pages/public/Contact";
+import { SignUpClient } from "./pages/public/SignUpClient";
+import { LogIn } from "./pages/public/LogIn";
+import { Events } from "./pages/public/Events";
 import { User } from "./components/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
@@ -37,6 +37,7 @@ function App() {
           </ProtectedRoute>} />
           <Route path="/Events" element={<Events/>}/>
           <Route path="/Products" element={<Products/>}/>
+          <Route path="/Products/:id" element={<ProductCardsModal/>}/>
           <Route path="/becomeAnOrganizer" element={<CreateOrganizer/>}/>
         </Route>
       </Routes>
