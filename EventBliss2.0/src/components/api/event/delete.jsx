@@ -5,6 +5,6 @@ import axios from 'axios'
  * @returns None
  */
 export const deleteEvent =(eventId)=>{
-    const API = import.meta.env.VITE_BACKEND_API
-    return axios.delete(`${API}events/${eventId}`);
-  };
+  const API = import.meta.env.VITE_BACKEND_API
+  return axios.delete(`${API}events/${eventId}`);
+};

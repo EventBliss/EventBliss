@@ -15,6 +15,7 @@ export function HomePage() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    
   }, []);
   console.log(scrollPosition)
 
