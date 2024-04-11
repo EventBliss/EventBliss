@@ -1,8 +1,7 @@
 import { DataBackend } from "./api/DataBackend";
 export function User() {
-    DataBackend();
     return (
-        <div>
+        <div className="pt-32">
             <h1>Usuario</h1>
         </div>
     );
