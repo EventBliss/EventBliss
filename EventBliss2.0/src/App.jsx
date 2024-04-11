@@ -6,7 +6,7 @@ import { Contact } from "./pages/public/Contact";
 import { SignUpClient } from "./pages/public/SignUpClient";
 import { LogIn } from "./pages/public/LogIn";
 import { Events } from "./pages/public/Events";
-import { User } from "./components/user";
+import { User } from "./pages/ClientPages/user";
 import { Admin } from "./components/admin";
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { Products } from "./pages/products/Products";
@@ -28,10 +28,10 @@ function App() {
           <Route path="/SignUpClient" element={<SignUpClient />} />
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/FormsEvent" element={<FormsEvent />} />
-          <Route path="/user" element={
-          <ProtectedRoute>
-            <User/>
-          </ProtectedRoute>} />
+          <Route path="/Organizer" >
+            <Route index={true} element={<User/>}/>
+            <Route path="/Organizer/:id" />
+          </Route>
           <Route path="/admin" element={
           <ProtectedRoute>
             <Admin />
