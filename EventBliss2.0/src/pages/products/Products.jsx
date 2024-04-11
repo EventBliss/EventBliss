@@ -123,6 +123,5 @@ export function Products() {
                     ))}
                 </div>
             </div>
-        </div>
-    );
+       </div>);
 }
