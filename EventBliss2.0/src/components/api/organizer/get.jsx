@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import axios from 'axios'
 import { useListRequests } from "../request/get";
+import { useListEvents } from "../event/get";
 
 export function useListOrganizers() {
   const API = import.meta.env.VITE_BACKEND_API;
@@ -19,6 +20,9 @@ export function useListOrganizers() {
  */
 export const useOrganizerData =  (organizerEmail) => {
   const {data:requestData} =  useListRequests();
+  const {data:eventData} = useListEvents();
+
+  const organizerEvents = eventData.filter((request) => request.organizer_email === organizerEmail)
 
   const organizeData = requestData.filter((request) => request.organizer_email === organizerEmail)
 
@@ -51,6 +55,6 @@ export const useOrganizerData =  (organizerEmail) => {
   
   const currentYearRequestsNumber = currentYearRequests.length;
 
-  return [requestNumber,requestInProgressNumber,requestFinishedNumber,lastYearRequestsNumber,currentYearRequestsNumber]
+  return [organizerEvents,organizerEvents,requestNumber,requestInProgressNumber,requestFinishedNumber,lastYearRequestsNumber,currentYearRequestsNumber]
 
 }
