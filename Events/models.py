@@ -47,3 +47,22 @@ class EventRequest(models.Model):
     class Meta:
         verbose_name = 'EventRequest'
         verbose_name_plural = 'EventRequests'
+
+
+class CustomEvents(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    event_type = models.ForeignKey(Category,on_delete=models.CASCADE)
+    start_date = models.DateTimeField()
+    ending_time = models.DateTimeField()
+    location = models.CharField(max_length=200)
+    comment = models.TextField()
+    estimated_price = models.DecimalField(max_digits=10,decimal_places=2)
+
+    def __str__(self):
+        return self.client.name
+    
+    class Meta:
+        verbose_name = 'CustomEvent'
+        verbose_name_plural = 'CustomEvents'

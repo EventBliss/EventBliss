@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Events,EventRequest
+from .models import Events,EventRequest,CustomEvents
 # Register your models here.
 
 class EventRequestsAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class EventRequestsAdmin(admin.ModelAdmin):
 
 admin.site.register(Events)
 admin.site.register(EventRequest,EventRequestsAdmin)
+admin.site.register(CustomEvents)
