@@ -1,11 +1,20 @@
 import axios from 'axios'
+import { useQuery } from "react-query";
+
 //----------CLIENT----------//
 
-export const clientAPI = axios.create({
-    baseURL: 'http://localhost:8000/api/v1/clients/',
+export function useListClients() {
+  const API = import.meta.env.VITE_BACKEND_API;
+
+  return useQuery(['Client'], async () => {
+    const response = await axios.get(`${API}clients`);
+    return response.data;
   });
+}
+
   
-  export const createClient = (client) => {
-    return clientAPI.post('/',client);
-  };
+export const createClient = (client) => {
+    const API = import.meta.env.VITE_BACKEND_API
+    return axios.post(`${API}clients/`,client);
+};
   

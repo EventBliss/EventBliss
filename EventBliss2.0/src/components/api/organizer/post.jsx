@@ -1,6 +1,8 @@
-import { organizerAPI } from ".";
+import axios from 'axios'
 
 export const createOrganizer = (data) => {
+    const API = import.meta.env.VITE_BACKEND_API;
+
     const { name, email, phone, profile_photo, cover_letter, eventTypes, curriculum, linkedin, instagram, other, location } = data;
     
     const formData = new FormData();
@@ -16,7 +18,7 @@ export const createOrganizer = (data) => {
     formData.append('other', other)
     formData.append('location', location)
     
-    return organizerAPI.post('/', formData, {
+    return axios.post(`${API}organizers/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

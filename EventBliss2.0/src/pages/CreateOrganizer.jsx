@@ -3,30 +3,20 @@ import 'react-image-upload/dist/index.css';
 import Swal from 'sweetalert2';
 import { Textarea, MultiSelect, MultiSelectItem, NumberInput } from '@tremor/react';
 import { TextInputComp } from '../components/TextInput';
-import { categoryApi } from '../components/api/category';
-import { useEffect,useState } from 'react';
 import { createOrganizer } from '../components/api/organizer/post';
-import { organizerAPI } from '../components/api/organizer';
-
+import { useListCategory } from '../components/api/category/get';
+import { useListOrganizers } from '../components/api/organizer/get';
 
 export function CreateOrganizer() {
     const {handleSubmit,register,control,reset} = useForm();
-    const [categories,setCategories] = useState([]);
-    const [organizers,setOrganizers] = useState([])
 
-    useEffect(() => {
-      async function loadCategories(){
-        const response = await categoryApi();
-        const orgResponse = await organizerAPI();
-        setOrganizers(orgResponse.data)
-        setCategories(response.data)
-      }
-      loadCategories()
-    },[]);
+    const {data:categoryData} = useListCategory()
+    const {data: organizerData} = useListOrganizers()
+
 
     const onSubmit =  async (data) => {
       const userEmail = data.email;
-      if (userEmail == organizers.map((organizer) => organizer.email)){
+      if (userEmail == organizerData.map((organizer) => organizer.email)){
         console.log("A user with the same email has made this request")
       }else{
         console.log(data)
@@ -42,8 +32,6 @@ export function CreateOrganizer() {
         setTimeout(() => {
           window.location.href = '/';
         }, 2500);
-
-
       }
     };
   
@@ -160,7 +148,7 @@ export function CreateOrganizer() {
                     onChange={(selectedOptions) => field.onChange(selectedOptions)}
                     value={field.value}
                   >
-                    {categories.map((category) => (
+                    {categoryData && categoryData.map((category) => (
                       <MultiSelectItem
                         key={category.id}
                         value={category.id}

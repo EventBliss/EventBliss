@@ -1,38 +1,29 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { useForm,Controller } from 'react-hook-form';
+import { useUser } from "@clerk/clerk-react";
 import ImageUploader from 'react-image-upload';
 import 'react-image-upload/dist/index.css';
 import Swal from 'sweetalert2';
 import { CreateEvent } from "../components/api/event/post";
-import { organizerAPI } from "../components/api/organizer";
-import { categoryApi } from "../components/api/category";
 import { TextInputComp } from "../components/TextInput";
 import {MultiSelect,MultiSelectItem,Textarea,Select,SelectItem} from '@tremor/react'
+import { useListCategory } from "../components/api/category/get";
+import { useListOrganizers } from "../components/api/organizer/get";
 
 export function FormsEvent() {
-  const [organizers,setOrganizers] = useState([]);
-  const [categories,setCategories]= useState([]);
+  const { user } = useUser();
   const {register,handleSubmit,setValue,reset,control} = useForm();
   const [, setShowAlert] = useState(false);
-
-
-  useEffect(() => {
-    async function loadOrganizersAndCategories(){
-      const response = await organizerAPI();
-      const categories = await categoryApi()
-      setCategories(categories.data)
-      setOrganizers(response.data)
-    }
-    loadOrganizersAndCategories();
-  },[]);
+  const {data:categoryData} = useListCategory()
+  const {data: organizerData} = useListOrganizers()
   
   const getImageFileObject = (e) => {
     setValue('image', e.file)
   };
 
   const onSubmit =  async (data) => {
-    console.log(data)
-    CreateEvent(data, organizers,'ashley1@gmail.com');
+    const email = user.emailAddresses[0].emailAddress;
+    CreateEvent(data, organizerData ,email);
     reset()
     setShowAlert(true);  
     Swal.fire({
@@ -44,8 +35,6 @@ export function FormsEvent() {
     setTimeout(() => {
       window.location.href = '/';
     }, 2500);
-
-
   };
 
   return (
@@ -134,7 +123,7 @@ export function FormsEvent() {
                     onChange={(selectedOptions) => field.onChange(selectedOptions)}
                     value={field.value}
                   >
-                    {categories.map((category) => (
+                    {categoryData && categoryData.map((category) => (
                       <MultiSelectItem
                         key={category.id}
                         value={category.id}
