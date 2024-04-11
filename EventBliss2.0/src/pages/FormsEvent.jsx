@@ -1,54 +1,40 @@
-import { useState,useEffect } from "react";
-import { useForm } from 'react-hook-form';
+import { useState } from "react";
+import { useForm,Controller } from 'react-hook-form';
+import { useUser } from "@clerk/clerk-react";
 import ImageUploader from 'react-image-upload';
 import 'react-image-upload/dist/index.css';
 import Swal from 'sweetalert2';
 import { CreateEvent } from "../components/api/event/post";
-import { organizerAPI } from "../components/api/organizer";
-import { categoryApi } from "../components/api/category";
-
+import { TextInputComp } from "../components/TextInput";
+import {MultiSelect,MultiSelectItem,Textarea,Select,SelectItem} from '@tremor/react'
+import { useListCategory } from "../components/api/category/get";
+import { useListOrganizers } from "../components/api/organizer/get";
 
 export function FormsEvent() {
-  const [organizers,setOrganizers] = useState([]);
-  const [categories,setCategories]= useState([]);
-  const {register,handleSubmit,setValue} = useForm();
+  const { user } = useUser();
+  const {register,handleSubmit,setValue,reset,control} = useForm();
   const [, setShowAlert] = useState(false);
-
-
-  useEffect(() => {
-    async function loadOrganizersAndCategories(){
-      const response = await organizerAPI();
-      const categories = await categoryApi()
-      setCategories(categories.data)
-      setOrganizers(response.data)
-    }
-    loadOrganizersAndCategories();
-  },[]);
+  const {data:categoryData} = useListCategory()
+  const {data: organizerData} = useListOrganizers()
   
   const getImageFileObject = (e) => {
     setValue('image', e.file)
   };
 
   const onSubmit =  async (data) => {
-      await CreateEvent(data, organizers,'ashley1@gmail.com');
-      setShowAlert(true);  
-      setValue('name', '');
-      setValue('isPackage', '');
-      setValue('price', '');
-      setValue('location', '');
-      setValue('category', '');
-      setValue('description', '');
-
-      Swal.fire({
-        title: 'Created Event!',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 2000
-      });
-
-      setTimeout(() => {
-        window.location.href = '/';
-      }, 2500);
+    const email = user.emailAddresses[0].emailAddress;
+    CreateEvent(data, organizerData ,email);
+    reset()
+    setShowAlert(true);  
+    Swal.fire({
+      title: 'Created Event!',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 2000
+    });
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2500);
   };
 
   return (
@@ -75,21 +61,14 @@ export function FormsEvent() {
                 </h3>
               </div>
             </div>
+            <TextInputComp 
+              name='name'
+              label='Name *'
+              placeholder="Event Name"
+              type=''
+              register={register}
+            />
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Name *
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                {...register('name', {required: true})}
-              />
-            </div>
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="package"
@@ -97,58 +76,66 @@ export function FormsEvent() {
               >
                 Can be reserved? *
               </label>
-              <select className="select select-bordered appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                {...register('isPackage', {required: true})}>
-                <option defaultValue>No</option>
-                <option>Yes</option>
-  
-              </select>
-            </div>
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="price"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                Price *
-              </label>
-              <input
-                type="number"
-                id="price"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                {...register('price', {required: true})}
+
+              <Controller
+                name="package"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    onChange={(selectedOptions) => field.onChange(selectedOptions)}
+                    value={field.value}
+                  >
+                    <SelectItem value="Yes">Yes</SelectItem>
+                    <SelectItem value="No">No</SelectItem>
+                  </Select>
+                )}
               />
             </div>
+
+            <TextInputComp 
+              name='price'
+              label='Event Price *'
+              placeholder="Price"
+              type='Number'
+              register={register}
+            />
+            <TextInputComp 
+              name='location'
+              label='Location *'
+              placeholder="Event Location"
+              type=''
+              register={register}
+            />
+
             <div className="w-full px-3 mb-6">
               <label
-                htmlFor="ubication"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
-                Ubication *
+                Event Types * 
               </label>
-              <input
-                type="text"
-                id="ubication"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                {...register('location', {required: true})}
+              <Controller
+                name="category" 
+                control={control}
+                render={({ field }) => (
+                  <MultiSelect
+                    placeholder='Select Types of Event'
+                    onChange={(selectedOptions) => field.onChange(selectedOptions)}
+                    value={field.value}
+                  >
+                    {categoryData && categoryData.map((category) => (
+                      <MultiSelectItem
+                        key={category.id}
+                        value={category.id}
+                      >
+                        {category.name}
+                      </MultiSelectItem>
+                    ))}
+                  </MultiSelect>
+                )}
               />
             </div>
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="tipoEvento"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                Event type *
-              </label>
-              <select className="select select-bordered appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" role="menu"
-              multiple
-                {...register('category', {required: true})}>
-                {categories.map((category) =>
-                  <option key={category.id} value={category.id}>{category.name}</option>
-                )
-                }
-                
-              </select>
-            </div>
+
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="description"
@@ -156,14 +143,12 @@ export function FormsEvent() {
               >
                 Description *
               </label>
-              <textarea
-                id="description"
-                rows="4"
-                className="appearance-none block w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                {...register('description', {required: true})}
-
+              <Textarea 
+              placeholder="Event's Description"
+              {...register('description', {required: true})}
               />
             </div>
+
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="image"

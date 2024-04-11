@@ -1,11 +1,12 @@
-import { ListEvents } from "../components/api/event/get";
+import { useListEvents } from "../../components/api/event/get";
+
 export function Events() {
 
-    const events = ListEvents()
+    const { data } = useListEvents();
 
     const filterEvents = (type) => {
-        if (events) {
-            return events.filter((event) => event.category_names.includes(type));
+        if (data) {
+            return data.filter((event) => event.category_names.includes(type));
         } else {
             return [];
         }

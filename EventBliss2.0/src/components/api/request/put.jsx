@@ -1,4 +1,4 @@
-import { eventRequestsAPI } from "."
+import {axios} from 'axios'
 
 /**
  * This funtion update the data of an event request
@@ -7,5 +7,6 @@ import { eventRequestsAPI } from "."
  * @returns 
  */
 export const updateEventRequest = (id,data) => {
-    return eventRequestsAPI.put(`/${id}/`,data)
+    const API = import.meta.env.VITE_BACKEND_API
+    return axios.put(`${API}eventrequest/${id}`,data)
 }

@@ -1,27 +1,51 @@
-import { useForm } from 'react-hook-form';
-import 'react-image-upload/dist/index.css';
-import Swal from 'sweetalert2';
-import { TextInput, Textarea, MultiSelect, MultiSelectItem, NumberInput } from '@tremor/react';
-
+import { useForm, Controller } from "react-hook-form";
+import "react-image-upload/dist/index.css";
+import Swal from "sweetalert2";
+import {
+  Textarea,
+  MultiSelect,
+  MultiSelectItem,
+  NumberInput,
+} from "@tremor/react";
+import { TextInputComp } from "../components/TextInput";
+import { createOrganizer } from "../components/api/organizer/post";
+import { useListCategory } from "../components/api/category/get";
+import { useListOrganizers } from "../components/api/organizer/get";
 
 export function CreateOrganizer() {
-    const {register,handleSubmit,setValue} = useForm();
-  
+  const { handleSubmit, register, control, reset } = useForm();
 
-    const onSubmit =  async (data) => {
-        Swal.fire({
-          title: 'Created organizer!',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 3000
-        });
+  const { data: categoryData } = useListCategory();
+  const { data: organizerData } = useListOrganizers();
 
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 2500);
-    };
-  
-    return (
+  const onSubmit = async (data) => {
+    const userEmail = data.email;
+    if (userEmail == organizerData.map((organizer) => organizer.email)) {
+      Swal.fire({
+        title: "Deniend Request",
+        icon: "error",
+        text: "An user with the same email has made this request.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    } else {
+      console.log(data);
+      createOrganizer(data);
+      reset();
+      Swal.fire({
+        title: "Request Sended!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2500);
+    }
+  };
+
+  return (
     <div className="relative">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-40"
@@ -40,28 +64,31 @@ export function CreateOrganizer() {
             <div className="col-span-2">
               <div className="text-center">
                 <h3 className="block uppercase text-3xl font-bold dark:text-[#FD8B11]">
-                  Switch to organizer 
+                  Become An Organizer
                 </h3>
               </div>
             </div>
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Name / Company *
-              </label>
-              <TextInput />
-            </div>
+            <TextInputComp
+              name="name"
+              label="Name / Company *"
+              placeholder="Organizer's Name"
+              type=""
+              register={register}
+            />
 
             <div className="w-full px-3 mb-6">
-                <label 
-                htmlfor="phone"
+              <label
+                htmlFor="phone"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
-                >
-                    Phone Number * </label>
-                <NumberInput enableStepper={false} />
+              >
+                Phone Number *{" "}
+              </label>
+              <NumberInput
+                enableStepper={false}
+                placeholder="Organizer's Phone"
+                {...register("phone", { required: true })}
+              />
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -71,74 +98,104 @@ export function CreateOrganizer() {
               >
                 Description *
               </label>
-              <Textarea placeholder="Type here..."/>
+              <Textarea
+                placeholder="Organizer's Description"
+                {...register("cover_letter", { required: true })}
+              />
             </div>
 
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="ubication"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2"
-              >
-                 Ubication *
-              </label>
-              <TextInput />
-            </div>
+            <TextInputComp
+              name="location"
+              label="Location *"
+              placeholder="Location"
+              type=""
+              register={register}
+            />
+
+            <TextInputComp
+              name="email"
+              label="Email *"
+              placeholder="********@*****.***"
+              type="email"
+              register={register}
+            />
+
+            <TextInputComp
+              name="linkedin"
+              label="LinkedIn"
+              placeholder="URL"
+              type="url"
+              register={register}
+            />
+            <TextInputComp
+              name="instagram"
+              label="Instagram"
+              placeholder="URL"
+              type="url"
+              register={register}
+            />
+            <TextInputComp
+              name="other"
+              label="Other Social Media"
+              placeholder="URL"
+              type="url"
+              register={register}
+            />
 
             <div className="w-full px-3 mb-6">
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
-                Email *
+                Types of Event Realized *
               </label>
-              <TextInput />
+              <Controller
+                name="eventTypes"
+                control={control}
+                render={({ field }) => (
+                  <MultiSelect
+                    placeholder="Select Types of Event"
+                    onChange={(selectedOptions) =>
+                      field.onChange(selectedOptions)
+                    }
+                    value={field.value}
+                  >
+                    {categoryData &&
+                      categoryData.map((category) => (
+                        <MultiSelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </MultiSelectItem>
+                      ))}
+                  </MultiSelect>
+                )}
+              />
+            </div>
+
+            <div className="w-full px-3 mb-6">
+              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2">
+                {" "}
+                Profile Photo *{" "}
+              </label>
+              <input
+                className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"
+                type="file"
+                accept="image/*"
+                {...register("profile_photo", { required: true })}
+              />
             </div>
 
             <div className="w-full px-3 mb-6">
               <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+                htmlFor="fileInput"
+                className="appearance-none block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
-                Social Networks / Website 
+                Upload Curriculum{" "}
               </label>
-              <TextInput />
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-              >
-                Event Type * 
-              </label>
-              <MultiSelect>
-                <MultiSelectItem value="1">Weddings</MultiSelectItem>
-                <MultiSelectItem value="2">Birthday</MultiSelectItem>
-                <MultiSelectItem value="3">Graduation</MultiSelectItem>
-              </MultiSelect>
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              
-              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2" for="multiple_files"> Images Events</label>
-              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white" id="multiple_files" type="file" multiple/>
-
-            </div>
-
-            <div className="w-full px-3 mb-6">
-              
-              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"> Profile Photo * </label>
-              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"  type="file"/>
-
-            </div>
-
-            <div className='w-full px-3 mb-6'>
-              <label htmlFor="fileInput" className="appearance-none block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2">Upload Curriculum </label>
               <input
                 type="file"
-                id="fileInput"
+                {...register("curriculum", { required: true })}
                 accept=".pdf"
-                className='appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white'
+                className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"
               />
             </div>
 
@@ -147,7 +204,7 @@ export function CreateOrganizer() {
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#FD8B11] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Switch
+                Send Request
               </button>
             </div>
           </form>
