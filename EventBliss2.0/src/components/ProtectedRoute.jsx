@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
 import { useEffect } from "react";
 
-export const ProtectedRoute = ({ children }) => {
+export const ProtectedRoute = ({ children, pathAdmin, pathUser }) => {
     const navigate = useNavigate();
     const { isSignedIn, user } = useUser();
 
@@ -13,20 +13,20 @@ export const ProtectedRoute = ({ children }) => {
             if (user.organizationMemberships && user.organizationMemberships.length > 0) {
                 const userRole = user.organizationMemberships[0].role;
                 if (userRole === 'org:admin') {
-                    navigate('/admin'); // Redirigir al componente de usuario normal
+                    navigate(pathAdmin); // Redirigir al componente de usuario normal
                 }
             } else {
                 const userRole = 'user'
                 console.log(userRole)
-                navigate('/user')
+                navigate(pathUser)
             }
         }
 
 
-    }, [isSignedIn, user, navigate]);
+    }, [isSignedIn, user, navigate, pathAdmin, pathUser]);
 
     if (!isSignedIn) {
-        navigate('/SignUpClient');
+        navigate('/Login');
         return null;
     }
     

@@ -26,7 +26,7 @@ export function Layout() {
                                     <Link to="/" id='btn-layout' onClick={scrollTop}>Home</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/Events" id='btn-layout' onClick={scrollTop}>Events</Link>
+                                    <Link to="/Organizers" id='btn-layout' onClick={scrollTop}>Organizers</Link>
                                 </div>
                                 <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
                                     <Link to="/Products" id='btn-layout' onClick={scrollTop}>Products</Link>
