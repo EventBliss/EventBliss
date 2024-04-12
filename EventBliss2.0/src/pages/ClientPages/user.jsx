@@ -10,7 +10,6 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper/modules";
 export function User() {
-  DataBackend()
   const { data: organizerData } = useListOrganizers();
   const { data: categoryData } = useListCategory();
 
