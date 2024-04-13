@@ -30,5 +30,12 @@ export const sideBarRoutes = [
         icon: RiCheckLine
       },
     ],
-  }
+
+  },{
+    id: "TableProducts",
+    title: "TableProducts",
+    path: "/tableProducts",
+    icon: RiDashboardLine
+  },
+
 ];

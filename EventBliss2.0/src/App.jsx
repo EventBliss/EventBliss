@@ -1,9 +1,7 @@
-// import { User } from "./pages/ClientPages/user";
-// import { FormsEvent } from "./pages/FormsEvent"
 import { useUser } from "@clerk/clerk-react"
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ProtectedRoute, ProtectedRoutePublic } from "./components/ProtectedRoute";
 import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/public/HomePage";
 import { Contact } from "./pages/public/Contact";
@@ -20,10 +18,11 @@ import { CreateOrganizer } from "./pages/CreateOrganizer";
 import { SideBar } from "./pages/organizer/SideBarOrganizer";
 import { Admin } from "./components/admin";
 import { Dashboard } from "./pages/organizer/Dashboard";
+import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
 
 function App() {
   const { user, isSignedIn } = useUser()
-  const [role, setRole] = useState('admin')
+  const [role, setRole] = useState('public')
 
   // useEffect(()=>{
   //   if(user && isSignedIn){
@@ -39,13 +38,14 @@ function App() {
   //   }
   // },[user, isSignedIn])
 
+
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
 
           {/* rutas publicas */}
-          <Route element={<ProtectedRoute role={role.includes('public')} redirectTo={role == 'client' ? '/Organizer' : role == 'admin' ? '/admin/dashboard': '/'}/>}>
+          <Route element={<ProtectedRoutePublic role={role} />}>
             <Route path="/" element={<HomePage/>} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/AboutUs" element={<AboutUs />} />
@@ -54,7 +54,7 @@ function App() {
           </Route>
 
           {/* rutas compartidas entre el publico y el cliente */}
-          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'}/>}>
+          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
             <Route path="/Products" element={<Products/>}/>
             {/* <Route path="/Products/:id" element={<ProductCardsModal/>}/> */}
             <Route path="/Organizer" element={<User/>}/>
@@ -71,9 +71,11 @@ function App() {
         </Route>
 
         {/* ruta para admin */}
-        <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizer'}/>}>
+        <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizer'} redirect={true}/>}>
           <Route path="/admin" element={<SideBar/>}>
               <Route path="Dashboard" element={<Dashboard/>}/>
+              <Route path="TableProducts" element={<TableProducts/>}/>
+              {/* <Route path="EditEvent:id" element={<CreateEvent/>}/> */}
           </Route>
         </Route>
 
