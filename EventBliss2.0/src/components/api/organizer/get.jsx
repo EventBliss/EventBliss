@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import axios from 'axios'
 import { useListRequests } from "../request/get";
 import { useListEvents } from "../event/get";
+import { requestByYear } from "./requestByYear";
 
 export function useListOrganizers() {
   const API = import.meta.env.VITE_BACKEND_API;
@@ -18,43 +19,41 @@ export function useListOrganizers() {
  * @param {*} name the name of the organizer
  * @returns all the events made for this organizer
  */
-export const useOrganizerData =  (organizerEmail) => {
-  const {data:requestData} =  useListRequests();
-  const {data:eventData} = useListEvents();
+export const useOrganizerData = (organizerEmail) => {
+  const { data: requestData } = useListRequests();
+  const { data: eventData } = useListEvents();
 
-  const organizerEvents = eventData.filter((request) => request.organizer_email === organizerEmail)
+  const filterData = (status) => {
+    const requesStatus = organizerData.filter((request) => request.status === status);
+    return requesStatus.length;
+  }
 
-  const organizeData = requestData.filter((request) => request.organizer_email === organizerEmail)
+  // Verifica si hay datos disponibles antes de filtrar
+  const organizerData = requestData ? requestData.filter((request) => request.organizer_email === organizerEmail) : [];
 
-  //REQUEST NUMBER
-  const requestNumber = organizeData.length
+  // Verifica si hay datos disponibles antes de realizar cualquier cálculo
+  const organizerEvents = eventData ? eventData.filter((event) => event.organizer_email === organizerEmail) : [];
   
-  //REQUESTS IN PROGRESS
-  const requestInProgress = organizeData.map((request) => request.status === 'In progress')
-  const requestInProgressNumber = requestInProgress.length
-  
-  //REQUESTS FINISHED
-  const requestFinished = organizeData.map((request) => request.status === 'Finished')
-  const requestFinishedNumber = requestFinished.length
+  // REQUEST NUMBER
+  const requestNumber = organizerData.length;
 
-  //REQUESTS IN THE PAST YEAR
-  const currentYear = new Date().getFullYear();
+  // REQUESTS IN PROGRESS
+  const requestInProgress = filterData('In progress')
 
-  const lastYearRequests = organizeData.filter(request => {
-    const createdYear = new Date(request.created).getFullYear();
-    return createdYear === currentYear - 1;
-  })
+  // REQUESTS FINISHED
+  const requestFinished = filterData('Finished')
 
-  const lastYearRequestsNumber = lastYearRequests.length;
+  const pastYearRequest = requestByYear(organizerData,1)
+  const currentYearRequest = requestByYear(organizerData)
 
-  //REQUESTS IN THIS YEAR
-  const currentYearRequests = organizeData.filter(request => {
-    const createdYear = new Date(request.created).getFullYear();
-    return createdYear === currentYear;
-  });
-  
-  const currentYearRequestsNumber = currentYearRequests.length;
-
-  return [organizerEvents,organizerEvents,requestNumber,requestInProgressNumber,requestFinishedNumber,lastYearRequestsNumber,currentYearRequestsNumber]
-
-}
+  return [
+    {
+      organizerEvents,
+      requestNumber,
+      requestInProgress,
+      requestFinished,
+      pastYearRequest,
+      currentYearRequest
+    }
+  ]
+};

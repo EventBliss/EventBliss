@@ -11,7 +11,6 @@ export function useListCategory() {
 
   return useQuery(['Categoty'], async () => {
     const response = await axios.get(`${API}categories`);
-    console.log(response.data)
     return response.data;
   });
 }
