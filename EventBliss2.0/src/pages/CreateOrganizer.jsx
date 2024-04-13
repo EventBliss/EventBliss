@@ -11,37 +11,37 @@ import { TextInputComp } from "../components/TextInput";
 import { createOrganizer } from "../components/api/organizer/post";
 import { useListCategory } from "../components/api/category/get";
 import { useListOrganizers } from "../components/api/organizer/get";
+import { useState } from "react";
 
 export function CreateOrganizer() {
   const { handleSubmit, register, control, reset } = useForm();
+  const [, setShowAlert] = useState(false);
 
   const { data: categoryData } = useListCategory();
   const { data: organizerData } = useListOrganizers();
-
+  const alert = (msg) => {
+    reset()
+    setShowAlert(true);  
+    Swal.fire({
+      title: `Request ${msg}!`,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 2000
+    });
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2500);
+  }
+  
   const onSubmit = async (data) => {
     const userEmail = data.email;
     if (userEmail == organizerData.map((organizer) => organizer.email)) {
-      Swal.fire({
-        title: "Deniend Request",
-        icon: "error",
-        text: "An user with the same email has made this request.",
-        showConfirmButton: false,
-        timer: 3000,
-      });
+      alert('Deniend')
+
     } else {
       console.log(data);
       createOrganizer(data);
-      reset();
-      Swal.fire({
-        title: "Request Sended!",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 2500);
+      alert('Send')
     }
   };
 
