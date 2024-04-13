@@ -1,34 +1,30 @@
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '@clerk/clerk-react';
-import { useEffect } from "react";
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { useUser } from "@clerk/clerk-react"; // Suponiendo que tienes un hook useUser para obtener el estado de autenticación
 
-export const ProtectedRoute = ({ children }) => {
-    const navigate = useNavigate();
-    const { isSignedIn, user } = useUser();
+export function ProtectedRoute({ role, children, redirectTo, redirect }) {
+  const { isSignedIn } = useUser();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        // Si el usuario está autenticado y se ha cargado su información
-        if (isSignedIn && user) {
-            // Verificar el rol del usuario y redirigir en consecuencia
-            if (user.organizationMemberships && user.organizationMemberships.length > 0) {
-                const userRole = user.organizationMemberships[0].role;
-                if (userRole === 'org:admin') {
-                    navigate('/admin'); // Redirigir al componente de usuario normal
-                }
-            } else {
-                const userRole = 'user'
-                console.log(userRole)
-                navigate('/user')
-            }
-        }
+  if (!isSignedIn && redirect) {
+    navigate('/Login');
+    return null; 
+  }
+
+  if (isSignedIn && !role) {
+    return <Navigate to={redirectTo} />;
+  }
+
+  return children ? children : <Outlet />; 
+}
 
 
-    }, [isSignedIn, user, navigate]);
+// eslint-disable-next-line react/prop-types
+export function ProtectedRoutePublic({ role, children }) {
+  if (role == "admin") {
+    return <Navigate to={"/admin/Dashboard"} />;
+  } else if (role == "client") {
+    return <Navigate to={"Organizer"} />;
+  }
 
-    if (!isSignedIn) {
-        navigate('/SignUpClient');
-        return null;
-    }
-    
-    return children;
-};
+  return children ? children : <Outlet />;
+}
