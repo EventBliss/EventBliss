@@ -5,7 +5,7 @@ from .views import ClientView,OrganizerView,CategoryView
 router = routers.DefaultRouter()
 router.register(r'clients',ClientView,'client')
 router.register(r'organizers',OrganizerView,'organizer')
-router.register(r'categories',CategoryView)
+router.register(r'categories',CategoryView,'category')
 
 urlpatterns = [
     path('v1/',include(router.urls)),
