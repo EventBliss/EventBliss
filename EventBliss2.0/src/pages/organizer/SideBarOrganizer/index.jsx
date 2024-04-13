@@ -53,7 +53,7 @@ export function SideBar() {
       <aside
         id="logo-sidebar"
         className={`fixed top-0 left-0 z-40 w-64 h-full pt-20 transition-all duration-300 ${
-          asideOpen ? "" : "w-20"
+          asideOpen ? "" : "w-[75px]"
         } bg-[#FD8B11] border-r border-none sm:translate-x-0`}
         aria-label="Sidebar">
         <div className="h-full px-3 pb-4 overflow-y-auto bg-[#FD8B11]">
@@ -144,9 +144,7 @@ export function SideBar() {
           className={`transition-all duration-300 ${
             asideOpen ? "ml-72 mt-24 mr-8" : "ml-24 mt-20 mr-8"
           }`}>
-            <div>
-              <Outlet/>
-            </div>
+          <Outlet className={'bg-white'}/>
         </div>
       </div>
     </div>
