@@ -50,7 +50,7 @@ export function HomePage() {
             <div className="relative w-full h-full" style={{ height: textHeight }}>
               <img
                 src="https://cdn0.bodas.net/article-real-wedding/578/original/1280/jpg/4462584.jpeg"
-                alt="Ejemplo"
+                alt="boda"
                 className="w-full h-full object-cover rounded-lg"
               />
               <div className="absolute inset-0 bg-black opacity-20 z-30 rounded-lg" />
@@ -64,7 +64,7 @@ export function HomePage() {
             }`}
           >
             <div className={`animated-container bg-white rounded-lg shadow-lg overflow-hidden p-8`}>
-              <h2 className="text-2xl mb-4 text-[#FD8B11] font-bold">What are we to you?</h2>
+              <h2 className="text-2xl mb-4 text-[#FD8B11] font-bold">What makes us the right choice?</h2>
               <p className="text-base mb-4 text-[#3B3B3B] ">
                 At Event Bills, we don´t simply plan events, we create unforgettable moments that reflect your unique vision. Our team of experts is dedicated to understanding your desires and transforming them into a captivating reality.
               </p>
@@ -89,7 +89,7 @@ export function HomePage() {
             </div>
             <div className="w-full flex justify-center">
               <input type="radio" id="tab2" className="sr-only" name="tab-group" checked={!validation} onChange={()=> Validation()}/>
-              <label htmlFor="tab2" className={`text-[23px] text-[#3B3B3B] cursor-pointer w-full flex justify-center mx-10 ${!validation ? ' border-b-[3px] border-[#FD8B11]' : 'border-b-[3px]  border-gray-500'} transition-colors duration-500 hover:border-[#FD8B11]`}>Organizer</label>
+              <label htmlFor="tab2" className={`text-[23px] text-[#3B3B3B] cursor-pointer w-full flex justify-center mx-10 ${!validation ? ' border-b-[3px] border-[#9C85A6]' : 'border-b-[3px]  border-gray-500'} transition-colors duration-500 hover:border-[#9C85A6]`}>Organizer</label>
             </div>
           </div>
 
@@ -102,7 +102,7 @@ export function HomePage() {
               isVisible(650, 2000) ? "lg:translate-y-0 lg:opacity-100" : "lg:translate-y-10 lg:opacity-0"
             }` }>
                 <h3 className="text-[25px] xl:text-[30px] font-bold text-[#FD8B11] mt-[70px]">Our services</h3>
-                <h1 className=" text-[35px] xl:text-[57px] font-bold text-[#3B3B3B]">FOR THE CLIENT</h1>
+                <h1 className=" text-[35px] xl:text-[57px] font-bold text-[#3B3B3B]">FOR CLIENTS</h1>
                 <p className="text-[#3B3B3B] mb-10">Discover our wide selection of specialized services. From planning to execution, we are here to make your event a memorable experience.</p>
               </div>
             </div>
@@ -154,15 +154,15 @@ export function HomePage() {
             
           <div className="flex justify-center">
               <div className="text-center items-center justify-center max-w-[800px]">
-                <h3 className="text-[25px] xl:text-[30px] font-bold text-[#FD8B11] mt-[70px]">Our services</h3>
-                <h1 className=" text-[35px] xl:text-[57px] font-bold text-[#3B3B3B]">FOR THE ORGANIZER</h1>
+                <h3 className="text-[25px] xl:text-[30px] font-bold text-[#9C85A6] mt-[70px]">Our services</h3>
+                <h1 className=" text-[35px] xl:text-[57px] font-bold text-[#3B3B3B]">FOR ORGANIZERS</h1>
                 <p className="text-[#3B3B3B] mb-10">Discover our wide selection of specialized services. From planning to execution, we are here to make your event a memorable experience.</p>
               </div>
             </div>
             <div className="flex justify-center items-center flex-col text-center">
               <div className="grid grid-cols-2 xl:grid-cols-3 px-4 py-6">
 
-                <div className="w-auto h-auto bg-[#FD8B11] ">
+                <div className="w-auto h-auto bg-[#9C85A6] ">
                   <h2 className="text-white text-lg font-semibold p-4">Event Management Platform</h2>
                   <p className="text-white p-4">We offer a comprehensive platform for event management, which includes tools for event creation, promotion, ticketing, and tracking.</p>
                 </div>
@@ -172,17 +172,17 @@ export function HomePage() {
                   <p className="text-gray-800 p-4">We allow organizers to publish and promote their events online, reaching a wider audience and increasing event visibility and attendance.</p>
                 </div>
 
-                <div className="w-auto h-auto bg-[#dfdede] text-gray-800  xl:bg-[#FD8B11] xl:text-white">
+                <div className="w-auto h-auto bg-[#dfdede] text-gray-800  xl:bg-[#9C85A6] xl:text-white">
                   <h2 className=" text-lg font-semibold p-4">Ticket and Reservation Management</h2>
                   <p className=" p-4">We facilitate the management of tickets and reservations for events, including online ticket sales, sales tracking, and seating and capacity management.</p>
                 </div>
 
-                <div className="w-auto h-auto bg-[#FD8B11] text-gray-100 xl:bg-[#dfdede] xl:text-gray-800">
+                <div className="w-auto h-auto bg-[#9C85A6] text-gray-100 xl:bg-[#dfdede] xl:text-gray-800">
                   <h2 className=" text-lg font-semibold p-4">Analytics and Reporting</h2>
                   <p className="p-4">We provide analytics and reporting tools so organizers can track the performance of their events, including data on ticket sales, attendance, and more.</p>
                 </div>
 
-                <div className="w-auto h-auto bg-[#dfdede] text-gray-800  xl:bg-[#FD8B11] xl:text-white">
+                <div className="w-auto h-auto bg-[#dfdede] text-gray-800  xl:bg-[#9C85A6] xl:text-white">
                   <h2 className="text-lg font-semibold p-4">Technical Support and Customer Service</h2>
                   <p className="p-4">We offer technical support and customer service to help organizers with any questions or problems they may have during the event planning and execution process.</p>
                 </div>

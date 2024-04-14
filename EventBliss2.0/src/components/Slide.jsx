@@ -8,9 +8,11 @@ import { useEffect, useRef, useState } from "react";
 export function Slide() {
   const imagenes = [
     "https://elolivar.es/olivar-content/uploads/2021/06/salones-para-eventos.png",
-    "https://careertraining.ed2go.com/common/images/1/18335/weddinglarge.jpg",
     "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGV2ZW50JTIwcGxhbm5pbmd8ZW58MHx8MHx8fDA%3D",
-    "https://eventosyproducciones.com/wp-content/uploads/2018/10/slide1.jpg",
+    "https://images.pexels.com/photos/313715/pexels-photo-313715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/2253831/pexels-photo-2253831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/6479590/pexels-photo-6479590.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+
   ];
 
   const [scrollOffset, setScrollOffset] = useState(0);
