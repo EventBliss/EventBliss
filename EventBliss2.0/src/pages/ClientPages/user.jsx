@@ -1,31 +1,41 @@
 import { Link } from "react-router-dom";
 import { useListCategory } from "../../components/api/category/get";
 import { useListOrganizers } from "../../components/api/organizer/get";
-import { DataBackend } from "../../components/api/DataBackend"
+import { DataBackend } from "../../components/api/DataBackend";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 
 // import required modules
 import { Navigation } from "swiper/modules";
+
 export function User() {
+  DataBackend();
   const { data: organizerData } = useListOrganizers();
   const { data: categoryData } = useListCategory();
-
-  
 
   return (
     <div className="bg-[#E6E5E4]">
       <div className="md:w-auto p-16 pl-10 bg-gray-800">
         <h2 className="text-5xl md:text-center w-full mt-6 font-bold text-white pl-10">
-          Get to know our <span className="text-[#FD8B11]">Organizers</span>
+          Get to know our{" "}
+          <span className="text-[#FD8B11]">Organizers</span>
         </h2>
       </div>
       {categoryData &&
         categoryData.map((category, index) => {
-          const organizersForCategory = organizerData.filter(
-            (organizer) => organizer.event_types.includes(category.id)
-          );
+          let organizersForCategory = [];
+          if (organizerData) {
+            organizersForCategory = organizerData.filter((organizer) => {
+              // Verificar si organizer.event_types existe y es un array
+              if (Array.isArray(organizer.event_types)) {
+                return organizer.event_types.includes(category.id);
+              } else {
+                // Manejar el caso en el que organizer.event_types no existe o no es un array
+                return false;
+              }
+            });
+          }
           if (organizersForCategory.length === 0) {
             // No organizers for this category, skip rendering
             return null;
@@ -65,7 +75,7 @@ export function User() {
                 {organizersForCategory.map((organizer, subIndex) => (
                   <SwiperSlide key={subIndex}>
                     <Link
-                      to={`/Organizers/${organizer.id}`}
+                      to={`details/${organizer.id}`}
                       className="bg-white rounded-lg overflow-hidden group relative shadow-md"
                     >
                       <img

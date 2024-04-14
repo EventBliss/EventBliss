@@ -7,8 +7,11 @@ import { HomePage } from "./pages/public/HomePage";
 import { Contact } from "./pages/public/Contact";
 import { AboutUs } from "./pages/public/AboutUs";
 import { Products } from "./pages/products/Products";
+import { ProductCardsView } from "./pages/products/ProductCardsView";
+import { FormsEvent } from "./pages/FormsEvent"
 // import { ProductCardsModal } from "./pages/products/ProductCardsModal";
 import { User } from "./pages/ClientPages/user";
+import { OrganizerCardsView } from "./pages/ClientPages/components/OrganizerCardsView";
 import { Events } from "./pages/public/Events";
 import { LogIn } from "./pages/public/LogIn";
 import { SignUpClient } from "./pages/public/SignUpClient";
@@ -19,6 +22,7 @@ import { SideBar } from "./pages/organizer/SideBarOrganizer";
 import { Admin } from "./components/admin";
 import { Dashboard } from "./pages/organizer/Dashboard";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
+import { Actions } from "./pages/organizer/TableProducts/components/Actions";
 
 function App() {
   const { user, isSignedIn } = useUser()
@@ -54,12 +58,16 @@ function App() {
           </Route>
 
           {/* rutas compartidas entre el publico y el cliente */}
-          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
-            <Route path="/Products" element={<Products/>}/>
-            {/* <Route path="/Products/:id" element={<ProductCardsModal/>}/> */}
-            <Route path="/Organizer" element={<User/>}/>
-            <Route path="/Organizer/:id" />
-            <Route path="/Events" element={<Events/>}/>
+          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public')) || role.includes("admin")} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
+            <Route path="/Products" >
+              <Route index element={<Products/>}/>
+              <Route path="details/:id" element={<ProductCardsView/>}/>
+            </Route>
+
+            <Route path="/Organizers">
+              <Route index element={<User/>}/>
+              <Route path="details/:id" element={<OrganizerCardsView/>}/>
+            </Route>
           </Route>
 
           {/* ruta para cliente */}
@@ -74,8 +82,10 @@ function App() {
         <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizer'} redirect={true}/>}>
           <Route path="/admin" element={<SideBar/>}>
               <Route path="Dashboard" element={<Dashboard/>}/>
-              <Route path="TableProducts" element={<TableProducts/>}/>
-              {/* <Route path="EditEvent:id" element={<CreateEvent/>}/> */}
+              <Route path="TableProducts">
+                <Route index element={<TableProducts/>}/>
+                <Route path="EditEvent/:id" element={<FormsEvent/>}/>
+              </Route>
           </Route>
         </Route>
 
