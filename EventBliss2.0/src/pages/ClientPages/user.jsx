@@ -11,6 +11,7 @@ import { Navigation } from "swiper/modules";
 export function User() {
   const { data: organizerData } = useListOrganizers();
   const { data: categoryData } = useListCategory();
+  console.log(organizerData)
 
   
 
@@ -21,8 +22,7 @@ export function User() {
           Get to know our <span className="text-[#FD8B11]">Organizers</span>
         </h2>
       </div>
-      {categoryData &&
-        categoryData.map((category, index) => {
+      {organizerData && categoryData && categoryData.map((category, index) => {
           const organizersForCategory = organizerData.filter(
             (organizer) => organizer.event_types.includes(category.id)
           );

@@ -9,7 +9,7 @@ export const sideBarRoutes = [
   {
     id: "Dashboard",
     title: "Dashboard",
-    path: "/dashboard",
+    path: "dashboard",
     icon: RiDashboardLine
   },
   {
