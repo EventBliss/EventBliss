@@ -6,6 +6,7 @@ export function updateTask(id,data,organizers,organizerEmail){
     const {name,price,category,image,description,isPackage} = data
 
     const organizerId = organizers.find(organizer => organizer.email == organizerEmail)?.id
+    console.log(image)
 
     const formData = new FormData();
     formData.append('organizer', organizerId);
