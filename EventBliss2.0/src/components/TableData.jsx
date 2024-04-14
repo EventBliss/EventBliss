@@ -19,7 +19,9 @@ export function TableData({Title, HeaderCell = [], SelectData = [], Data = []}){
                     {Data.map((item, rowIndex) => (
                         <TableRow key={rowIndex}>
                             {SelectData.map((ItemSelectData, SelectDataIndex) => (
-                                <TableCell key={SelectDataIndex} className="font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">{item[ItemSelectData]}</TableCell>
+                                <TableCell key={SelectDataIndex} className="font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">
+                                    {item[ItemSelectData]}
+                                </TableCell>
                             ))}
                         </TableRow>  
                     ))}

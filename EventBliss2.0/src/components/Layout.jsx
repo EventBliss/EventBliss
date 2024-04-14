@@ -35,7 +35,7 @@ export function Layout() {
             role: ["public"]
         },
         {
-            title: "Events",
+            title: "Organizers",
             path: "/Organizer",
             role: ["public", "client"]
         },

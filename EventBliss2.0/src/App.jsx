@@ -2,14 +2,16 @@ import { useUser } from "@clerk/clerk-react"
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoute, ProtectedRoutePublic } from "./components/ProtectedRoute";
-import { ProtectedRoute, ProtectedRoutePublic } from "./components/ProtectedRoute";
 import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/public/HomePage";
 import { Contact } from "./pages/public/Contact";
 import { AboutUs } from "./pages/public/AboutUs";
 import { Products } from "./pages/products/Products";
+import { ProductCardsView } from "./pages/products/ProductCardsView";
+import { FormsEvent } from "./pages/FormsEvent"
 // import { ProductCardsModal } from "./pages/products/ProductCardsModal";
 import { User } from "./pages/ClientPages/user";
+import { OrganizerCardsView } from "./pages/ClientPages/components/OrganizerCardsView";
 import { Events } from "./pages/public/Events";
 import { LogIn } from "./pages/public/LogIn";
 import { SignUpClient } from "./pages/public/SignUpClient";
@@ -19,13 +21,11 @@ import { CreateOrganizer } from "./pages/CreateOrganizer";
 import { SideBar } from "./pages/organizer/SideBarOrganizer";
 import { Admin } from "./components/admin";
 import { Dashboard } from "./pages/organizer/Dashboard";
-import { TableProducts } from "./pages/organizer/TableProduct";
-import { FormsEvent } from "./pages/organizer/TableProduct/FormsEvent";
-
+import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
+import { Actions } from "./pages/organizer/TableProducts/components/Actions";
 
 function App() {
   const { user, isSignedIn } = useUser()
-  const [role, setRole] = useState('public')
   const [role, setRole] = useState('public')
 
   // useEffect(()=>{
@@ -43,14 +43,12 @@ function App() {
   // },[user, isSignedIn])
 
 
-
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
 
           {/* rutas publicas */}
-          <Route element={<ProtectedRoutePublic role={role} />}>
           <Route element={<ProtectedRoutePublic role={role} />}>
             <Route path="/" element={<HomePage/>} />
             <Route path="/Contact" element={<Contact />} />
@@ -60,13 +58,16 @@ function App() {
           </Route>
 
           {/* rutas compartidas entre el publico y el cliente */}
-          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
-          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
-            <Route path="/Products" element={<Products/>}/>
-            {/* <Route path="/Products/:id" element={<ProductCardsModal/>}/> */}
-            <Route path="/Organizer" element={<User/>}/>
-            <Route path="/Organizer/:id" />
-            <Route path="/Events" element={<Events/>}/>
+          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public')) || role.includes("admin")} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
+            <Route path="/Products" >
+              <Route index element={<Products/>}/>
+              <Route path="details/:id" element={<ProductCardsView/>}/>
+            </Route>
+
+            <Route path="/Organizers">
+              <Route index element={<User/>}/>
+              <Route path="details/:id" element={<OrganizerCardsView/>}/>
+            </Route>
           </Route>
 
           {/* ruta para cliente */}
@@ -79,10 +80,9 @@ function App() {
 
         {/* ruta para admin */}
         <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizer'} redirect={true}/>}>
-        <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizer'} redirect={true}/>}>
           <Route path="/admin" element={<SideBar/>}>
               <Route path="Dashboard" element={<Dashboard/>}/>
-              <Route path="TableProducts"> 
+              <Route path="TableProducts">
                 <Route index element={<TableProducts/>}/>
                 <Route path="EditEvent/:id" element={<FormsEvent/>}/>
               </Route>
