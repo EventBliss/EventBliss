@@ -20,6 +20,8 @@ export function SideBar() {
     }));
   };
 
+  console.log(openDropdowns.Requests)
+
   return (
     <div>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
@@ -103,7 +105,7 @@ export function SideBar() {
                             ? RiArrowUpSLine
                             : RiArrowDownSLine
                         }
-                        className="text-white group-hover:text-gray-900 ml-[-10px]"
+                        className={`text-white group-hover:text-gray-900 ${asideOpen ? 'ml-0' : 'ml-[-10px]'}`}
                       />
                     </div>
                   

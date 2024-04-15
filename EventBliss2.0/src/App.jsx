@@ -23,10 +23,11 @@ import { Admin } from "./components/admin";
 import { Dashboard } from "./pages/organizer/Dashboard";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
 import { Actions } from "./pages/organizer/TableProducts/components/Actions";
+import { CustomizableRequestForm } from "./pages/ClientPages/CustomizableRequestForm";
 
 function App() {
   const { user, isSignedIn } = useUser()
-  const [role, setRole] = useState('public')
+  const [role, setRole] = useState('admin')
 
   // useEffect(()=>{
   //   if(user && isSignedIn){
@@ -58,13 +59,13 @@ function App() {
           </Route>
 
           {/* rutas compartidas entre el publico y el cliente */}
-          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public')) || role.includes("admin")} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
+          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
             <Route path="/Products" >
               <Route index element={<Products/>}/>
               <Route path="details/:id" element={<ProductCardsView/>}/>
             </Route>
 
-            <Route path="/Organizers">
+            <Route path="/Organizer">
               <Route index element={<User/>}/>
               <Route path="details/:id" element={<OrganizerCardsView/>}/>
             </Route>
@@ -89,6 +90,7 @@ function App() {
           </Route>
         </Route>
 
+        <Route path="/CustomizableRequestForm" element={<CustomizableRequestForm/>} />
       </Routes>
     </BrowserRouter>
   );
