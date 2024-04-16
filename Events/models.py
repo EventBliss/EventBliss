@@ -50,15 +50,26 @@ class EventRequest(models.Model):
 
 
 class CustomEvents(models.Model):
+    STATUS_CHOICES =(
+        ('In progress','IP'),
+        ('Approved','A'),
+        ('Finished','F'),
+        ('Denied','D')
+    )
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
+    event_name = models.CharField(max_length=200)
+    company_organization = models.CharField(max_length=200)
+    contact_email = models.EmailField()
+    phone = models.IntegerField(default=0)
+    amount_people = models.IntegerField(blank=True, default=0)
     event_type = models.ForeignKey(Category,on_delete=models.CASCADE)
     start_date = models.DateTimeField()
     ending_time = models.DateTimeField()
     location = models.CharField(max_length=200)
     comment = models.TextField()
     estimated_price = models.DecimalField(max_digits=10,decimal_places=2)
+    status = models.CharField(max_length=15,choices=STATUS_CHOICES, default='In progress')
 
     def __str__(self):
         return self.client.name

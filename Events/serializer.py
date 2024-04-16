@@ -31,4 +31,4 @@ class CustomEventsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomEvents
-        fields= ['id','client','client_name','client_email','organizer','organizer_name','organizer_email','name','location','start_date','ending_time','event_type','comment','estimated_price']
+        fields= ['id','client','client_name','client_email','organizer','organizer_name','organizer_email','event_name','contact_email','phone','amount_people','location','start_date','ending_time','event_type','comment','estimated_price','status']
