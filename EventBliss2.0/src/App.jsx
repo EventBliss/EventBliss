@@ -21,7 +21,6 @@ import { CreateOrganizer } from "./pages/CreateOrganizer";
 import { SideBar } from "./pages/organizer/SideBarOrganizer";
 import { Dashboard } from "./pages/organizer/Dashboard";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
-import { Actions } from "./pages/organizer/TableProducts/components/Actions";
 import { CustomizableRequestForm } from "./pages/ClientPages/CustomizableRequestForm";
 import { NotFound } from "./components/NotFound";
 
