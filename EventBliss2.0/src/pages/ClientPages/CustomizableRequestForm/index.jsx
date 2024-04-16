@@ -1,24 +1,22 @@
 /* eslint-disable react/no-unknown-property */
 import { useForm, Controller } from "react-hook-form";
-import { TextInputComp } from "../../../components/TextInput";
-import { DatePicker, TextInput } from "@tremor/react";
 import { InputData } from "./components/InputData";
 import { EventData } from "./components/eventData";
 import { format } from "@formkit/tempo"
 import { ConditionsTerms } from "./components/ConditionsTerms";
-
-
-export function CustomizableRequestForm({ typeEvent }) {
+import { useUser } from "@clerk/clerk-react";
+import { CreateCustomEvent } from "../../../components/api/customEvents/post";
+export function CustomizableRequestForm() {
   const { handleSubmit, register, control, setValue } = useForm();
-
-  const tiposEventos = ["Cumpleaños", "Boda", "Conferencia", "Concierto", "Festival"];
-
+ const user = useUser()
   async function onSubmit(data) {
+    
+    CreateCustomEvent(data,)
     console.log(data);
   }
   const handleDatePickerChange = (date) => {
     const fechaDate = new Date(date);
-    const formattedDate = format(fechaDate, "YYYY-MM-DD HH:mm:ss");
+    const formattedDate = format(fechaDate, "YYYY-MM-DD");
     setValue("date", formattedDate);
   };
 
@@ -33,10 +31,10 @@ export function CustomizableRequestForm({ typeEvent }) {
           <div className="">
 
             {/* Datos personales del cliente */}
-            <InputData register={register} control={control}/>
+            <InputData register={register}/>
 
             {/* Datos de los detalles del evento */}
-            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller} typeEvent={tiposEventos}/>
+            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller}/>
 
             {/* Condiciones y terminos del evento */}
             <ConditionsTerms/>

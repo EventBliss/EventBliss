@@ -1,64 +1,48 @@
-import { TextInput } from "@tremor/react";
-
+import { TextInputComp } from "../../../../components/TextInput";
 // eslint-disable-next-line react/prop-types
-export function InputData({ register, control }) {
+export function InputData({ register }) {
   return (
     <div>
       {/* nombre completo */}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Full name
-        </label>
-        <TextInput
-          type={"text"}
-          control={control}
+
+        <TextInputComp
+          name={"full_name"}
           placeholder={"Full Name"}
-          required
-          {...register("full_name", { required: true })}
+          label={"Full Name *"}
+          register={register}
         />
-      </div>
 
       {/* correo electronico */}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Email
-        </label>
-        <TextInput
+
+        <TextInputComp
           type={"email"}
-          control={control}
+          label={"Email *"}
+          name={"contact_email"}
           placeholder={"********@*****.***"}
-          required
-          {...register("email", { required: true })}
+          register={register}
+
         />
-      </div>
 
       {/* Numero de telefono */}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Phone number
-        </label>
-        <TextInput
+
+        <TextInputComp
           type={"number"}
-          control={control}
+          name={"phone_number"}
           placeholder={"Phone number"}
-          required
-          {...register("number", { required: true })}
+          label={"Phone Number *"}
+          register={register}
+
         />
-      </div>
 
       {/* Nombre del evento */}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Name of the event
-        </label>
-        <TextInput
-          type={"text"}
-          control={control}
+
+        <TextInputComp
+          name={"event_name"}
+          label={"Event Name *"}
           placeholder={"name of the event"}
-          required
-          {...register("name_event", { required: true })}
+          register={register}
+
         />
-      </div>
     </div>
   );
 }
