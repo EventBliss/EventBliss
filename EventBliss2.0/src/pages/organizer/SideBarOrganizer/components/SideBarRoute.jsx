@@ -3,6 +3,7 @@ import {
   RiTodoLine,
   RiTimeLine,
   RiCheckLine,
+  RiTableView,
 } from "@remixicon/react";
 
 export const sideBarRoutes = [
@@ -36,7 +37,7 @@ export const sideBarRoutes = [
     id: "TableProducts",
     title: "TableProducts",
     path: "tableProducts",
-    icon: RiDashboardLine
+    icon: RiTableView
   },
 
 ];

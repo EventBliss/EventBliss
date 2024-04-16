@@ -12,6 +12,7 @@ import { FormsEvent } from "./pages/FormsEvent"
 // import { ProductCardsModal } from "./pages/products/ProductCardsModal";
 import { User } from "./pages/ClientPages/user";
 import { OrganizerCardsView } from "./pages/ClientPages/components/OrganizerCardsView";
+import { Requests } from "./pages/ClientPages/Requests"
 import { Events } from "./pages/public/Events";
 import { LogIn } from "./pages/public/LogIn";
 import { SignUpClient } from "./pages/public/SignUpClient";
@@ -27,21 +28,21 @@ import { CustomizableRequestForm } from "./pages/ClientPages/CustomizableRequest
 
 function App() {
   const { user, isSignedIn } = useUser()
-  const [role, setRole] = useState('admin')
+  const [role, setRole] = useState('public')
 
-  // useEffect(()=>{
-  //   if(user && isSignedIn){
-  //     if(user.organizationMemberships.length > 0){
-  //       if(user.organizationMemberships[0].role === 'org:admin'){
-  //         setRole('admin')
-  //       }
-  //     }else{
-  //       setRole('client')
-  //     }
-  //   }else{
-  //     setRole('public')
-  //   }
-  // },[user, isSignedIn])
+  useEffect(()=>{
+    if(user && isSignedIn){
+      if(user.organizationMemberships.length > 0){
+        if(user.organizationMemberships[0].role === 'org:admin'){
+          setRole('admin')
+        }
+      }else{
+        setRole('client')
+      }
+    }else{
+      setRole('public')
+    }
+  },[user, isSignedIn])
 
 
   return (
@@ -65,7 +66,7 @@ function App() {
               <Route path="details/:id" element={<ProductCardsView/>}/>
             </Route>
 
-            <Route path="/Organizer">
+            <Route path="/Organizers">
               <Route index element={<User/>}/>
               <Route path="details/:id" element={<OrganizerCardsView/>}/>
             </Route>
@@ -74,6 +75,7 @@ function App() {
           {/* ruta para cliente */}
           <Route element={<ProtectedRoute role={role.includes('client')} redirectTo={'/admin/Dashboard'}/>}>
             <Route path="/becomeAnOrganizer" element={<CreateOrganizer/>}/>
+            <Route path="/Requests" element={<Requests/>}/>
           </Route>
 
           {/*<Route path="/FormsEvent" element={<FormsEvent />} /> */}
