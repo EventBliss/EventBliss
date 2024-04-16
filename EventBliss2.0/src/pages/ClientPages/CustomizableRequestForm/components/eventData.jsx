@@ -82,7 +82,6 @@ export function EventData({ register, control, handleDate, Controller, typeEvent
         <Controller
           name="eventType"
           control={control}
-          defaultValue="1" // Valor por defecto del select
           render={({ field }) => (
             <Select {...field}>
               {typeEvent && typeEvent?.map((item, index)=>(

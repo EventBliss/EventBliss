@@ -67,12 +67,11 @@ export function Layout() {
                             </div>
                             <div className="hidden md:flex items-center justify-center flex-1">
                                 {navBarRoutes.map((items, index)=>(
-                                    <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium" key={index}>
-                                        {items.path && items.role.includes(role) ? 
-                                        (<Link to={items.path} id='btn-layout' onClick={scrollTop}>{items.title}</Link>) 
-                                        : 
-                                        null}
-                                    </div>     
+                                    items.path && items.role.includes(role) && (
+                                        <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium" key={index}>                                    
+                                            <Link to={items.path} id='btn-layout' onClick={scrollTop}>{items.title}</Link>  
+                                        </div>
+                                    )
                                 ))}
                             </div>
                             <div className="flex items-center">

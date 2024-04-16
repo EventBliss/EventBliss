@@ -52,7 +52,7 @@ export function OrganizerCardsView() {
                 backgroundImage: 'url("https://cdn.pixabay.com/photo/2020/10/29/13/34/table-5696243_1280.jpg")',
             }}></div>
 
-      <Link to="/Organizers">
+      <Link to="/Organizer">
         <button className="absolute z-20 top-[80px] left-4 bg-zinc-100 lg:left-12 text-black w-32 p-2 flex items-center justify-center rounded-lg shadow hover:bg-zinc-400 focus:shadow-outline focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"

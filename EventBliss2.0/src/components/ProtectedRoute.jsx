@@ -6,8 +6,7 @@ export function ProtectedRoute({ role, children, redirectTo, redirect }) {
   const navigate = useNavigate();
 
   if (!isSignedIn && redirect) {
-    navigate('/Login');
-    return null; 
+    navigate('/Login'); 
   }
 
   if (isSignedIn && !role) {
