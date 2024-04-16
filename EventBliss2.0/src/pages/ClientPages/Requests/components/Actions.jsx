@@ -1,17 +1,25 @@
-import { Link } from "react-router-dom"
 import { Button } from "@tremor/react"
 
-export function Actions() {
+export function Actions({ status }) {
+  // Verificar si el estado es "in progress" o "denied"
+  const showCancelButton = status === "In progress" || status === "Denied";
+
   return (
     <div>
-      <Link>
+
+      {showCancelButton && (
         <Button 
-        variant="primary"
-        color="red">
+          variant="primary"
+          color="red"
+        >
           Cancelar
         </Button>
-      </Link>
+      )}
+
+      {!showCancelButton && (
+        <h3>None</h3>
+      )}
 
     </div>
-  )
+  );
 }
