@@ -1,10 +1,13 @@
 import { Card } from "@tremor/react";
 import { RequestsGraph } from "./components/RequestsGraph";
+import { useOrganizerData } from "../../../components/api/organizer/get";
 
-export function Index(){
+export function Dashboard(){
     return(
-        <div>
-            <Card className="mx-auto pt-40">
+
+        <div className="">
+            <div className="bg-white w-full h-full absolute inset-0"></div>
+            <Card className="mx-auto mb-10">
                 <RequestsGraph/>
             </Card>
         </div>

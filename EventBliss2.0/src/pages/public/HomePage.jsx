@@ -17,7 +17,6 @@ export function HomePage() {
     };
     
   }, []);
-  console.log(scrollPosition)
 
   useEffect(() => {
     const textContainer = document.getElementById("text-container");
@@ -35,9 +34,6 @@ export function HomePage() {
   const Validation = () => {
     setValidation(!validation)
   }
-
-  console.log(validation)
-
 
   return (
     <div>

@@ -102,7 +102,7 @@ export function Products() {
             <div className="container mx-auto py-8">
                 <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-2 md:gap-16 gap-16 xl:grid-cols-3 mx-6'>
                     {filterEvents(selectedCategory).map((event) => (
-                        <Link to={`/Products/${event.id}`} key={event.id}>
+                        <Link to={`details/${event.id}`} key={event.id}>
                             <div className="card w-96 h-[550px] bg-base-100 shadow-xl">
                                 <figure ><img className='h-52 w-full' src={event.image} alt={event.name} /></figure>
                                 <div className="card-body">
@@ -123,6 +123,5 @@ export function Products() {
                     ))}
                 </div>
             </div>
-        </div>
-    );
+       </div>);
 }

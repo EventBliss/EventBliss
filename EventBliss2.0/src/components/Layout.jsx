@@ -1,16 +1,67 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import '../assets/css/Layout.css';
 import favicon from "/favicon-wh.png"
-import { SignedIn, SignedOut, UserButton, SignOutButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, UserButton, SignOutButton, useUser } from "@clerk/clerk-react";
 
 export function Layout() {
     const [isOpen, setIsOpen] = useState(false);
+    const { user, isSignedIn } = useUser()
+    const [role, setRole] = useState('public')
+
+    useEffect(()=>{
+      if(user && isSignedIn){
+        if(user.organizationMemberships.length > 0){
+          if(user.organizationMemberships[0].role === 'org:admin'){
+            setRole('admin')
+          }
+        }else{
+          setRole('client')
+        }
+      }else{
+        setRole('public')
+      }
+    },[user, isSignedIn])
 
     const scrollTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    const navBarRoutes = [
+        {
+            title: "Home",
+            path: "/",
+            role: ["public"]
+        },
+        {
+            title: "Organizers",
+            path: "/Organizers",
+            role: ["public", "client"]
+        },
+        {
+            title: "Products",
+            path: "/Products",
+            role: ["public", "client"]
+        },
+        
+        {
+            title: "About us",
+            path: "/AboutUs",
+            role: ["public"]
+        },
+        {
+            title: "Contact",
+            path: "/Contact",
+            role: ["public"]
+        }, 
+        {
+            title: "Requests",
+            path: "/Requests",
+            role: ["client"]
+        },
+
+    ]
 
     return (
         <div>
@@ -22,21 +73,14 @@ export function Layout() {
                                 <img src={favicon} id='btn-layout' className='w-10' alt="" />
                             </div>
                             <div className="hidden md:flex items-center justify-center flex-1">
-                                <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/" id='btn-layout' onClick={scrollTop}>Home</Link>
-                                </div>
-                                <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/Events" id='btn-layout' onClick={scrollTop}>Events</Link>
-                                </div>
-                                <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/Products" id='btn-layout' onClick={scrollTop}>Products</Link>
-                                </div>
-                                <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/AboutUs" id='btn-layout' onClick={scrollTop}>About us</Link>
-                                </div>
-                                <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/Contact" id='btn-layout' onClick={scrollTop}>Contact</Link>
-                                </div>
+                                {navBarRoutes.map((items, index)=>(
+                                    <div className="text-white hover:text-white px-4 py-2 rounded-md text-sm font-medium" key={index}>
+                                        {items.path && items.role.includes(role) ? 
+                                        (<Link to={items.path} id='btn-layout' onClick={scrollTop}>{items.title}</Link>) 
+                                        : 
+                                        null}
+                                    </div>     
+                                ))}
                             </div>
                             <div className="flex items-center">
                                 <button onClick={() => setIsOpen(!isOpen)} className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 md:hidden">
@@ -76,21 +120,14 @@ export function Layout() {
                     </div>
                     <div className={`md:hidden overflow-hidden ${isOpen ? 'max-h-screen transition-all duration-[1.2s] ease-in-out' : 'max-h-0 transition-all duration-[1s] ease-out'}`}>
                         <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3">
-                            <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 ">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Home</Link>
-                            </div>
-                            <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/Events" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Event</Link>
-                            </div>
-                            <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Products</Link>
-                            </div>
-                            <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="AboutUs" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>About us</Link>
-                            </div>
-                            <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
-                            <Link to="/Contact" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>Contact</Link>
-                            </div>
+                            {navBarRoutes.map((items, index)=>(
+                                    <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4" key={index}>
+                                        {items.path && items.role.includes(role) ? 
+                                        (<Link to={items.path} id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>{items.title}</Link>) 
+                                        : 
+                                        null}
+                                    </div>     
+                            ))}
                             <SignedOut>
                                 <div className="text-white hover:text-white rounded-md text-sm font-medium px-3 pt-4">
                                     <Link to="/SignUpClient" id='btn-layout' className="text-white hover:text-white py-2 rounded-md text-base" onClick={scrollTop}>
