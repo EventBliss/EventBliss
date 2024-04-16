@@ -35,8 +35,8 @@ export function Layout() {
             role: ["public"]
         },
         {
-            title: "Events",
-            path: "/Organizer",
+            title: "Organizers",
+            path: "/Organizers",
             role: ["public", "client"]
         },
         {
@@ -44,6 +44,7 @@ export function Layout() {
             path: "/Products",
             role: ["public", "client"]
         },
+        
         {
             title: "About us",
             path: "/AboutUs",
@@ -53,7 +54,13 @@ export function Layout() {
             title: "Contact",
             path: "/Contact",
             role: ["public"]
+        }, 
+        {
+            title: "Requests",
+            path: "/Requests",
+            role: ["client"]
         },
+
     ]
 
     return (

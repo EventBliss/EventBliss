@@ -3,8 +3,6 @@ import { RequestsGraph } from "./components/RequestsGraph";
 import { useOrganizerData } from "../../../components/api/organizer/get";
 
 export function Dashboard(){
-    const data = useOrganizerData('christalperez0@gmail.com')
-    console.log(data)
     return(
 
         <div className="">

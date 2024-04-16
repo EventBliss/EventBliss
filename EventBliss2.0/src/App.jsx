@@ -7,8 +7,12 @@ import { HomePage } from "./pages/public/HomePage";
 import { Contact } from "./pages/public/Contact";
 import { AboutUs } from "./pages/public/AboutUs";
 import { Products } from "./pages/products/Products";
+import { ProductCardsView } from "./pages/products/ProductCardsView";
+import { FormsEvent } from "./pages/FormsEvent"
 // import { ProductCardsModal } from "./pages/products/ProductCardsModal";
 import { User } from "./pages/ClientPages/user";
+import { OrganizerCardsView } from "./pages/ClientPages/components/OrganizerCardsView";
+import { Requests } from "./pages/ClientPages/Requests"
 import { Events } from "./pages/public/Events";
 import { LogIn } from "./pages/public/LogIn";
 import { SignUpClient } from "./pages/public/SignUpClient";
@@ -19,24 +23,26 @@ import { SideBar } from "./pages/organizer/SideBarOrganizer";
 import { Admin } from "./components/admin";
 import { Dashboard } from "./pages/organizer/Dashboard";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
+import { Actions } from "./pages/organizer/TableProducts/components/Actions";
+import { CustomizableRequestForm } from "./pages/ClientPages/CustomizableRequestForm";
 
 function App() {
   const { user, isSignedIn } = useUser()
   const [role, setRole] = useState('public')
 
-  // useEffect(()=>{
-  //   if(user && isSignedIn){
-  //     if(user.organizationMemberships.length > 0){
-  //       if(user.organizationMemberships[0].role === 'org:admin'){
-  //         setRole('admin')
-  //       }
-  //     }else{
-  //       setRole('client')
-  //     }
-  //   }else{
-  //     setRole('public')
-  //   }
-  // },[user, isSignedIn])
+  useEffect(()=>{
+    if(user && isSignedIn){
+      if(user.organizationMemberships.length > 0){
+        if(user.organizationMemberships[0].role === 'org:admin'){
+          setRole('admin')
+        }
+      }else{
+        setRole('client')
+      }
+    }else{
+      setRole('public')
+    }
+  },[user, isSignedIn])
 
 
   return (
@@ -55,16 +61,21 @@ function App() {
 
           {/* rutas compartidas entre el publico y el cliente */}
           <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
-            <Route path="/Products" element={<Products/>}/>
-            {/* <Route path="/Products/:id" element={<ProductCardsModal/>}/> */}
-            <Route path="/Organizer" element={<User/>}/>
-            <Route path="/Organizer/:id" />
-            <Route path="/Events" element={<Events/>}/>
+            <Route path="/Products" >
+              <Route index element={<Products/>}/>
+              <Route path="details/:id" element={<ProductCardsView/>}/>
+            </Route>
+
+            <Route path="/Organizers">
+              <Route index element={<User/>}/>
+              <Route path="details/:id" element={<OrganizerCardsView/>}/>
+            </Route>
           </Route>
 
           {/* ruta para cliente */}
           <Route element={<ProtectedRoute role={role.includes('client')} redirectTo={'/admin/Dashboard'}/>}>
             <Route path="/becomeAnOrganizer" element={<CreateOrganizer/>}/>
+            <Route path="/Requests" element={<Requests/>}/>
           </Route>
 
           {/*<Route path="/FormsEvent" element={<FormsEvent />} /> */}
@@ -74,11 +85,14 @@ function App() {
         <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizer'} redirect={true}/>}>
           <Route path="/admin" element={<SideBar/>}>
               <Route path="Dashboard" element={<Dashboard/>}/>
-              <Route path="TableProducts" element={<TableProducts/>}/>
-              {/* <Route path="EditEvent:id" element={<CreateEvent/>}/> */}
+              <Route path="TableProducts">
+                <Route index element={<TableProducts/>}/>
+                <Route path="EditEvent/:id" element={<FormsEvent/>}/>
+              </Route>
           </Route>
         </Route>
 
+        <Route path="/CustomizableRequestForm" element={<CustomizableRequestForm/>} />
       </Routes>
     </BrowserRouter>
   );

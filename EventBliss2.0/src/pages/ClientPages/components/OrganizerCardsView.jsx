@@ -39,7 +39,7 @@ export function OrganizerCardsView() {
 
   useEffect(() => {
     if(isSignedIn && user){
-      setPath('/')
+      setPath('/CustomizableRequestForm')
     } else {
       setPath("/login")
     }
@@ -94,16 +94,16 @@ export function OrganizerCardsView() {
             <h3 className="text-center py-2 font-bold text-3xl tracking-tight wrap text-zinc-100 lg:text-left">
               Type of events
             </h3>
-            <div className="flex justify-center lg:justify-start">
+            <ul className="flex justify-center lg:justify-start flex-col md:list-disc md:list-inside">
               {organizerCategories.map((category) => (
-                <div
+                <li
                   key={category.id}
-                  className="text-xl font-semibold hover:text-[#FD8B11] pr-2"
+                  className="text-xl font-semibold hover:text-[#FD8B11] pr-2 sm:text-2xl"
                 >
-                  {category.name}
-                </div>
+                  {category.name},
+                </li>
               ))}
-            </div>
+            </ul>
 
             {selectedOrganizer.location &&(
               <div className="flex justify-center items-center pt-4 text-xl lg:justify-start lg:text-2xl">

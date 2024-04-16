@@ -8,6 +8,7 @@ import {
 import { Icon } from "@tremor/react";
 import { sideBarRoutes } from './components/SideBarRoute';
 import favicon from "/favicon-bl.png"
+import { SignOutButton } from "@clerk/clerk-react";
 
 export function SideBar() {
   const [asideOpen, setAsideOpen] = useState(true);
@@ -20,10 +21,13 @@ export function SideBar() {
     }));
   };
 
+  console.log(openDropdowns.Requests)
+
   return (
     <div>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
+          <SignOutButton/>
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end ">
               <button
@@ -103,7 +107,7 @@ export function SideBar() {
                             ? RiArrowUpSLine
                             : RiArrowDownSLine
                         }
-                        className="text-white group-hover:text-gray-900 ml-[-10px]"
+                        className={`text-white group-hover:text-gray-900 ${asideOpen ? 'ml-0' : 'ml-[-10px]'}`}
                       />
                     </div>
                   

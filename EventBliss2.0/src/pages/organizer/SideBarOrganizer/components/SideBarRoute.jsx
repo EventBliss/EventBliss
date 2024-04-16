@@ -3,13 +3,14 @@ import {
   RiTodoLine,
   RiTimeLine,
   RiCheckLine,
+  RiTableView,
 } from "@remixicon/react";
 
 export const sideBarRoutes = [
   {
     id: "Dashboard",
     title: "Dashboard",
-    path: "/dashboard",
+    path: "dashboard",
     icon: RiDashboardLine
   },
   {
@@ -20,22 +21,23 @@ export const sideBarRoutes = [
       {
         id: "Pending",
         title: "Pendientes",
-        path: "/pending",
+        path: "pending",
         icon: RiTimeLine
       },
       {
         id: "Finished",
         title: "Finalizadas",
-        path: "/finished",
+        path: "finished",
         icon: RiCheckLine
       },
     ],
 
-  },{
+  },
+  {
     id: "TableProducts",
     title: "TableProducts",
-    path: "/tableProducts",
-    icon: RiDashboardLine
+    path: "tableProducts",
+    icon: RiTableView
   },
 
 ];
