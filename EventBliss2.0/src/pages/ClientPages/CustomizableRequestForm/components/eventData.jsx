@@ -4,6 +4,7 @@ import {
   Select,
   SelectItem,
   Textarea,
+  NumberInput
 } from "@tremor/react";
 import { TextInputComp } from "../../../../components/TextInput";
 import { useEffect, useState } from "react";
@@ -89,13 +90,18 @@ export function EventData({ register, control, handleDate, Controller,organizer 
 
 
       {/* cantidad de personas que asistiran */}
-      <TextInputComp
-        label={"Amount of people *"}
-        name={"amount_people"}
-        placeholder={"Amount of people"}
-        register={register}
-        type={'number'}
-      />
+      <div className="w-full px-3 mb-6">
+          <label
+            className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+          >
+            Amount of people *
+          </label>
+          <NumberInput 
+          className="mx-auto max-w-sm" 
+          min={1}
+          {...register("amount_people", { required: true })} 
+          />;
+        </div>
 
       {/* descripcion del evento */}
       
@@ -105,13 +111,19 @@ export function EventData({ register, control, handleDate, Controller,organizer 
         </label>
         <Textarea placeholder="Type here..." className="mx-auto max-w-xs" {...register("description", { required: true })}/>
       </div>
-      <TextInputComp
-        label={"Stimated Price *"}
-        name={"stimated_price"}
-        placeholder={"How much can you pay? US$"}
-        register={register}
-        type={'number'}
-      />
+
+      <div className="w-full px-3 mb-6">
+          <label
+            className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+          >
+            Stimated Price *
+          </label>
+          <NumberInput 
+          className="mx-auto max-w-sm" 
+          min={1}
+          {...register("stimated_price", { required: true })} 
+          />;
+        </div>
     </div>
   );
 }
