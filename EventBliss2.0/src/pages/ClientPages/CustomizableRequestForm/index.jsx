@@ -4,11 +4,12 @@ import { InputData } from "./components/InputData";
 import { EventData } from "./components/eventData";
 import { format } from "@formkit/tempo"
 import { ConditionsTerms } from "./components/ConditionsTerms";
-import { useUser } from "@clerk/clerk-react";
-import { CreateCustomEvent } from "../../../components/api/customEvents/post";
-export function CustomizableRequestForm() {
+
+
+// eslint-disable-next-line react/prop-types
+export function CustomizableRequestForm({ orgEmail, typeEvent }) {
   const { handleSubmit, register, control, setValue } = useForm();
- const user = useUser()
+
   async function onSubmit(data) {
     
     CreateCustomEvent(data,)
@@ -34,7 +35,7 @@ export function CustomizableRequestForm() {
             <InputData register={register}/>
 
             {/* Datos de los detalles del evento */}
-            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller}/>
+            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller} typeEvent={typeEvent}/>
 
             {/* Condiciones y terminos del evento */}
             <ConditionsTerms/>

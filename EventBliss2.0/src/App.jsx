@@ -20,10 +20,8 @@ import { CreateOrganizer } from "./pages/CreateOrganizer";
 
 // importaciones del role de admin
 import { SideBar } from "./pages/organizer/SideBarOrganizer";
-import { Admin } from "./components/admin";
 import { Dashboard } from "./pages/organizer/Dashboard";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
-import { Actions } from "./pages/organizer/TableProducts/components/Actions";
 import { CustomizableRequestForm } from "./pages/ClientPages/CustomizableRequestForm";
 
 function App() {
