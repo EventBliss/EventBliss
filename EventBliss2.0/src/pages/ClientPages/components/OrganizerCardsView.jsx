@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useListCategory } from "../../../components/api/category/get";
+import { useState } from "react";
+import { Link,  useParams } from "react-router-dom";
 import { useListOrganizers } from "../../../components/api/organizer/get";
 import { useUser } from "@clerk/clerk-react";
 import { ModalComponents } from "../../../components/Modal";
@@ -8,43 +7,14 @@ import { CustomizableRequestForm } from "../CustomizableRequestForm";
 
 export function OrganizerCardsView() {
   const { isSignedIn, user } = useUser()
-  const { id } = useParams();
-  const parsedID = parseInt(id);
   const { data: organizerData } = useListOrganizers();
-  const [selectedOrganizer, setSelectedOrganizer] = useState({});
-  const { data: categoryData } = useListCategory();
-  const [organizerCategories, setOrganizerCategories] = useState([]);
+  const { id } = useParams();
   const [path, setPath] = useState("")
-  const [categories, setCategories] = useState([])
 
-  useEffect(() => {
-    if(organizerCategories){
-      setCategories(organizerCategories.map((item)=>{
-        return item.name
-      })) 
-    }
-  },[organizerCategories])
+  var organizer = organizerData && organizerData.filter(organizer => organizer.id == id);
+  organizer = organizer[0]
 
-  useEffect(() => {
-    if (organizerData) {
-      const organizer = organizerData.find(
-        (organizer) => organizer.id === parsedID
-      );
-      setSelectedOrganizer(organizer);
-    }
-  }, [organizerData, parsedID]);
-
-  useEffect(() => {
-    if (categoryData && selectedOrganizer.event_types) {
-      // Filtrar las categorías para obtener solo las correspondientes a los IDs de event_types
-      const filteredCategories = categoryData.filter((category) => {
-        return selectedOrganizer.event_types.includes(category.id);
-      });
-      setOrganizerCategories(filteredCategories);
-    }
-  }, [categoryData, selectedOrganizer.event_types]);
-
-  if (!selectedOrganizer) {
+  if (!organizer) {
     console.log("No se encontró el organizador");
   }
 
@@ -79,55 +49,56 @@ export function OrganizerCardsView() {
           {/* Imagen del organizador */}
           <div className="w-full h-full lg:mb-0">
             <img
-              src={selectedOrganizer.profile_photo}
-              alt={selectedOrganizer.name}
+              src={organizer.profile_photo}
+              alt={organizer.name}
               className="w-full object-cover h-full rounded-lg shadow-lg dark:shadow-black/20"
             />
           </div>
           {/* Información del organizador */}
           <div className="lg:mt-0 text-white p-10">
             <h1 className=" mb-2 text-3xl font-bold tracking-tight text-white md:text-6xl xl:text-5xl">
-              {selectedOrganizer.name}
+              {organizer.name}
             </h1>
             <h2 className="font-semibold text-2xl md:text-4xl text-[#FD8B11] py-2 italic">
-              {selectedOrganizer.email}
+              {organizer.email}
             </h2>
-            <p className="text-lg">{selectedOrganizer.cover_letter}</p>
+            <p className="text-lg">{organizer.cover_letter}</p>
             <h3 className="text-center py-2 font-bold text-3xl tracking-tight wrap text-zinc-100 lg:text-left">
               Type of events
             </h3>
             <ul className="flex justify-center lg:justify-start flex-col md:list-disc md:list-inside">
-              {organizerCategories.map((category) => (
+              {organizer && organizer.category_names.map((category) => (
                 <li
-                  key={category.id}
+                  key={category}
                   className="text-xl font-semibold hover:text-[#FD8B11] pr-2 sm:text-2xl"
                 >
-                  {category.name}
+                  {category}
                 </li>
               ))}
+ 
             </ul>
 
-            {selectedOrganizer.location &&(
+            {organizer.location &&(
               <div className="flex justify-center items-center pt-4 text-xl lg:justify-start lg:text-2xl">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
               </svg>
 
-              <p className="pl-2">{selectedOrganizer.location}</p>
+              <p className="pl-2">{organizer.location}</p>
 
               
             </div>
             )}   
             
             <p className="text-3xl text-center py-4 font-bold tracking-tight text-neutral-300 lg:text-2xl lg:text-left">
-                +1 {selectedOrganizer.phone}
+                +1 {organizer.phone}
               </p>
 
 
             <div className="mt-3 flex gap-4 justify-center lg:justify-start items-center text-gray-400 pb-4">
-              {selectedOrganizer.linkedin && (
-                <Link to={selectedOrganizer.linkedin}>
+              {organizer.linkedin && (
+                <Link to={organizer.linkedin}>
                   <svg
                     className="w-10 h-10 duration-150 hover:text-gray-500"
                     fill="none"
@@ -148,8 +119,8 @@ export function OrganizerCardsView() {
                 </Link>
               )}
 
-              {selectedOrganizer.instagram && (
-                <Link to={selectedOrganizer.instagram}>
+              {organizer.instagram && (
+                <Link to={organizer.instagram}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -164,8 +135,8 @@ export function OrganizerCardsView() {
                 </Link>
               )}
 
-              {selectedOrganizer.other && (
-                <Link to={selectedOrganizer.other}>
+              {organizer.other && (
+                <Link to={organizer.other}>
                   <svg
                     className="w-5 h-5 duration-150 hover:text-gray-500"
                     fill="none"
@@ -187,7 +158,7 @@ export function OrganizerCardsView() {
               )}
             </div>
 
-            <ModalComponents name={'Book now'} className={"grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold px-6 rounded-lg"} date={<CustomizableRequestForm orgEmail={selectedOrganizer.email} typeEvent={categories}/>}/>
+            <ModalComponents name={'Book now'} className={"grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold px-6 rounded-lg"} date={<CustomizableRequestForm orgEmail={organizer.email}/>}/>
 
           </div>
         </div>

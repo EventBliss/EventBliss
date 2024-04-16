@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   DatePicker,
   Select,
@@ -6,13 +7,12 @@ import {
 } from "@tremor/react";
 import { TextInputComp } from "../../../../components/TextInput";
 import { useEffect, useState } from "react";
-import { useListCategory } from "../../../../components/api/category/get";
 
 // eslint-disable-next-line react/prop-types
-export function EventData({ register, control, handleDate, Controller }) {
+export function EventData({ register, control, handleDate, Controller,organizer }) {
   const [day, setDay] = useState();
-  const {data:typeEvent} = useListCategory()
-
+  const {category_names} = organizer[0]
+  console.log(category_names)
   useEffect(() => {
     const date = new Date();
     const tomorrow = new Date(date);
@@ -75,12 +75,11 @@ export function EventData({ register, control, handleDate, Controller }) {
         <Controller
           name="eventType"
           control={control}
-          defaultValue="1"
           render={({ field }) => (
             <Select {...field}>
-              {typeEvent && typeEvent.map((type) => (
-                <SelectItem value={type.id} key={type.id}>
-                  {type.name}
+              {category_names && category_names.map((category,index) => (
+                <SelectItem value={index + 1} key={index}>
+                  {category}
                 </SelectItem>
               ))}
             </Select>

@@ -4,16 +4,39 @@ import { InputData } from "./components/InputData";
 import { EventData } from "./components/eventData";
 import { format } from "@formkit/tempo"
 import { ConditionsTerms } from "./components/ConditionsTerms";
-
+import { useUser } from "@clerk/clerk-react";
+import { CreateCustomEvent } from "../../../components/api/customEvents/post";
+import { useListClients } from "../../../components/api/client";
+import { useListOrganizers } from "../../../components/api/organizer/get";
+import { useState } from "react";
+import Swal from 'sweetalert2';
 
 // eslint-disable-next-line react/prop-types
-export function CustomizableRequestForm({ orgEmail, typeEvent }) {
-  const { handleSubmit, register, control, setValue } = useForm();
+export function CustomizableRequestForm({ orgEmail }) {
+  const { handleSubmit, register, control, setValue,reset } = useForm();
+  const {data:organizers} = useListOrganizers()
+  const {data:clients} = useListClients()
+  const [, setShowAlert] = useState(false);
 
-  async function onSubmit(data) {
-    
-    CreateCustomEvent(data,)
-    console.log(data);
+  const organizer = organizers && organizers.filter((organizer => organizer.email == orgEmail))
+
+  const user = useUser()
+
+  function onSubmit(data) {
+    console.log(data)
+    const clientEmail = user.user.emailAddresses[0].emailAddress;
+    CreateCustomEvent(data,orgEmail,clientEmail,clients,organizers)
+    reset()
+    setShowAlert(true);  
+    Swal.fire({
+      title: 'Request Sended!',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 2000
+    });
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2500);
   }
   const handleDatePickerChange = (date) => {
     const fechaDate = new Date(date);
@@ -35,7 +58,7 @@ export function CustomizableRequestForm({ orgEmail, typeEvent }) {
             <InputData register={register}/>
 
             {/* Datos de los detalles del evento */}
-            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller} typeEvent={typeEvent}/>
+            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller} organizer={organizer}/>
 
             {/* Condiciones y terminos del evento */}
             <ConditionsTerms/>
