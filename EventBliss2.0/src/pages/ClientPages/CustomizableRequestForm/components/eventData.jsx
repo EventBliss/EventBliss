@@ -1,17 +1,18 @@
+/* eslint-disable react/prop-types */
 import {
   DatePicker,
-  NumberInput,
   Select,
   SelectItem,
-  TextInput,
   Textarea,
 } from "@tremor/react";
+import { TextInputComp } from "../../../../components/TextInput";
 import { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-export function EventData({ register, control, handleDate, Controller, typeEvent }) {
+export function EventData({ register, control, handleDate, Controller,organizer }) {
   const [day, setDay] = useState();
-
+  const {category_names} = organizer[0]
+  console.log(category_names)
   useEffect(() => {
     const date = new Date();
     const tomorrow = new Date(date);
@@ -21,58 +22,50 @@ export function EventData({ register, control, handleDate, Controller, typeEvent
 
   return (
     <div>
-      {/* dia del evento */}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Event day
-        </label>
-        <DatePicker
-          control={control}
-          minDate={day}
-          required
-          onValueChange={handleDate}
-        />
-      </div>
-
       {/* lugar del evento */}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Place of the event
-        </label>
-        <TextInput
-          type={"location"}
-          control={control}
-          placeholder={"e.g., City, State"}
-          required
-          {...register("location", { required: true })}
+        <TextInputComp
+        label={"Location *"}
+        name={"location"}
+        placeholder={"location"}
+        register={register}
+      />
+      <div style={{'width': '50%','display': "flex"}}>
+        {/* dia del evento */}
+        <div>
+          <label className="block text-sm text-gray-700 font-bold mb-2">
+            Event day
+          </label>
+          <DatePicker
+            minDate={day}
+            required
+            onValueChange={handleDate}
+            {...register("date",{required: true})}
+          />
+        </div>
+
+
+        {/* Hora de inicio de evento*/}
+
+        <TextInputComp
+          label={"Start time *"}
+          name={"start_time"}
+          placeholder={"Start time"}
+          register={register}
+          type={'time'}
+          
+        />
+
+        {/* Hora de finalizacion del evento*/}
+
+        <TextInputComp
+          label={"End time *"}
+          name={"end_time"}
+          placeholder={"End time"}
+          register={register}
+          type={'time'}
         />
       </div>
 
-      {/* Hora de inicio de evento*/}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Start time
-        </label>
-        <TextInput
-          type={"time"}
-          control={control}
-          required
-          {...register("start_time", { required: true })}
-        />
-      </div>
-
-      {/* Hora de finalizacion del evento*/}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          End time
-        </label>
-        <TextInput
-          type={"time"}
-          control={control}
-          required
-          {...register("end_time", { required: true })}
-        />
-      </div>
 
       {/* tipo de evento */}
       <div>
@@ -84,33 +77,41 @@ export function EventData({ register, control, handleDate, Controller, typeEvent
           control={control}
           render={({ field }) => (
             <Select {...field}>
-              {typeEvent && typeEvent?.map((item, index)=>(
-                <SelectItem value={item} key={index}>{item}</SelectItem>
+              {category_names && category_names.map((category,index) => (
+                <SelectItem value={index + 1} key={index}>
+                  {category}
+                </SelectItem>
               ))}
             </Select>
           )}
         />
       </div>
 
+
       {/* cantidad de personas que asistiran */}
-      <div>
-        <label className="block text-sm text-gray-700 font-bold mb-2">
-          Amount of people
-        </label>
-        <NumberInput
-          placeholder={"e.g., 10"}
-          className="mx-auto max-w-sm"
-          {...register("amount_people", { required: true })}
-        />
-      </div>
+      <TextInputComp
+        label={"Amount of people *"}
+        name={"amount_people"}
+        placeholder={"Amount of people"}
+        register={register}
+        type={'number'}
+      />
 
       {/* descripcion del evento */}
+      
       <div>
         <label className="block text-sm text-gray-700 font-bold mb-2">
-          Amount of people
+          Description
         </label>
-        <Textarea placeholder="Type here..." className="mx-auto max-w-xs" {...register("description_event", { required: true })}/>
+        <Textarea placeholder="Type here..." className="mx-auto max-w-xs" {...register("description", { required: true })}/>
       </div>
+      <TextInputComp
+        label={"Stimated Price *"}
+        name={"stimated_price"}
+        placeholder={"How much can you pay? US$"}
+        register={register}
+        type={'number'}
+      />
     </div>
   );
 }

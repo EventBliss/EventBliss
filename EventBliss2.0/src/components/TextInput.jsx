@@ -15,6 +15,8 @@ export function TextInputComp({ name, label, placeholder, type, register,disable
         disabled={disabled ? true: false}
         placeholder={placeholder}
         {...register(name, { required: type == 'url' ? false : true })} // Pass register function with the field name and validation rules
+        
+
       />
     </div>
   );
