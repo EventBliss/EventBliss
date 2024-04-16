@@ -20,7 +20,6 @@ import { CreateOrganizer } from "./pages/CreateOrganizer";
 
 // importaciones del role de admin
 import { SideBar } from "./pages/organizer/SideBarOrganizer";
-import { Admin } from "./components/admin";
 import { Dashboard } from "./pages/organizer/Dashboard";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
 import { Actions } from "./pages/organizer/TableProducts/components/Actions";
@@ -30,19 +29,19 @@ function App() {
   const { user, isSignedIn } = useUser()
   const [role, setRole] = useState('public')
 
-  useEffect(()=>{
-    if(user && isSignedIn){
-      if(user.organizationMemberships.length > 0){
-        if(user.organizationMemberships[0].role === 'org:admin'){
-          setRole('admin')
-        }
-      }else{
-        setRole('client')
-      }
-    }else{
-      setRole('public')
-    }
-  },[user, isSignedIn])
+  // useEffect(()=>{
+  //   if(user && isSignedIn){
+  //     if(user.organizationMemberships.length > 0){
+  //       if(user.organizationMemberships[0].role === 'org:admin'){
+  //         setRole('admin')
+  //       }
+  //     }else{
+  //       setRole('client')
+  //     }
+  //   }else{
+  //     setRole('public')
+  //   }
+  // },[user, isSignedIn])
 
 
   return (

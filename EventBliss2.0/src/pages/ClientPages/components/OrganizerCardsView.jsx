@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { useListCategory } from "../../../components/api/category/get";
 import { useListOrganizers } from "../../../components/api/organizer/get";
 import { useUser } from "@clerk/clerk-react";
+import { ModalComponents } from "../../../components/Modal";
+import { CustomizableRequestForm } from "../CustomizableRequestForm";
 
 export function OrganizerCardsView() {
   const { isSignedIn, user } = useUser()
@@ -13,6 +15,15 @@ export function OrganizerCardsView() {
   const { data: categoryData } = useListCategory();
   const [organizerCategories, setOrganizerCategories] = useState([]);
   const [path, setPath] = useState("")
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    if(organizerCategories){
+      setCategories(organizerCategories.map((item)=>{
+        return item.name
+      })) 
+    }
+  },[organizerCategories])
 
   useEffect(() => {
     if (organizerData) {
@@ -36,15 +47,6 @@ export function OrganizerCardsView() {
   if (!selectedOrganizer) {
     console.log("No se encontró el organizador");
   }
-
-  useEffect(() => {
-    if(isSignedIn && user){
-      setPath('/CustomizableRequestForm')
-    } else {
-      setPath("/login")
-    }
-  }, [isSignedIn, user]);
-  
 
   return (
     <div className=" px-6 py-12 text-center md:px-12 lg:text-left relative">
@@ -185,11 +187,8 @@ export function OrganizerCardsView() {
               )}
             </div>
 
-            <Link to={path}>
-              <button className="grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded-lg">
-                <span className="text-xl">Book now</span>
-              </button>
-            </Link>
+            <ModalComponents name={'Book now'} className={"grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold px-6 rounded-lg"} date={<CustomizableRequestForm typeEvent={categories}/>}/>
+
           </div>
         </div>
       </div>

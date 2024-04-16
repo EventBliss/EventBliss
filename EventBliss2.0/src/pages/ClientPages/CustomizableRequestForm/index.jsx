@@ -1,17 +1,14 @@
 /* eslint-disable react/no-unknown-property */
 import { useForm, Controller } from "react-hook-form";
-import { TextInputComp } from "../../../components/TextInput";
-import { DatePicker, TextInput } from "@tremor/react";
 import { InputData } from "./components/InputData";
 import { EventData } from "./components/eventData";
 import { format } from "@formkit/tempo"
 import { ConditionsTerms } from "./components/ConditionsTerms";
 
 
+// eslint-disable-next-line react/prop-types
 export function CustomizableRequestForm({ typeEvent }) {
   const { handleSubmit, register, control, setValue } = useForm();
-
-  const tiposEventos = ["Cumpleaños", "Boda", "Conferencia", "Concierto", "Festival"];
 
   async function onSubmit(data) {
     console.log(data);
@@ -36,7 +33,7 @@ export function CustomizableRequestForm({ typeEvent }) {
             <InputData register={register} control={control}/>
 
             {/* Datos de los detalles del evento */}
-            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller} typeEvent={tiposEventos}/>
+            <EventData register={register} control={control} handleDate={handleDatePickerChange} Controller={Controller} typeEvent={typeEvent}/>
 
             {/* Condiciones y terminos del evento */}
             <ConditionsTerms/>
