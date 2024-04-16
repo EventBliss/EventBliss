@@ -1,5 +1,5 @@
 import { TextInputComp } from "../../../../components/TextInput";
-// eslint-disable-next-line react/prop-types
+import { NumberInput } from '@tremor/react';// eslint-disable-next-line react/prop-types
 export function InputData({ register }) {
   return (
     <div>
@@ -24,15 +24,19 @@ export function InputData({ register }) {
         />
 
       {/* Numero de telefono */}
+        <div className="w-full px-3 mb-6">
+          <label
+            className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+          >
+            Phone Number *
+          </label>
+          <NumberInput 
+          className="mx-auto max-w-sm" 
+          min={1}
+          {...register("phone_number", { required: true })} 
+          />;
+        </div>
 
-        <TextInputComp
-          type={"number"}
-          name={"phone_number"}
-          placeholder={"Phone number"}
-          label={"Phone Number *"}
-          register={register}
-
-        />
 
       {/* Nombre del evento */}
 
