@@ -22,7 +22,7 @@ export function TableRequestsProducts() {
                 location: item.event_location,
                 organizer: item.organizer_name,
                 status: item.status,
-                action: <Actions/>
+                action: <Actions status={item.status}/>
                 
                 
             })));

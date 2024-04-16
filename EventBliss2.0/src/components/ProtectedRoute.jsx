@@ -23,7 +23,7 @@ export function ProtectedRoutePublic({ role, children }) {
   if (role == "admin") {
     return <Navigate to={"/admin/Dashboard"} />;
   } else if (role == "client") {
-    return <Navigate to={"Organizers"} />;
+    return <Navigate to={"/Organizers"} />;
   }
 
   return children ? children : <Outlet />;
