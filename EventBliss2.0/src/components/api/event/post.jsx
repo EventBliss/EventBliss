@@ -3,7 +3,7 @@ import axios from 'axios'
 export function CreateEvent(data,organizers,organizerEmail){
   const API = import.meta.env.VITE_BACKEND_API
 
-  const organizerId = organizers.find(organizer => organizer.email == organizerEmail)?.id
+  const organizerId = organizers && organizers.find(organizer => organizer.email == organizerEmail)?.id 
 
   const {name,price,category,image,description,isPackage} = data
   

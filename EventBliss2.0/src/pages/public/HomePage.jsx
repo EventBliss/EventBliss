@@ -5,7 +5,7 @@ export function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [textHeight, setTextHeight] = useState(0);
   const [validation, setValidation] = useState(true)
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
