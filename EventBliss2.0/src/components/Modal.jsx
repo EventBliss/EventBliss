@@ -20,7 +20,7 @@ export function ModalComponents({ name, className, date }) {
             open={isOpen}
             onClose={() => setIsOpen(false)}
             className="z-[100]">
-            <DialogPanel className="max-w-[500px] max-h-auto xl:max-w-[600px] xl:max-h-[600px]">
+            <DialogPanel className="max-w-[500px] max-h-auto xl:max-w-[700px] xl:max-h-[700px]">
               <Button
                 variant="light"
                 className="mx-auto"
