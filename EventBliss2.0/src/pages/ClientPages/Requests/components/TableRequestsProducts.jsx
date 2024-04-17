@@ -4,6 +4,7 @@ import { useUser } from "@clerk/clerk-react";
 import { TableData } from '../../../../components/TableData';
 import { format } from "@formkit/tempo";
 import { Actions } from "./Actions";
+import { deleteRequest } from "../../../../components/api/request/delete";
 
 export function TableRequestsProducts() {
     const { user } = useUser();
@@ -22,7 +23,7 @@ export function TableRequestsProducts() {
                 location: item.event_location,
                 organizer: item.organizer_name,
                 status: item.status,
-                action: <Actions status={item.status}/>
+                action: <Actions status={item.status} id={item.id} deleteRequest={deleteRequest}/>
                 
                 
             })));

@@ -4,6 +4,7 @@ import { useUser } from "@clerk/clerk-react";
 import { TableData } from '../../../../components/TableData';
 import { format } from "@formkit/tempo";
 import { Actions } from "./Actions";
+import { deleteCustomRequest } from "../../../../components/api/customEvents/delete";
 
 export function TableRequestsCustom() {
     const { user } = useUser();
@@ -24,7 +25,7 @@ export function TableRequestsCustom() {
                 estimated_price: item.estimated_price,
                 people: item.amount_people,
                 status: item.status,
-                action: <Actions status={item.status}/>
+                action: <Actions status={item.status} id={item.id} deleteRequest={deleteCustomRequest}/>
             })));
         } else if (error) {
             console.error('Error al cargar los eventos:', error);

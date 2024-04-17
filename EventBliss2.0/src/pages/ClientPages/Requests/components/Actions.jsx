@@ -1,25 +1,19 @@
-import { Button } from "@tremor/react"
+import { ModalComponents } from "../../../../components/Modal";
+import { Confirm } from "./Confirm";
 
-export function Actions({ status }) {
-  // Verificar si el estado es "in progress" o "denied"
+export function Actions({ status, id, deleteRequest }) {
+  
   const showCancelButton = status === "In progress" || status === "Denied";
 
   return (
     <div>
-
       {showCancelButton && (
-        <Button 
-          variant="primary"
-          color="red"
-        >
-          Cancelar
-        </Button>
+        <Confirm name={"Cancel"} className={"grid mx-auto py-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} deleteRequest={deleteRequest}></Confirm>
       )}
 
       {!showCancelButton && (
         <h3>None</h3>
       )}
-
     </div>
   );
 }
