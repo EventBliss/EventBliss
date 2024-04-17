@@ -1,13 +1,14 @@
 import axios from 'axios'
-import { useListClients } from '../client';
-import { useListOrganizers } from '../organizer/get';
 
 /**
  * This function create a new event request by the client
  * @param {*} organizerEmail 
  * @param {*} clientEmail 
  * @param {*} eventId 
- * @returns POST
+ * @param {*} data 
+ * @param {*} clientData 
+ * @param {*} organizerData 
+ * @returns 
  */
 export const CreateEventRequest = (organizerEmail,clientEmail,eventId,data,clientData,organizerData) =>{
     const API = import.meta.env.VITE_BACKEND_API
