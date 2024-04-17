@@ -4,6 +4,8 @@ import {
   RiTimeLine,
   RiCheckLine,
   RiTableView,
+  RiVerifiedBadgeFill,
+  RiCloseLargeFill,
 } from "@remixicon/react";
 
 export const sideBarRoutes = [
@@ -15,20 +17,32 @@ export const sideBarRoutes = [
   },
   {
     id: "Requests",
-    title: "Solicitudes",
+    title: "Requests",
     icon: RiTodoLine,
     options: [
       {
         id: "Pending",
-        title: "Pendientes",
+        title: "Pending",
         path: "pending",
         icon: RiTimeLine
       },
       {
         id: "Finished",
-        title: "Finalizadas",
+        title: "Finished",
         path: "finished",
         icon: RiCheckLine
+      },
+      {
+        id: "Approved",
+        title: "Approved",
+        path: "approved",
+        icon: RiVerifiedBadgeFill
+      },
+      {
+        id: "Denied",
+        title: "Denied",
+        path: "denied",
+        icon: RiCloseLargeFill
       },
     ],
 
