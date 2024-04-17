@@ -13,7 +13,6 @@ import { FormsEvent } from "./pages/FormsEvent"
 import { User } from "./pages/ClientPages/user";
 import { OrganizerCardsView } from "./pages/ClientPages/components/OrganizerCardsView";
 import { Requests } from "./pages/ClientPages/Requests"
-import { Events } from "./pages/public/Events";
 import { LogIn } from "./pages/public/LogIn";
 import { SignUpClient } from "./pages/public/SignUpClient";
 import { CreateOrganizer } from "./pages/CreateOrganizer";
@@ -23,6 +22,7 @@ import { SideBar } from "./pages/organizer/SideBarOrganizer";
 import { Dashboard } from "./pages/organizer/Dashboard";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
 import { CustomizableRequestForm } from "./pages/ClientPages/CustomizableRequestForm";
+import { NotFound } from "./components/NotFound";
 
 function App() {
   const { user, isSignedIn } = useUser()
@@ -58,7 +58,7 @@ function App() {
           </Route>
 
           {/* rutas compartidas entre el publico y el cliente */}
-          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirect={false}/>}>
+          <Route element={<ProtectedRoute role={(role.includes('client') || role.includes('public'))} redirectTo={'/admin/Dashboard'} redirecto={false}/>}>
             <Route path="/Products" >
               <Route index element={<Products/>}/>
               <Route path="details/:id" element={<ProductCardsView/>}/>
@@ -80,7 +80,7 @@ function App() {
         </Route>
 
         {/* ruta para admin */}
-        <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizer'} redirect={true}/>}>
+        <Route element={<ProtectedRoute role={role.includes('admin')} redirectTo={'/Organizers'} redirecto={true}/>}>
           <Route path="/admin" element={<SideBar/>}>
               <Route path="Dashboard" element={<Dashboard/>}/>
               <Route path="TableProducts">
@@ -91,6 +91,7 @@ function App() {
         </Route>
 
         <Route path="/CustomizableRequestForm" element={<CustomizableRequestForm/>} />
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>
   );

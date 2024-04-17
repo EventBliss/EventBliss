@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link,  useParams } from "react-router-dom";
 import { useListOrganizers } from "../../../components/api/organizer/get";
 import { useUser } from "@clerk/clerk-react";
@@ -9,7 +9,6 @@ export function OrganizerCardsView() {
   const { isSignedIn, user } = useUser()
   const { data: organizerData } = useListOrganizers();
   const { id } = useParams();
-  const [path, setPath] = useState("")
 
   var organizer = organizerData && organizerData.filter(organizer => organizer.id == id);
   organizer = organizer[0]
@@ -17,6 +16,7 @@ export function OrganizerCardsView() {
   if (!organizer) {
     console.log("No se encontró el organizador");
   }
+
 
   return (
     <div className=" px-6 py-12 text-center md:px-12 lg:text-left relative">

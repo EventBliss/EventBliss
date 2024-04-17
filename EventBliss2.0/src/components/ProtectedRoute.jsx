@@ -2,11 +2,11 @@ import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useUser } from "@clerk/clerk-react"; 
 
 // eslint-disable-next-line react/prop-types
-export function ProtectedRoute({ role, children, redirectTo, redirect }) {
+export function ProtectedRoute({ role, children, redirectTo, redirecto }) {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
 
-  if (!isSignedIn && redirect) {
+  if (!isSignedIn && redirecto) {
     navigate('/Login'); 
   }
 

@@ -10,12 +10,9 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
 export function User() {
-  DataBackend();
+  DataBackend()
   const { data: organizerData } = useListOrganizers();
-  const { data: categoryData } = useListCategory();
-  console.log(organizerData)
-
-  
+  const { data: categoryData } = useListCategory();  
 
   return (
     <div className="bg-[#E6E5E4]">

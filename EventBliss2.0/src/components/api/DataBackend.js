@@ -7,7 +7,7 @@ export function DataBackend() {
   const { data } = useListClients();
 
   useEffect(() => {
-    if (user && isSignedIn) {
+    if (user && isSignedIn && data) {
       const email = user.emailAddresses[0].emailAddress;
       const username = user.fullName;
       const phone_number = user.phoneNumbers.length > 0 ? user.phoneNumbers[0].phoneNumber : 0
