@@ -5,6 +5,7 @@ import { TableData } from '../../../../components/TableData';
 import { format } from "@formkit/tempo";
 import { Actions } from "./Actions";
 import { deleteCustomRequest } from "../../../../components/api/customEvents/delete";
+import { BadgesStatus } from "../../../../components/BadgesStatus";
 
 export function TableRequestsCustom() {
     const { user } = useUser();
@@ -24,7 +25,7 @@ export function TableRequestsCustom() {
                 organizer: item.organizer_name,
                 estimated_price: item.estimated_price,
                 people: item.amount_people,
-                status: item.status,
+                status: <BadgesStatus status={item.status}/>,
                 action: <Actions status={item.status} id={item.id} deleteRequest={deleteCustomRequest}/>
             })));
         } else if (error) {

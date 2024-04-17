@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link,  useParams } from "react-router-dom";
 import { useListOrganizers } from "../../../components/api/organizer/get";
-
+import { useUser } from "@clerk/clerk-react";
 import { ModalComponents } from "../../../components/Modal";
 import { CustomizableRequestForm } from "../CustomizableRequestForm";
 

@@ -49,8 +49,8 @@ export function SideBar() {
             </div>
             <div className="flex items-center">
               <div className="flex items-center ms-3">
-                <div className="text-white font-semibold bg-[#FD8B11] py-2 px-4 rounded-md">
-                  <SignOutButton/>
+                <div>
+                  
                 </div>
               </div>
             </div>

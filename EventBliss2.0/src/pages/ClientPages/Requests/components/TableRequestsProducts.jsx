@@ -5,6 +5,7 @@ import { TableData } from '../../../../components/TableData';
 import { format } from "@formkit/tempo";
 import { Actions } from "./Actions";
 import { deleteRequest } from "../../../../components/api/request/delete";
+import { BadgesStatus } from "../../../../components/BadgesStatus";
 
 export function TableRequestsProducts() {
     const { user } = useUser();
@@ -22,7 +23,7 @@ export function TableRequestsProducts() {
                 date: format(item.event_date, { date: "full" }),
                 location: item.event_location,
                 organizer: item.organizer_name,
-                status: item.status,
+                status: <BadgesStatus status={item.status}/>,
                 action: <Actions status={item.status} id={item.id} deleteRequest={deleteRequest}/>
                 
                 
