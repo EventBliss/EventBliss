@@ -24,7 +24,7 @@ export function TableRequestsProducts() {
                 location: item.event_location,
                 organizer: item.organizer_name,
                 status: <BadgesStatus status={item.status}/>,
-                action: <Actions status={item.status} id={item.id} deleteRequest={deleteRequest}/>
+                action: <Actions status={item.status} id={item.id} deleteRequest={deleteRequest} queryKey={'eventRequests'}/>
                 
                 
             })));
