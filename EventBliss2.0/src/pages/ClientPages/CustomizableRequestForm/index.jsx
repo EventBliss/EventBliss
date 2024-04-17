@@ -7,7 +7,7 @@ import { ConditionsTerms } from "./components/ConditionsTerms";
 
 
 // eslint-disable-next-line react/prop-types
-export function CustomizableRequestForm({ typeEvent }) {
+export function CustomizableRequestForm({ orgEmail, typeEvent }) {
   const { handleSubmit, register, control, setValue } = useForm();
 
   async function onSubmit(data) {

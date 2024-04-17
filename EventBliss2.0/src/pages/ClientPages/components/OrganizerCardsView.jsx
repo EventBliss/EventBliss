@@ -184,7 +184,7 @@ export function OrganizerCardsView() {
               )}
             </div>
 
-            <ModalComponents name={'Book now'} className={"grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold px-6 rounded-lg"} date={<CustomizableRequestForm typeEvent={categories}/>}/>
+            <ModalComponents name={'Book now'} className={"grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold px-6 rounded-lg"} date={<CustomizableRequestForm orgEmail={selectedOrganizer.email} typeEvent={categories}/>}/>
 
           </div>
         </div>
