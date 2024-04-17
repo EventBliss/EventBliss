@@ -17,11 +17,11 @@ class EventRequestSerializer(serializers.ModelSerializer):
     organizer_email = serializers.CharField(source='organizer.email',read_only=True,required=False)
     organizer_name = serializers.CharField(source='organizer.name',read_only=True,required=False)
     client_name = serializers.CharField(source='client.name',read_only=True,required=False)
-    client_email = serializers.CharField(source='client.email',required=False)
+    client_email = serializers.CharField(source='client.email',required=False,read_only=True)
     event_name = serializers.CharField(source='event.name',read_only=True,required=False)
     class Meta:
         model = EventRequest
-        fields= ['id','client','client_name','client_email','organizer','organizer_name','organizer_email','event','event_name','event_location','status','event_date','comment','created']
+        fields= ['id','client','client_name','client_email','organizer','organizer_name','organizer_email','event','event_name','event_location','status','event_date','ending_time','comment','created']
 
 class CustomEventsSerializer(serializers.ModelSerializer):
     organizer_email = serializers.CharField(source='organizer.email',read_only=True,required=False)
