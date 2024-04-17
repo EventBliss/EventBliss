@@ -3,7 +3,7 @@ import { useListRequests } from "../../../../components/api/request/get";
 import { useUser } from "@clerk/clerk-react";
 import { TableData } from "../../../../components/TableData";
 import { format } from "@formkit/tempo";
-import { Actions } from "./Actions";
+import { Actions } from "./actionProduct/Actions";
 import { BadgesStatus } from "../../../../components/BadgesStatus";
 
 export function TableRequestsProducts({status}) {
@@ -23,7 +23,7 @@ export function TableRequestsProducts({status}) {
                 location: item.event_location,
                 organizer: item.organizer_name,
                 status: <BadgesStatus status={item.status}/>,
-                action: <Actions status={item.status} id={item.id}/>
+                action: <Actions status={item.status} id={item.id} queryKey={'eventRequests'}/>
                 
                 
             })));

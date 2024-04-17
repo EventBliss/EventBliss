@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { queryClient } from "../query";
+import { queryClient } from "../../../../../query";
 import { Button, Dialog, DialogPanel } from '@tremor/react';
 
-export function Confirm({ APIFunction, id, name, className, queryKey }) {
+export function Confirm({ APIFunction, id, name, className, queryKey, status }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleYesClick = () => {
     try {
-      APIFunction(id)
+      APIFunction(id, status)
         .then(() => {
 
           setIsOpen(false)

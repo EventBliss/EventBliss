@@ -3,7 +3,7 @@ import { useListCustomEvents } from "../../../../components/api/customEvents/get
 import { useUser } from "@clerk/clerk-react";
 import { TableData } from "../../../../components/TableData";
 import { format } from "@formkit/tempo";
-import { Actions } from "./Actions";
+import { Actions } from "./actionsCustom/Actions";
 import { BadgesStatus } from "../../../../components/BadgesStatus";
 
 export function TableRequestsCustom({status}) {
@@ -25,7 +25,7 @@ export function TableRequestsCustom({status}) {
                 estimated_price: item.estimated_price,
                 people: item.amount_people,
                 status: <BadgesStatus status={item.status}/>,
-                action: <Actions status={item.status} id={item.id}/>
+                action: <Actions status={item.status} id={item.id} queryKey={'customEvents'}/>
             })));
         } else if (error) {
             console.error('Error al cargar los eventos:', error);

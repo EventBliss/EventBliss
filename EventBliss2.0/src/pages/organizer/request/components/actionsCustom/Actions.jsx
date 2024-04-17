@@ -1,6 +1,6 @@
-import { Confirm } from "../../../../components/Confirm"
+import { Confirm } from "./Confirm"
 // importas la funcion de la api que quieras llamar 
-export function Actions({id, APIFunction, status}) {
+export function Actions({id, APIFunction, status, queryKey}) {
 
     const showNoneOption = status === "Finished" || status === "Denied"
     const showFinishedoption = status === "Approved"
@@ -10,10 +10,10 @@ export function Actions({id, APIFunction, status}) {
         {!showNoneOption && !showFinishedoption &&(
             <div className="flex justify-evenly">
                 <div>
-                    <Confirm name={"Denied"} className={"grid mx-auto py-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={APIFunction} queryKey={""}></Confirm>
+                    <Confirm name={"Denied"} className={"grid mx-auto py-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={APIFunction} queryKey={queryKey}></Confirm>
                 </div>
                 <div>
-                    <Confirm name={"Approved"} className={"grid mx-auto py-2 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={APIFunction} queryKey={""}></Confirm>
+                    <Confirm name={"Approved"} className={"grid mx-auto py-2 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={APIFunction} queryKey={queryKey}></Confirm>
                 </div>   
              </div>
         )}
