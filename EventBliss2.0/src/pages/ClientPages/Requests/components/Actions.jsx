@@ -1,4 +1,4 @@
-import { Confirm } from "./Confirm";
+import { Confirm } from "../../../../components/Confirm";
 
 export function Actions({ status, id, deleteRequest }) {
   
@@ -7,7 +7,7 @@ export function Actions({ status, id, deleteRequest }) {
   return (
     <div>
       {showCancelButton && (
-        <Confirm name={"Cancel"} className={"grid mx-auto py-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} deleteRequest={deleteRequest}></Confirm>
+        <Confirm name={"Cancel"} className={"grid mx-auto py-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={deleteRequest} queryKey={"eventRequests"}></Confirm>
       )}
 
       {!showCancelButton && (

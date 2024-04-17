@@ -20,6 +20,10 @@ import { CreateOrganizer } from "./pages/CreateOrganizer";
 // importaciones del role de admin
 import { SideBar } from "./pages/organizer/SideBarOrganizer";
 import { Dashboard } from "./pages/organizer/Dashboard";
+import { TableRequestIP } from "./pages/organizer/request/pending";
+import { TableRequestF } from "./pages/organizer/request/finished";
+import { TableRequestA } from "./pages/organizer/request/approved";
+import { TableRequestD } from "./pages/organizer/request/denied";
 import { TableProducts } from "./pages/organizer/TableProducts/components/TableProducts";
 import { CustomizableRequestForm } from "./pages/ClientPages/CustomizableRequestForm";
 import { NotFound } from "./components/NotFound";
@@ -87,6 +91,11 @@ function App() {
                 <Route index element={<TableProducts/>}/>
                 <Route path="EditEvent/:id" element={<FormsEvent/>}/>
               </Route>
+              <Route path="Pending" element={<TableRequestIP/>}/>
+              <Route path="Finished" element={<TableRequestF/>}/> 
+              <Route path="Approved" element={<TableRequestA/>}/> 
+              <Route path="Denied" element={<TableRequestD/>}/>
+
           </Route>
         </Route>
 

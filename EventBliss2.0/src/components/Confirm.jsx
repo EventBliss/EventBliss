@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { queryClient } from "../../../../query";
+import { queryClient } from "../query";
 import { Button, Dialog, DialogPanel } from '@tremor/react';
 
-export function Confirm({ deleteRequest, id, name, className }) {
+export function Confirm({ APIFunction, id, name, className, queryKey }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleYesClick = () => {
     try {
-      deleteRequest(id)
+      APIFunction(id)
         .then(() => {
           console.log("Solicitud eliminada con éxito");
 
           setIsOpen(false)
           
           queryClient.invalidateQueries({
-            queryKey: ["eventRequests"],
+            queryKey: [queryKey],
           });
         })
         .catch((error) => {
@@ -59,7 +59,7 @@ export function Confirm({ deleteRequest, id, name, className }) {
               <div className="max-w-[500px] max-h-[340px] xl:max-h-[500px] mx-10 mt-5">
                 <div>
                     <h2 className="text-center text-3xl font-bold text-black">
-                        Are you sure you want to cancel?
+                        Are you sure you want to {name}?
                     </h2>
                 </div>
                 <div className="flex justify-evenly align-center mt-8 text-white">

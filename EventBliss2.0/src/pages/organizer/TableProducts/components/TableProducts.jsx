@@ -36,7 +36,7 @@ export function TableProducts() {
     const headerCell = ["Name", "Category", "Price", "Actions"];
 
     return (
-        <div className="bg-white p-4">
+        <div className="bg-white p-4 rounded">
             
             <TableData
                 Title={'Table of products'}
