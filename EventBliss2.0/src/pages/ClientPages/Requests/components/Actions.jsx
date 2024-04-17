@@ -1,4 +1,3 @@
-import { ModalComponents } from "../../../../components/Modal";
 import { Confirm } from "./Confirm";
 
 export function Actions({ status, id, deleteRequest }) {
