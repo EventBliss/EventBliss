@@ -31,12 +31,13 @@ export function InputData({
         <TextInput placeholder={`${organizerName}`} disabled={true} />
       </div>
 
-      <TextInputComp
-        label={"Location *"}
-        name={"event_location"}
-        placeholder={"Event Location"}
-        register={register}
-      />
+        <TextInputComp
+            label={"Location *"}
+            name={"event_location"}
+            placeholder={"Event Location"}
+            register={register}
+        
+        />
 
       <div style={{'width': '50%','display': "flex"}}>
         <div className="">
