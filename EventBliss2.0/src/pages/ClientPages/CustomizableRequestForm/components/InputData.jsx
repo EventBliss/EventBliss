@@ -34,7 +34,7 @@ export function InputData({ register }) {
           className="mx-auto max-w-sm" 
           min={1}
           {...register("phone_number", { required: true })} 
-          />;
+          />
         </div>
 
 
