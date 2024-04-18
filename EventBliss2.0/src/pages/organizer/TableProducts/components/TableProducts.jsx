@@ -3,11 +3,12 @@ import { useListEvents } from "../../../../components/api/event/get";
 // import { useUser } from "@clerk/clerk-react";
 import { TableData } from '../../../../components/TableData';
 import { Actions } from "./Actions";
+import { useUser } from "@clerk/clerk-react";
 
 export function TableProducts() {
-    // const { user } = useUser();
+    const { user } = useUser();
     const [selectedEvents, setSelectedEvents] = useState([]);
-    const email = 'christalperez0@gmail.com';
+    const email = user.emailAddresses[0].emailAddress;
     const { data, error } = useListEvents();
     console.log(data)
 

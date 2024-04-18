@@ -14,7 +14,7 @@ export const CreateEventRequest = (organizerEmail,clientEmail,eventId,data,clien
     const API = import.meta.env.VITE_BACKEND_API
 
 
-    const {location,date,start_time,comment,end_time} = data
+    const {event_location,date,start_time,comment,end_time} = data
 
     const clientId = clientData.find(client => client.email === clientEmail)?.id;
     console.log(clientId)
@@ -27,7 +27,7 @@ export const CreateEventRequest = (organizerEmail,clientEmail,eventId,data,clien
     formData.append('client', clientId)
     formData.append('organizer', organizerId)
     formData.append('event',eventId)
-    formData.append('event_location',location)
+    formData.append('event_location',event_location)
     formData.append('event_date', date + ' ' + start_time)
     formData.append('ending_time', date + ' ' + end_time)
     formData.append('comment', comment)
