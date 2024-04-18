@@ -24,7 +24,7 @@ export function User() {
       </div>
       {organizerData && categoryData && categoryData.map((category, index) => {
           const organizersForCategory = organizerData.filter(
-            (organizer) => organizer.event_types.includes(category.id)
+            (organizer) => organizer.event_types.includes(category.id) && organizer.status === 'Approved'
           );
           if (organizersForCategory.length === 0) {
             // No organizers for this category, skip rendering
