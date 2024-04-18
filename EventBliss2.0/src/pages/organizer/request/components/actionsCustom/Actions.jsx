@@ -2,7 +2,6 @@ import { updateCustomEventRequest } from "../../../../../components/api/customEv
 import { Confirm } from "./Confirm"
 // importas la funcion de la api que quieras llamar 
 export function Actions({id, status, queryKey}) {
-export function Actions({id, status, queryKey}) {
 
     const showNoneOption = status === "Finished" || status === "Denied"
     const showFinishedoption = status === "Approved"
@@ -31,7 +30,5 @@ export function Actions({id, status, queryKey}) {
         )}
         
     </div>
-    
-    
-  )
+)
 }

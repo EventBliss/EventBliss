@@ -1,3 +1,4 @@
+import { TabsComponents } from "../../../components/TabsComponents"
 import { TableRequestsCustom } from "./components/TableRequestsCustom"
 import { TableRequestsProducts } from "./components/TableRequestsProducts"
 import { useUser } from "@clerk/clerk-react"
@@ -12,10 +13,15 @@ export  function Requests() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="pt-20 p-10 bg-white">
         <div>
-            <TableRequestsProducts></TableRequestsProducts>
-            <TableRequestsCustom/>
+          <TabsComponents
+          TitleA={'requests products'}
+          TitleB={'requests of custom events'}
+          PanelA={<TableRequestsProducts/>}
+          PanelB={<TableRequestsCustom/>}/>
+            
+            
         </div>
     </div>
   )

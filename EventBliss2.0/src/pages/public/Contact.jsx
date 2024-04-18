@@ -1,4 +1,32 @@
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+
 export function Contact() {
+    
+    const form = useRef();
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+    
+        emailjs
+        .sendForm('service_100l8lk', 'template_frdk2ge', form.current, {
+            publicKey: 'ZE12eo5TuTA_Ysn9d',
+          })
+          .then(
+            () => {
+              console.log('Funciona');
+            },
+            (error) => {
+              console.log('FAILED...', error.text);
+            },
+          );
+
+          form.current.reset();
+
+      };
+
+
+
     return (
         <div className="relative">
             <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{
@@ -98,7 +126,8 @@ export function Contact() {
                         </div>
 
                     </div>
-                    <form className="md:col-span-8 p-10 bg-white rounded-r-lg">
+
+                    <form className="md:col-span-8 p-10 bg-white rounded-r-lg" ref={form} onSubmit={sendEmail}>
                         <div className="flex flex-wrap -mx-3 mb-6">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label className="block uppercase tracking-wide text-[#FD8B11] text-xs font-bold mb-2"
@@ -107,8 +136,9 @@ export function Contact() {
                                 </label>
                                 <input
                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    id="grid-first-name" type="text" placeholder="Lucas" />
+                                    id="grid-first-name" type="text" placeholder="Abel" name="user_name" />
                             </div>
+
                             <div className="w-full md:w-1/2 px-3">
                                 <label className="block uppercase tracking-wide text-[#FD8B11] text-xs font-bold mb-2"
                                     htmlFor="grid-last-name">
@@ -116,8 +146,9 @@ export function Contact() {
                                 </label>
                                 <input
                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="grid-last-name" type="text" placeholder="Gomez" />
+                                    id="grid-last-name" type="text" placeholder="Chacon" name="user_lastname" />
                             </div>
+
                         </div>
                         <div className="flex flex-wrap -mx-3 mb-6">
                             <div className="w-full px-3">
@@ -127,7 +158,7 @@ export function Contact() {
                                 </label>
                                 <input
                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="grid-email" type="email" placeholder="********@*****.**" />
+                                    id="grid-email" type="email" placeholder="********@*****.**" name="user_email"/>
                             </div>
                         </div>
 
@@ -138,7 +169,7 @@ export function Contact() {
                                     Your Message
                                 </label>
                                 <textarea rows="10"
-                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
+                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="message"></textarea>
                             </div>
                             <div className="flex justify-between w-full px-3">
                                 <div className="md:flex md:items-center">
@@ -151,7 +182,7 @@ export function Contact() {
                                 </div>
                                 <button
                                     className="shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                                    type="submit">
+                                    type="submit" value="Send">
                                     Send Message
                                 </button>
                             </div>

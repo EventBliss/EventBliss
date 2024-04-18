@@ -155,9 +155,11 @@ export function Layout() {
                 </nav>
             </header>
             <main className="flex-grow">
-                <Outlet />
+                <Outlet/>
             </main>
+            <div className='z-50'>
             <Footer />
+            </div>
         </div>
     );
 }
