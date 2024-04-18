@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^4.30.7",
     "@clerk/themes": "^1.7.9",
+    "@emailjs/browser": "^4.3.3",
     "@formkit/tempo": "^0.0.19",
     "@headlessui/react": "^1.7.18",
     "@headlessui/tailwindcss": "^0.2.0",

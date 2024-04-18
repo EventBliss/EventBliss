@@ -41,7 +41,6 @@ export function TableRequestsCustom({status}) {
         <div className="px-10">
             
             <TableData
-                Title={'Table of request of custom events'}
                 HeaderCell={headerCell}
                 SelectData={selectData}
                 Data={selectedProducts}

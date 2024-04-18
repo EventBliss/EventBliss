@@ -39,10 +39,9 @@ export function TableRequestsCustom() {
     const headerCell = [ "Event Name","Comment", "Start Date", "Ending Date", "Location", "Estimated Price", "Organizer", "Guests", "Status","Actions"];
 
     return (
-        <div className="px-10">
+        <div>
             
             <TableData
-                Title={'Table of request of custom events'}
                 HeaderCell={headerCell}
                 SelectData={selectData}
                 Data={selectedProducts}

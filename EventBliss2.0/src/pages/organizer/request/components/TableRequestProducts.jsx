@@ -40,10 +40,9 @@ export function TableRequestsProducts({status}) {
     const headerCell = [ "Event Name", "Date","Comment", "Location", "Client", "Status", "Actions"];
 
     return (
-        <div className="pt-20 p-10">
+        <div>
             
             <TableData
-                Title={'Table of request products'}
                 HeaderCell={headerCell}
                 SelectData={selectData}
                 Data={selectedProducts}
