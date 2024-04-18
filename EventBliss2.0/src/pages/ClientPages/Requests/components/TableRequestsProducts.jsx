@@ -10,7 +10,8 @@ import { BadgesStatus } from "../../../../components/BadgesStatus";
 export function TableRequestsProducts() {
     const { user } = useUser();
     const [selectedProducts, setSelectedProducts] = useState([]);
-    const email = user.emailAddresses[0].emailAddress;
+    const email = user?.email;
+    console.log(email)
     const { data:productsRequest , error } = useListRequests();
     
 
