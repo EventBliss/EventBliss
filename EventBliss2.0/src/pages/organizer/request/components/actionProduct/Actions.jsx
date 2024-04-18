@@ -14,7 +14,7 @@ export function Actions({id, status, queryKey}) {
                     <Confirm name={"Denied"} className={"grid mx-auto py-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={updateEventRequest} status={'Denied'} queryKey={queryKey}></Confirm>
                 </div>
                 <div>
-                    <Confirm name={"Approved"} className={"grid mx-auto py-2 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={updateEventRequest} status={'Approved'} queryKey={queryKey}></Confirm>
+                    <Confirm name={"Approved"} className={"grid mx-auto py-2 shadow md:ml-0 ml-1 bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={updateEventRequest} status={'Approved'} queryKey={queryKey}></Confirm>
                 </div>   
              </div>
         )}
@@ -30,7 +30,5 @@ export function Actions({id, status, queryKey}) {
         )}
         
     </div>
-    
-    
-  )
+)
 }

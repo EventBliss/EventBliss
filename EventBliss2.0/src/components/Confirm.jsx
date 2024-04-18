@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { queryClient } from "../query";
 import { Button, Dialog, DialogPanel } from '@tremor/react';
+import { showToast } from "./showToast";
 
 export function Confirm({ APIFunction, id, name, className, queryKey }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,16 +12,18 @@ export function Confirm({ APIFunction, id, name, className, queryKey }) {
         .then(() => {
 
           setIsOpen(false)
+          showToast('success', 'Sucess operation', 'green');
           
           queryClient.invalidateQueries({
             queryKey: [queryKey],
           });
         })
         .catch((error) => {
-          console.error("Error al eliminar la solicitud:", error);
+          showToast('error', 'Error, something gone wrong', 'red');
+          console.log(error)
         });
     } catch (error) {
-      console.log("se produjo un error al actualizar los datos", error);
+      showToast('warning', 'Error, updating daata', 'orange');
       throw error;
     }
   };
@@ -69,6 +72,7 @@ export function Confirm({ APIFunction, id, name, className, queryKey }) {
                     <Button variant="primary" color="green" onClick={handleYesClick}>
                     <span className="text-2xl">Yes</span>
                     </Button>
+                    <Button onClick={gola}>TRY ME</Button>
                 </div>
               </div>
             </div>

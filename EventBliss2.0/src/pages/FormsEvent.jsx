@@ -47,7 +47,7 @@ export function FormsEvent() {
       timer: 2000
     });
     setTimeout(() => {
-      window.location.href = '/';
+      window.location.href = '/admin';
     }, 2500);
   }
   
