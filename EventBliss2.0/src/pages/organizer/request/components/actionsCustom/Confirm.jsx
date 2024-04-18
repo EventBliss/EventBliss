@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { queryClient } from "../../../../../query";
 import { Button, Dialog, DialogPanel } from '@tremor/react';
+import { showToast } from "../../../../../components/showToast";
 
 export function Confirm({ APIFunction, id, name, className, queryKey, status }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,15 +12,18 @@ export function Confirm({ APIFunction, id, name, className, queryKey, status }) 
         .then(() => {
 
           setIsOpen(false)
+          showToast('success', 'Sucess operation', 'green');
           
           queryClient.invalidateQueries({
             queryKey: [queryKey],
           });
         })
         .catch((error) => {
+          showToast('error', 'Error, something gone wrong', 'red');
           console.error("Error al eliminar la solicitud:", error);
         });
     } catch (error) {
+      showToast('warning', 'Error, updating daata', 'orange');
       console.log("se produjo un error al actualizar los datos", error);
       throw error;
     }

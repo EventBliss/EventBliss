@@ -9,7 +9,7 @@ import { BadgesStatus } from "../../../../components/BadgesStatus";
 export function TableRequestsCustom({status}) {
     const { user } = useUser();
     const [selectedProducts, setSelectedProducts] = useState([]);
-    const email = user?.email || 'christalperez0@gmail.com';
+    const email = user?.email
     const { data:customRequest , error } = useListCustomEvents();
 
     useEffect(() => {
