@@ -9,7 +9,7 @@ export function TableProducts() {
     const { user } = useUser();
     const [selectedEvents, setSelectedEvents] = useState([]);
 
-    const email = user.emailAddresses[0].emailAddress
+    const email = user?.emailAddresses[0].emailAddress
 
     const { data, error } = useListEvents();
     console.log(data)
