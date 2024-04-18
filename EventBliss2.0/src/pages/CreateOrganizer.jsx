@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import {useParams} from 'react-router-dom'
 import { useUser } from "@clerk/clerk-react";
 import { updateOrganizer } from "../components/api/organizer/put";
+import { useNavigate } from "react-router-dom";
 
 export function CreateOrganizer() {
   const { handleSubmit, register, control, reset,setValue } = useForm();
@@ -22,6 +23,7 @@ export function CreateOrganizer() {
   const { data: categoryData } = useListCategory();
   const { data: organizerData } = useListOrganizers();
   const { user } = useUser();
+  const navigate = useNavigate()
   const params = useParams()
   var organizer = organizerData ? organizerData.filter((organizer) => organizer.email == user.emailAddresses[0].emailAddress) : []
 
@@ -87,7 +89,7 @@ export function CreateOrganizer() {
           alert('success', 'Sent');
           
           setTimeout(() => {
-            window.location.href = "/";
+            navigate('/organizers')
           }, 2500);
         }
       }
