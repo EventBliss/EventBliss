@@ -34,7 +34,7 @@ export function InputData({register,day,handleDatePickerChange,organizerName,eve
         <TextInputComp
             label={"Location *"}
             name={"event_location"}
-            placeholder={"EVent Location"}
+            placeholder={"Event Location"}
             register={register}
         
         />

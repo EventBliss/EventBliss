@@ -8,6 +8,7 @@ import { CreateEventRequest } from "../../../components/api/request/post";
 import { useUser } from "@clerk/clerk-react";
 import { useListClients } from "../../../components/api/client";
 import { useListOrganizers } from "../../../components/api/organizer/get";
+import { useListRequests } from "../../../components/api/request/get";
 // eslint-disable-next-line react/prop-types
 export function EventRequestForm({organizerName,eventName,organizerEmail,eventId}){
     const [day, setDay] = useState();
@@ -15,6 +16,7 @@ export function EventRequestForm({organizerName,eventName,organizerEmail,eventId
     const { handleSubmit, register, setValue,reset } = useForm();
     const {data:clientData} = useListClients()
     const {data: organizerData} = useListOrganizers();
+    const {data:eventRequests} = useListRequests()
     const user = useUser()
 
     useEffect(() => {
@@ -33,18 +35,45 @@ export function EventRequestForm({organizerName,eventName,organizerEmail,eventId
 
     const onSubmit = (data) => {
         const clientEmail = user.user.emailAddresses[0].emailAddress;
-        CreateEventRequest(organizerEmail,clientEmail, eventId,data,clientData,organizerData)
-        reset()
-        setShowAlert(true);  
-        Swal.fire({
-          title: 'Request Sended!',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 2500);
+        const clientEvents = eventRequests.filter(eventRequest => eventRequest.client_email == clientEmail)
+        var requestToday = false
+
+        for (const event of clientEvents) {
+          const eventDateWithoutTime = event.event_date.split('T')[0];
+          const eventStatus = event.status
+
+          console.log(eventDateWithoutTime)
+          if (eventDateWithoutTime == data.date && eventStatus !== 'Finished' ) {
+            requestToday = true
+            break
+          } 
+        }
+
+        if(requestToday == false){
+          CreateEventRequest(organizerEmail,clientEmail, eventId,data,clientData,organizerData)
+          reset()
+          setShowAlert(true);  
+            Swal.fire({
+              title: 'Request Sended!',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            setTimeout(() => {
+              window.location.href = '/';
+            }, 2500);
+        }else{
+          reset()
+          setShowAlert(true);  
+          Swal.fire({
+            title: 'You have already requested an event for this day!',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          requestToday = false
+        }
+
     }
 
     return(
