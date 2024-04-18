@@ -6,8 +6,8 @@ export function TableRequestA() {
   return (
     <div className="bg-white rounded">
       <TabsComponents
-      TitleA={'Requests products approved'}
-      TitleB={'Requests of custom event approved'}
+      TitleA={'Approved requests'}
+      TitleB={'Approved custom event requests'}
       PanelA={<TableRequestsProducts status={"Approved"}/>}
       PanelB={<TableRequestsCustom status={"Approved"}/>}/>
         
