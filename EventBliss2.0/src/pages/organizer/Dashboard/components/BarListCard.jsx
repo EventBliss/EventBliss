@@ -32,7 +32,7 @@ export function BarListCard({ dataAC, dataLY }) {
   
     setChartData(newData);
   }, [dataLY, dataAC]);
-  console.log(chartdata)
+  
   return (
     <Card className="h-[420px]">
       <h3 className="text-lg font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">
@@ -43,7 +43,7 @@ export function BarListCard({ dataAC, dataLY }) {
         data={chartdata}
         index="date"
         categories={[añoActual-1, añoActual]}
-        colors={["#FD8B11", "#957B9B"]}
+        colors={["#FD8B11", "purple"]}
         yAxisWidth={30}
         onValueChange={(v) => setValue(v)}
       />

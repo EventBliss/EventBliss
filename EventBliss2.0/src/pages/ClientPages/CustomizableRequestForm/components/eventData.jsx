@@ -30,7 +30,7 @@ export function EventData({ register, control, handleDate, Controller,organizer 
         placeholder={"location"}
         register={register}
       />
-      <div style={{'width': '50%','display': "flex"}}>
+      <div className="grid grid-cols-3 pl-3">
         {/* dia del evento */}
         <div>
           <label className="block text-sm text-gray-700 font-bold mb-2">
@@ -41,6 +41,7 @@ export function EventData({ register, control, handleDate, Controller,organizer 
             required
             onValueChange={handleDate}
             {...register("date",{required: true})}
+            className="w-full"
           />
         </div>
 
@@ -69,7 +70,7 @@ export function EventData({ register, control, handleDate, Controller,organizer 
 
 
       {/* tipo de evento */}
-      <div>
+      <div className="px-3 mb-6">
         <label className="block text-sm text-gray-700 font-bold mb-2">
           Type event
         </label>
@@ -97,7 +98,7 @@ export function EventData({ register, control, handleDate, Controller,organizer 
           Amount of people *
           </label>
           <NumberInput 
-          className="mx-auto max-w-sm" 
+          className="'w-full'" 
           min={1}
           {...register("amount_people", { required: true })} 
           />
@@ -109,7 +110,7 @@ export function EventData({ register, control, handleDate, Controller,organizer 
         <label className="block text-sm text-gray-700 font-bold mb-2">
           Description
         </label>
-        <Textarea placeholder="Type here..." className="mx-auto max-w-xs" {...register("description", { required: true })}/>
+        <Textarea placeholder="Type here..." className="w-full" {...register("description", { required: true })}/>
       </div>
 
       <div className="w-full px-3 mb-6 mt-4">
@@ -119,7 +120,7 @@ export function EventData({ register, control, handleDate, Controller,organizer 
           Stimated Price *
           </label>
           <NumberInput 
-          className="mx-auto max-w-sm" 
+          className="w-full" 
           min={1}
           {...register("stimated_price", { required: true })} 
           />

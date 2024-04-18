@@ -31,7 +31,7 @@ export function InputData({ register }) {
             Phone Number *
           </label>
           <NumberInput 
-          className="mx-auto max-w-sm" 
+          className="w-full" 
           min={1}
           {...register("phone_number", { required: true })} 
           />

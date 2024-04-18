@@ -11,88 +11,80 @@ import { TextInputComp } from "../components/TextInput";
 import { createOrganizer } from "../components/api/organizer/post";
 import { useListCategory } from "../components/api/category/get";
 import { useListOrganizers } from "../components/api/organizer/get";
-import { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom'
-import { useUser } from "@clerk/clerk-react";
-import { updateOrganizer } from "../components/api/organizer/put";
-import { useNavigate } from "react-router-dom";
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+
 
 export function CreateOrganizer() {
-  const { handleSubmit, register, control, reset,setValue } = useForm();
-  const [, setShowAlert] = useState(false);
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+    .sendForm('service_100l8lk', 'template_4c6pybj', form.current, {
+        publicKey: 'ZE12eo5TuTA_Ysn9d',
+      })
+      .then(
+        () => {
+          console.log('Funcionaaa xd');
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
+
+  };
+
+  const sendEmail2 = (a) => {
+    a.preventDefault();
+
+    emailjs
+    .sendForm('service_kwifaep', 'template_1xw8w83', form.current, {
+        publicKey: 'o-aLF1CLGbCOVJ3il',
+      })
+      .then(
+        () => {
+          console.log('Funcionaaa xd');
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
+
+      form.current.reset();
+
+  };
+
+
+  const { handleSubmit, register, control, reset } = useForm();
+
   const { data: categoryData } = useListCategory();
   const { data: organizerData } = useListOrganizers();
-  const { user } = useUser();
-  const navigate = useNavigate()
-  const params = useParams()
-  var organizer = organizerData ? organizerData.filter((organizer) => organizer.email == user?.emailAddresses[0].emailAddress) : []
 
-  useEffect(() => {
-    if(params.id && organizer){
-        setValue("name",organizer[0].name)
-        setValue("phone",organizer[0].phone)
-        setValue("cover_letter",organizer[0].cover_letter)
-        setValue("location",organizer[0].location)
-        setValue("email",organizer[0].email)
-        setValue("linkedin",organizer[0].linkedin)
-        setValue("instagram",organizer[0].instagram)
-        setValue("other",organizer[0].other)
-        setValue("eventTypes",organizer[0].event_types)
-        handleFile(organizer[0].profile_photo,'profile_photo')
-        handleFile(organizer[0].curriculum,'curriculum')
-    }
-  },[params.id,organizerData,organizer])
-
-  const handleFile = (e,field) =>{
-    if(typeof(e) == 'string'){
-      fetch(e)
-      .then(response => response.blob())
-      .then(blob => {
-      const name = e.split('/').pop().toLowerCase();
-      const file = new File([blob], `${name}`, { type: "application/pdf" });
-      setValue(field, file)
-    })}
-  }
-
-  const alert = (icon,title,text='') => {
-    setShowAlert(true);  
-    Swal.fire({
-      title: `Request ${title}!`,
-      icon: icon,
-      text: text,
-      showConfirmButton: false,
-      timer: 3000
-    });
-  }
-  
   const onSubmit = async (data) => {
-    const { curriculum, cover_letter, email } = data;
-    if (curriculum.length === 0 || cover_letter.length === 0) {
-      alert('error', 'Error', 'Please attach both curriculum and cover letter.');
+    const userEmail = data.email;
+    if (userEmail == organizerData.map((organizer) => organizer.email)) {
+      Swal.fire({
+        title: "Deniend Request",
+        icon: "error",
+        text: "An user with the same email has made this request.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     } else {
-      if(params.id){
-        console.log(data)
-        updateOrganizer(params.id,data)
-        alert('success', 'Updated');
-        reset();
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2500);
+      console.log(data);
+      createOrganizer(data);
+      reset();
+      Swal.fire({
+        title: "Request Sended!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000,
+      });
 
-      }else{
-        if (organizerData.map((organizer) => organizer.email == email)[0] == true) {
-          alert('error', 'Denied', 'A user with the same email has made this request.');
-        } else {
-          console.log(data);
-          createOrganizer(data);
-          reset();
-          alert('success', 'Sent');
-          
-          setTimeout(() => {
-            navigate('/organizers')
-          }, 2500);
-        }
-      }
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2500);
     }
   };
 
@@ -109,14 +101,18 @@ export function CreateOrganizer() {
       <div className="">
         <div className="max-w-screen-lg mx-auto py-28">
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={(e) => {
+              sendEmail(e); 
+              sendEmail2(e);
+              handleSubmit(onSubmit)(e); 
+            }}
             className="md:col-span-8 p-10 bg-white rounded-md shadow-lg space-y-4 relative z-10 grid grid-cols-2 gap-6"
+            ref={form} 
           >
             <div className="col-span-2">
               <div className="text-center">
                 <h3 className="block uppercase text-3xl font-bold dark:text-[#FD8B11]">
-                {params.id ? "Edit Your Profile" : "Become An Organizer"}
-                  
+                  Become An Organizer 
                 </h3>
               </div>
             </div>
@@ -138,6 +134,7 @@ export function CreateOrganizer() {
               </label>
               <NumberInput
                 enableStepper={false}
+                name="phone"
                 placeholder="Organizer's Phone"
                 {...register("phone", { required: true })}
               />
@@ -145,13 +142,14 @@ export function CreateOrganizer() {
 
             <div className="w-full px-3 mb-6">
               <label
-                htmlFor="Cover Letter"
+                htmlFor="description"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
                 Description *
               </label>
               <Textarea
                 placeholder="Organizer's Description"
+                name="description"
                 {...register("cover_letter", { required: true })}
               />
             </div>
@@ -164,25 +162,13 @@ export function CreateOrganizer() {
               register={register}
             />
 
-
-            {params.id ?
-              <TextInputComp
-              name="email"
-              label="Email *"
-              placeholder="********@*****.***"
-              type="email"
-              register={register}
-              disabled={true} />
-            :
             <TextInputComp
               name="email"
               label="Email *"
-              placeholder="********@*****.***"
+              placeholder="***************@*****.***"
               type="email"
               register={register}
-               />
-            }
-            
+            />
 
             <TextInputComp
               name="linkedin"
@@ -238,14 +224,13 @@ export function CreateOrganizer() {
             <div className="w-full px-3 mb-6">
               <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2">
                 {" "}
-                Logo / Company Image *{" "}
+                Profile Photo *{" "}
               </label>
-              {params.id ? <span>The last photo is already uploaded</span> : <></>}
               <input
                 className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"
                 type="file"
                 accept="image/*"
-                {...register("profile_photo", { required: false })}
+                {...register("profile_photo", { required: true })}
               />
             </div>
 
@@ -254,12 +239,12 @@ export function CreateOrganizer() {
                 htmlFor="fileInput"
                 className="appearance-none block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
-                Curriculum *
+                Upload Curriculum{" "}
               </label>
-              {params.id ? <span>The last CV is already uploaded</span> : <></>}
               <input
                 type="file"
-                {...register("curriculum", { required: false })}
+                name="file"
+                {...register("curriculum", { required: true })}
                 accept=".pdf"
                 className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"
               />
@@ -269,8 +254,9 @@ export function CreateOrganizer() {
               <button
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#FD8B11] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                value="Send"
               >
-                {params.id ? "Save Profile" : "Send Request"}
+                Send Request
               </button>
             </div>
           </form>
