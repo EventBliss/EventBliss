@@ -109,7 +109,7 @@ export function Products() {
                                     <h2 className="card-title">{event.name}</h2>
                                     <p>{truncateDescription(event.description, 200)}</p>
                                     {event.description.length > 200 && (
-                                        <Link to={`/Products/${event.id}`} className="text-blue-500 hover:underline focus:outline-none">
+                                        <Link to={`details/${event.id}`} className="text-blue-500 hover:underline focus:outline-none">
                                             See more
                                         </Link>
                                     )}

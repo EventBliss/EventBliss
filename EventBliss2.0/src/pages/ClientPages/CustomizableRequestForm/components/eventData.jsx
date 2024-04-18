@@ -90,39 +90,39 @@ export function EventData({ register, control, handleDate, Controller,organizer 
 
 
       {/* cantidad de personas que asistiran */}
-      <div className="w-full px-3 mb-6">
+      <div className="w-full px-3 mb-6 mt-4">
           <label
-            className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+            className="block text-sm text-gray-700 font-bold mb-2" 
           >
-            Amount of people *
+          Amount of people *
           </label>
           <NumberInput 
           className="mx-auto max-w-sm" 
           min={1}
           {...register("amount_people", { required: true })} 
-          />;
+          />
         </div>
 
       {/* descripcion del evento */}
       
-      <div>
+      <div className="w-full px-3 mb-6 mt-4">
         <label className="block text-sm text-gray-700 font-bold mb-2">
           Description
         </label>
         <Textarea placeholder="Type here..." className="mx-auto max-w-xs" {...register("description", { required: true })}/>
       </div>
 
-      <div className="w-full px-3 mb-6">
+      <div className="w-full px-3 mb-6 mt-4">
           <label
-            className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+            className="block text-sm text-gray-700 font-bold mb-2"
           >
-            Stimated Price *
+          Stimated Price *
           </label>
           <NumberInput 
           className="mx-auto max-w-sm" 
           min={1}
           {...register("stimated_price", { required: true })} 
-          />;
+          />
         </div>
     </div>
   );

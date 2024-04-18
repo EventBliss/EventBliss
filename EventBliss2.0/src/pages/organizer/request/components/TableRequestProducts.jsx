@@ -9,8 +9,9 @@ import { BadgesStatus } from "../../../../components/BadgesStatus";
 export function TableRequestsProducts({status}) {
     const { user } = useUser();
     const [selectedProducts, setSelectedProducts] = useState([]);
-    const email = user?.email || 'christalperez0@gmail.com';
+    const email = user?.email
     const { data:productsRequest , error } = useListRequests();
+    console.log(productsRequest)
     
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export function TableRequestsProducts({status}) {
                 comment: item.comment,
                 date: format(item.event_date, { date: "full" }),
                 location: item.event_location,
-                organizer: item.organizer_name,
+                client: item.client_name,
                 status: <BadgesStatus status={item.status}/>,
                 action: <Actions status={item.status} id={item.id} queryKey={'eventRequests'}/>
                 
@@ -33,10 +34,10 @@ export function TableRequestsProducts({status}) {
     }, [productsRequest, email, error, status]);
     
 
-    const selectData = [ "event_name", "date", "comment", "location", "organizer", "status", "action"];
+    const selectData = [ "event_name", "date", "comment", "location", "client", "status", "action"];
 
     // Define los nombres de las columnas de la tabla
-    const headerCell = [ "Event Name", "Date","Comment", "Location", "Organizer", "Status", "Actions"];
+    const headerCell = [ "Event Name", "Date","Comment", "Location", "Client", "Status", "Actions"];
 
     return (
         <div className="pt-20 p-10">

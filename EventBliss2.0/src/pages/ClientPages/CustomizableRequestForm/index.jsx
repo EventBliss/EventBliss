@@ -35,7 +35,7 @@ export function CustomizableRequestForm({ orgEmail }) {
       timer: 2000
     });
     setTimeout(() => {
-      window.location.href = '/';
+      window.location.href = '/organizers';
     }, 2500);
   }
   const handleDatePickerChange = (date) => {
@@ -45,13 +45,13 @@ export function CustomizableRequestForm({ orgEmail }) {
   };
 
   return (
-    <div className="px-4 lg:px-0 w-full  items-center  flex justify-center">
+    <div className="lg:px-0 w-full  items-center  flex justify-center">
       <div className="w-full lg:max-w-[1000px] py-5 bg-white rounded-md relative z-50">
         <h1 className="text-center text-4xl uppercase font-semibold text-orange-500 mb-10">
           Create a Custom Event
         </h1>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-[650px] ">
           <div className="">
 
             {/* Datos personales del cliente */}
@@ -65,7 +65,7 @@ export function CustomizableRequestForm({ orgEmail }) {
 
             <button
               type="submit"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#FD8B11] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              className="flex mx-auto items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#FD8B11] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Send Request
             </button>
           </div>
