@@ -39,7 +39,7 @@ export function InputData({
         
         />
 
-      <div style={{'width': '50%','display': "flex"}}>
+      <div className="px-3" style={{'width': '50%','display': "flex"}}>
         <div className="">
           {/* dia del evento */}
           <label className="block text-sm text-gray-700 font-bold mb-2">
@@ -75,7 +75,7 @@ export function InputData({
           />
       
         </div>
-      <div className="mb-3">
+      <div className="mb-3 px-3">
         <label className="block text-sm text-gray-700 font-bold mb-2">
           Description
         </label>
