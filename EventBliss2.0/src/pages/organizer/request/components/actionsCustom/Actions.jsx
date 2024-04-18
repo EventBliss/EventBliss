@@ -1,5 +1,7 @@
+import { updateCustomEventRequest } from "../../../../../components/api/customEvents/put"
 import { Confirm } from "./Confirm"
 // importas la funcion de la api que quieras llamar 
+export function Actions({id, status, queryKey}) {
 export function Actions({id, status, queryKey}) {
 
     const showNoneOption = status === "Finished" || status === "Denied"
@@ -24,12 +26,12 @@ export function Actions({id, status, queryKey}) {
 
         {showFinishedoption &&(
             <div>
-                <Confirm name={"Finished"} className={"grid mx-auto py-2 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={APIFunction} queryKey={""}></Confirm>
+                <Confirm name={"Finished"} className={"grid mx-auto py-2 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold px-4 rounded-lg"}  id={id} APIFunction={updateCustomEventRequest} status={'Finished'} queryKey={queryKey}></Confirm>
             </div>
         )}
         
     </div>
-    
-    
-  )
+    
+    
+  )
 }
