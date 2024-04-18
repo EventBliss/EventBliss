@@ -77,10 +77,10 @@ export function FormsEvent() {
   };
 
   return (
-    <div className="relative">
+    <div>
 
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-40"
+        className="fixed inset-0 bg-cover bg-center opacity-40 w-full h-[100%]"
         style={{
           backgroundImage:
             'url("https://cdn.pixabay.com/photo/2020/09/18/21/13/wedding-photography-5582980_1280.jpg")',
