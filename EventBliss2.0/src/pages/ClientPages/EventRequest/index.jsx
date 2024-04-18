@@ -9,6 +9,7 @@ import { useUser } from "@clerk/clerk-react";
 import { useListClients } from "../../../components/api/client";
 import { useListOrganizers } from "../../../components/api/organizer/get";
 import { useListRequests } from "../../../components/api/request/get";
+import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 export function EventRequestForm({organizerName,eventName,organizerEmail,eventId}){
     const [day, setDay] = useState();
@@ -18,6 +19,7 @@ export function EventRequestForm({organizerName,eventName,organizerEmail,eventId
     const {data: organizerData} = useListOrganizers();
     const {data:eventRequests} = useListRequests()
     const user = useUser()
+    const navigate = useNavigate()
 
     useEffect(() => {
     setValue('eventId', eventId)
@@ -60,7 +62,7 @@ export function EventRequestForm({organizerName,eventName,organizerEmail,eventId
               timer: 2000
             });
             setTimeout(() => {
-              window.location.href = '/';
+              navigate('/products')
             }, 2500);
         }else{
           reset()

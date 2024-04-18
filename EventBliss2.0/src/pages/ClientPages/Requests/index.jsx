@@ -16,8 +16,8 @@ export  function Requests() {
     <div className="pt-20 p-10 bg-white">
         <div>
           <TabsComponents
-          TitleA={'requests products'}
-          TitleB={'requests of custom events'}
+          TitleA={'Requests products'}
+          TitleB={'Requests of custom events'}
           PanelA={<TableRequestsProducts/>}
           PanelB={<TableRequestsCustom/>}/>
             

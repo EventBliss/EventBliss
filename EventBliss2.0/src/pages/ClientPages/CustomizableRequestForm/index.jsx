@@ -10,6 +10,7 @@ import { useListClients } from "../../../components/api/client";
 import { useListOrganizers } from "../../../components/api/organizer/get";
 import { useState } from "react";
 import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 export function CustomizableRequestForm({ orgEmail }) {
@@ -17,13 +18,13 @@ export function CustomizableRequestForm({ orgEmail }) {
   const {data:organizers} = useListOrganizers()
   const {data:clients} = useListClients()
   const [, setShowAlert] = useState(false);
+  const navigate = useNavigate()
 
   const organizer = organizers && organizers.filter((organizer => organizer.email == orgEmail))
 
   const user = useUser()
 
   function onSubmit(data) {
-    console.log(data)
     const clientEmail = user.user.emailAddresses[0].emailAddress;
     CreateCustomEvent(data,orgEmail,clientEmail,clients,organizers)
     reset()
@@ -35,7 +36,7 @@ export function CustomizableRequestForm({ orgEmail }) {
       timer: 2000
     });
     setTimeout(() => {
-      window.location.href = '/organizers';
+      navigate('/organizers')
     }, 2500);
   }
   const handleDatePickerChange = (date) => {

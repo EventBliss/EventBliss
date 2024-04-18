@@ -72,7 +72,7 @@ export function Confirm({ APIFunction, id, name, className, queryKey }) {
                     <Button variant="primary" color="green" onClick={handleYesClick}>
                     <span className="text-2xl">Yes</span>
                     </Button>
-                    <Button onClick={gola}>TRY ME</Button>
+                    
                 </div>
               </div>
             </div>
