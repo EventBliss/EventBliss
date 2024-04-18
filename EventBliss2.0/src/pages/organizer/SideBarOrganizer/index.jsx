@@ -49,7 +49,9 @@ export function SideBar() {
             </div>
             <div className="flex items-center">
               <div className="flex items-center ms-3">
-                <div></div>
+                <div>
+                  
+                </div>
               </div>
             </div>
           </div>

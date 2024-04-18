@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import { useListCustomEvents } from "../../../../components/api/customEvents/get";
 import { useUser } from "@clerk/clerk-react";
-import { TableData } from '../../../../components/TableData';
+import { TableData } from "../../../../components/TableData";
 import { format } from "@formkit/tempo";
-import { Actions } from "./Actions";
-import { deleteCustomRequest } from "../../../../components/api/customEvents/delete";
+import { Actions } from "./actionsCustom/Actions";
 import { BadgesStatus } from "../../../../components/BadgesStatus";
 
-export function TableRequestsCustom() {
+export function TableRequestsCustom({status}) {
     const { user } = useUser();
     const [selectedProducts, setSelectedProducts] = useState([]);
-    const email = user?.email || 'ashley14@gmail.com';
+    const email = user?.email || 'christalperez0@gmail.com';
     const { data:customRequest , error } = useListCustomEvents();
 
     useEffect(() => {
         if (customRequest) {
-            const events = customRequest.filter((product) => product.client_email === email);
+            const events = customRequest.filter((product) => product.client_email === email && product.status == status);
             setSelectedProducts(events.map(item => ({
                 event_name: item.event_name,
                 comment: item.comment,
@@ -26,12 +25,12 @@ export function TableRequestsCustom() {
                 estimated_price: item.estimated_price,
                 people: item.amount_people,
                 status: <BadgesStatus status={item.status}/>,
-                action: <Actions status={item.status} id={item.id} deleteRequest={deleteCustomRequest} queryKey={"customEvents"}/>
+                action: <Actions status={item.status} id={item.id} queryKey={'customEvents'}/>
             })));
         } else if (error) {
             console.error('Error al cargar los eventos:', error);
         }
-    }, [customRequest, email, error]);
+    }, [customRequest, email, error, status]);
 
     const selectData = [ "event_name", "comment", "start_date", "ending_date", "location", "estimated_price", "organizer", "people", "status", "action"];
 

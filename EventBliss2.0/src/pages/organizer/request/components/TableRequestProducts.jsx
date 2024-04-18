@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import { useListRequests } from "../../../../components/api/request/get";
 import { useUser } from "@clerk/clerk-react";
-import { TableData } from '../../../../components/TableData';
+import { TableData } from "../../../../components/TableData";
 import { format } from "@formkit/tempo";
-import { Actions } from "./Actions";
-import { deleteRequest } from "../../../../components/api/request/delete";
+import { Actions } from "./actionProduct/Actions";
 import { BadgesStatus } from "../../../../components/BadgesStatus";
 
-export function TableRequestsProducts() {
+export function TableRequestsProducts({status}) {
     const { user } = useUser();
     const [selectedProducts, setSelectedProducts] = useState([]);
-    const email = user?.email || 'ashley14@gmail.com';
+    const email = user?.email || 'christalperez0@gmail.com';
     const { data:productsRequest , error } = useListRequests();
     
 
     useEffect(() => {
         if (productsRequest) {
-            const events = productsRequest.filter((product) => product.client_email === email);
+            const events = productsRequest.filter((product) => product.organizer_email === email && product.status == status);
             setSelectedProducts(events.map(item => ({
                 event_name: item.event_name,
                 comment: item.comment,
@@ -24,14 +23,14 @@ export function TableRequestsProducts() {
                 location: item.event_location,
                 organizer: item.organizer_name,
                 status: <BadgesStatus status={item.status}/>,
-                action: <Actions status={item.status} id={item.id} deleteRequest={deleteRequest} queryKey={'eventRequests'}/>
+                action: <Actions status={item.status} id={item.id} queryKey={'eventRequests'}/>
                 
                 
             })));
         } else if (error) {
             console.error('Error al cargar los eventos:', error);
         }
-    }, [productsRequest, email, error]);
+    }, [productsRequest, email, error, status]);
     
 
     const selectData = [ "event_name", "date", "comment", "location", "organizer", "status", "action"];

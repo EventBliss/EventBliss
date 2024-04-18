@@ -4,7 +4,7 @@ import axios from 'axios'
  * @param {*} eventId The id of the event
  * @returns None
  */
-export const deleteRequest = (requestId)=>{
+export const deleteCustomRequest =(requestId)=>{
   const API = import.meta.env.VITE_BACKEND_API
-  return axios.delete(`${API}eventRequest/${requestId}`);
+  return axios.delete(`${API}customEvents/${requestId}`);
 };

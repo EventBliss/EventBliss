@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useListEvents } from "../../components/api/event/get";
+import { ModalComponents } from "../../components/Modal";
+import { EventRequestForm } from "../ClientPages/EventRequest";
 
 
 export function ProductCardsView() {
@@ -78,11 +80,12 @@ export function ProductCardsView() {
             </p>
 
             
-              <button className="grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded-lg">
-                <span className="text-xl">Book now</span>
-              </button>
-            
+            <ModalComponents name={'Book now'} className={"grid mx-auto py-4 shadow bg-[#FD8B11] hover:bg-[#fd8311c2] focus:shadow-outline focus:outline-none text-white font-bold px-6 rounded-lg"}
+            date={<EventRequestForm organizerName={selectedEvent.organizer_name} eventName={selectedEvent.name} organizerEmail={selectedEvent.organizer_email} eventId={id} />}
+            />
           </div>
+
+
         </div>
       </div>
     </div>
