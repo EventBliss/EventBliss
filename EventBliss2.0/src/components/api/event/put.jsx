@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function updateTask(id,data,organizers,organizerEmail){
     const API = import.meta.env.VITE_BACKEND_API
-
+    console.log(data)
     const {name,price,category,image,description,isPackage} = data
 
     const organizerId = organizers.find(organizer => organizer.email == organizerEmail)?.id

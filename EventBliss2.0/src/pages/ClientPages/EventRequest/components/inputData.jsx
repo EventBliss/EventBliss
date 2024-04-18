@@ -10,22 +10,25 @@ export function InputData({register,day,handleDatePickerChange,organizerName,eve
 
     return(
     <div>
-        <label
-            htmlFor={name}
-            className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-        >
-            Event Name
-        </label>
-        <TextInput placeholder={`${eventName}`} disabled={true} />
+        <div className="px-3 mb-6">
+            <label
+                htmlFor={name}
+                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+            >
+                Event Name
+            </label>
+            <TextInput placeholder={`${eventName}`} disabled={true} />
+        </div>
 
-        <label
-            htmlFor={name}
-            className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
-        >
-            Organizer Name
-        </label>
-        <TextInput placeholder={`${organizerName}`} disabled={true} />
-
+        <div className="px-3 mb-6">
+            <label
+                htmlFor={name}
+                className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+            >
+                Organizer Name
+            </label>
+            <TextInput placeholder={`${organizerName}`} disabled={true} />
+        </div>
 
 
         <TextInputComp
@@ -35,9 +38,10 @@ export function InputData({register,day,handleDatePickerChange,organizerName,eve
             register={register}
         
         />
-        <div style={{'width': '50%','display': "flex"}}>
-        {/* dia del evento */}
-            <div>
+
+        <div className="flex px-3">
+            <div className="w-20">
+                {/* dia del evento */}
             <label className="block text-sm text-gray-700 font-bold mb-2">
                 Event day
             </label>
@@ -46,19 +50,19 @@ export function InputData({register,day,handleDatePickerChange,organizerName,eve
                 required
                 onValueChange={handleDatePickerChange}
                 {...register("date",{required: true})}
-                />
+            />
             </div>
 
 
-            {/* Hora de inicio de evento*/}
+           <div className="w-40">
+             {/* Hora de inicio de evento*/}
 
-            <TextInputComp
+             <TextInputComp
             label={"Start time *"}
             name={"start_time"}
             placeholder={"Start time"}
             register={register}
             type={'time'}
-            
             />
 
             {/* Hora de finalizacion del evento*/}
@@ -70,12 +74,13 @@ export function InputData({register,day,handleDatePickerChange,organizerName,eve
             register={register}
             type={'time'}
             />
+           </div>
         </div>
-        <div>
+        <div className="mb-3">
             <label className="block text-sm text-gray-700 font-bold mb-2">
             Description
             </label>
-            <Textarea placeholder="Type here..." className="mx-auto max-w-xs" {...register("comment", { required: true })}/>
+            <Textarea placeholder="Type here..." className="w-full" {...register("comment", { required: true })}/>
         </div>
         </div>
     )
