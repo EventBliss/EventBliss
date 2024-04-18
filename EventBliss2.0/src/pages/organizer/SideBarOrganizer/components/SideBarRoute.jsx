@@ -6,6 +6,7 @@ import {
   RiTableView,
   RiVerifiedBadgeFill,
   RiCloseLargeFill,
+  RiAddCircleLine,
 } from "@remixicon/react";
 
 export const sideBarRoutes = [
@@ -49,9 +50,15 @@ export const sideBarRoutes = [
   },
   {
     id: "TableProducts",
-    title: "TableProducts",
+    title: "Table Products",
     path: "tableProducts",
     icon: RiTableView
   },
+  {
+    id: "CreateEvents",
+    title: "Create an event",
+    path: "createEvents",
+    icon: RiAddCircleLine
+  }
 
 ];

@@ -25,7 +25,7 @@ export function CreateOrganizer() {
   const { user } = useUser();
   const navigate = useNavigate()
   const params = useParams()
-  var organizer = organizerData ? organizerData.filter((organizer) => organizer.email == user.emailAddresses[0].emailAddress) : []
+  var organizer = organizerData ? organizerData.filter((organizer) => organizer.email == user?.emailAddresses[0].emailAddress) : []
 
   useEffect(() => {
     if(params.id && organizer){
