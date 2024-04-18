@@ -25,11 +25,9 @@ export function GraphCard({ dataLY, dataAY }) {
           <TabPanels>
             <TabPanel>
               <div>
-                {dataAY && (
                   <Graph
                     data={dataAY}
                     title="Average Requests Made This Year"></Graph>
-                )}
               </div>
             </TabPanel>
             <TabPanel>

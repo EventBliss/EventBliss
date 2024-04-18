@@ -12,7 +12,7 @@ export function Graph({data:dataR, title}){
       request: item.request,
     }));
     setData(transformedData);
-  },[])
+  },[dataR])
   
     const CustomTooltip = (props) => {
         const { payload } = props;

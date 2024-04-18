@@ -99,7 +99,6 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/CustomizableRequestForm" element={<CustomizableRequestForm/>} />
         <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>

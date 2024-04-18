@@ -1,10 +1,21 @@
+import { useUser } from "@clerk/clerk-react";
 import { useOrganizerData } from "../../../components/api/organizer/get";
 import { BarListCard } from "./components/BarListCard";
 import { GraphCard } from "./components/GraphCard";
 import { TopCard } from "./components/TopCard";
+import { useEffect, useState } from "react";
 
 export function Dashboard() {
-  const data = useOrganizerData();
+  const { user, isSignedIn } = useUser()
+  const [email, setEmail] = useState('')
+  const data = useOrganizerData(email);
+  useEffect(()=>{
+    if(isSignedIn){
+      if(user.primaryEmailAddress.emailAddress.length > 0){
+        setEmail(user.primaryEmailAddress.emailAddress)
+      }
+    }
+  },[isSignedIn])
   return (
     <div>
       <div className="TopCard">
