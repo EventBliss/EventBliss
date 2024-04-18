@@ -26,7 +26,7 @@ export function Footer() {
           <div className="container p-6">
             <div className="">
               <p className="flex items-center justify-center">
-                <span className="me-4">become an organizer</span>
+                <span className="me-4">Become an organizer</span>
                 <Link to={'/becomeAnOrganizer'}>
                 <button
                   type="button"

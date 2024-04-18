@@ -182,12 +182,12 @@ export function HomePage() {
                   <p className="p-4">We provide analytics and reporting tools so organizers can track the performance of their events, including data on ticket sales, attendance, and more.</p>
                 </div>
 
-                <div className="w-auto h-auto bg-[#dfdede] text-gray-800  xl:bg-[#FD8B11] xl:text-white">
+                <div className="w-auto h-auto bg-[#FD8B11] text-white">
                   <h2 className="text-lg font-semibold p-4">Technical Support and Customer Service</h2>
                   <p className="p-4">We offer technical support and customer service to help organizers with any questions or problems they may have during the event planning and execution process.</p>
                 </div>
 
-                <div className="w-auto h-auto bg-[#FD8B11] text-gray-100 xl:bg-[#dfdede] xl:text-gray-800">
+                <div className="w-auto h-auto  bg-[#dfdede] text-gray-800">
                   <h2 className="text-lg font-semibold p-4">Event Customization</h2>
                   <p className="p-4">We offer customization options so organizers can tailor their events to their needs and preferences, such as selecting themes, layouts, and settings.</p>
                 </div>
