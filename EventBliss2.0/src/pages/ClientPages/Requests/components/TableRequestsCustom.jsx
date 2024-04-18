@@ -26,7 +26,7 @@ export function TableRequestsCustom() {
                 estimated_price: item.estimated_price,
                 people: item.amount_people,
                 status: <BadgesStatus status={item.status}/>,
-                action: <Actions status={item.status} id={item.id} deleteRequest={deleteCustomRequest}/>
+                action: <Actions status={item.status} id={item.id} deleteRequest={deleteCustomRequest} queryKey={"customEvents"}/>
             })));
         } else if (error) {
             console.error('Error al cargar los eventos:', error);
