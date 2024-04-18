@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { useUser } from "@clerk/clerk-react";
 // import { useUser } from "@clerk/clerk-react";
 import { TableData } from "../../../components/TableData";
 
@@ -10,7 +10,8 @@ import { Link, NavLink } from "react-router-dom";
 export function TableProducts() {
   // const { user } = useUser();
   const [selectedEvents, setSelectedEvents] = useState([]);
-  const email = "christalperez0@gmail.com";
+  const user = useUser()
+  const email = user?.emailAddresses[0].emailAddress;
   const { data, error } = useListEvents();
 
   useEffect(() => {

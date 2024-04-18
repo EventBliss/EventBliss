@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import { useRef,useState } from 'react';
 import emailjs from '@emailjs/browser';
+import Swal from "sweetalert2";
 
 export function Contact() {
-    
+    const [, setShowAlert] = useState(false);
     const form = useRef();
 
     const sendEmail = (e) => {
@@ -14,7 +15,13 @@ export function Contact() {
           })
           .then(
             () => {
-              console.log('Funciona');
+                setShowAlert(true);  
+                Swal.fire({
+                  title: `Email Sended!`,
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
             },
             (error) => {
               console.log('FAILED...', error.text);
@@ -22,6 +29,7 @@ export function Contact() {
           );
 
           form.current.reset();
+
 
       };
 

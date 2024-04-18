@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import {useParams} from 'react-router-dom'
 import { useUser } from "@clerk/clerk-react";
 import { updateOrganizer } from "../components/api/organizer/put";
+import { useNavigate } from "react-router-dom";
 
 export function CreateOrganizer() {
   const { handleSubmit, register, control, reset,setValue } = useForm();
@@ -22,6 +23,7 @@ export function CreateOrganizer() {
   const { data: categoryData } = useListCategory();
   const { data: organizerData } = useListOrganizers();
   const { user } = useUser();
+  const navigate = useNavigate()
   const params = useParams()
   var organizer = organizerData ? organizerData.filter((organizer) => organizer.email == user.emailAddresses[0].emailAddress) : []
 
@@ -59,7 +61,7 @@ export function CreateOrganizer() {
       icon: icon,
       text: text,
       showConfirmButton: false,
-      timer: 2000
+      timer: 3000
     });
   }
   
@@ -78,8 +80,7 @@ export function CreateOrganizer() {
         }, 2500);
 
       }else{
-        if (organizerData.map((organizer) => organizer.email == email).length > 0) {
-          console.log(data)
+        if (organizerData.map((organizer) => organizer.email == email)[0] == true) {
           alert('error', 'Denied', 'A user with the same email has made this request.');
         } else {
           console.log(data);
@@ -88,7 +89,7 @@ export function CreateOrganizer() {
           alert('success', 'Sent');
           
           setTimeout(() => {
-            window.location.href = "/";
+            navigate('/organizers')
           }, 2500);
         }
       }
@@ -163,14 +164,25 @@ export function CreateOrganizer() {
               register={register}
             />
 
+
+            {params.id ?
+              <TextInputComp
+              name="email"
+              label="Email *"
+              placeholder="********@*****.***"
+              type="email"
+              register={register}
+              disabled={true} />
+            :
             <TextInputComp
               name="email"
               label="Email *"
               placeholder="********@*****.***"
               type="email"
               register={register}
-              disabled={true}
-            />
+               />
+            }
+            
 
             <TextInputComp
               name="linkedin"

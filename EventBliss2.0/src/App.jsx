@@ -91,6 +91,7 @@ function App() {
                 <Route index element={<TableProducts/>}/>
                 <Route path="EditEvent/:id" element={<FormsEvent/>}/>
               </Route>
+              <Route path="CreateEvents" element={<FormsEvent/>}/>
               <Route path="Pending" element={<TableRequestIP/>}/>
               <Route path="Finished" element={<TableRequestF/>}/> 
               <Route path="Approved" element={<TableRequestA/>}/> 

@@ -144,16 +144,17 @@ export function SideBar() {
               )}
             </div>
           ))}
-          <div>
+          
+          <div className="text-gray-900 rounded-lg hover:bg-gray-100 group cursor-pointer">
           <button onClick={() => signOut(() => <Navigate to={'/'}/>)} className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group cursor-pointer">
-            <IconLogout2 className="w-8 h-8 text-white group-hover:text-gray-900 cursor-pointer" />
-            <span className={`ml-3 text-white ${ asideOpen ? " group-hover:text-gray-900 transition delay-": "hidden"}`}>
-            Log
-            </span>
-            <span className={`ml-1 pl- text-white ${ asideOpen ? " group-hover:text-gray-900 transition delay-": "hidden"}`}>
-          Out
-            </span>
-          </button>
+              <IconLogout2 className="w-8 h-8 text-white group-hover:text-gray-900 cursor-pointer" />
+              <span className={`ml-3 text-white ${ asideOpen ? " group-hover:text-gray-900 transition delay-": "hidden"}`}>
+              Log
+              </span>
+              <span className={`ml-1 pl- text-white ${ asideOpen ? " group-hover:text-gray-900 transition delay-": "hidden"}`}>
+              Out
+              </span>
+            </button>
           </div>
         </div>
         
