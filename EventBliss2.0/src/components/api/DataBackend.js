@@ -1,54 +1,23 @@
 import { useUser } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
-import { createClient,clientAPI } from "./client";
-import { organizerAPI } from "./organizer";
-import { createOrganizer } from "./organizer/post";
+import { useEffect } from "react";
+import { createClient, useListClients } from "./client";
 
 export function DataBackend() {
-    const { user,isSignedIn } = useUser();
-    const [clients, setClients] = useState([]);
-    const [organizers,setOrganizers] = useState([])
+  const { user, isSignedIn } = useUser();
+  const { data } = useListClients();
 
+  useEffect(() => {
+    if (user && isSignedIn && data) {
+      const email = user.emailAddresses[0].emailAddress;
+      const username = user.fullName;
+      const phone_number = user.phoneNumbers.length > 0 ? user.phoneNumbers[0].phoneNumber : 0
+      const foundClient = data && data.filter((client) => client.email === email);
+      console.log(foundClient)
+      if (foundClient) {
+        createClient( username, email, phone_number)
+      }
+    }
+  }, [user, isSignedIn]);
 
-    useEffect(() => {
-        async function loadClients() {
-            const response = await clientAPI();
-            const organizerRes = await organizerAPI();
-            setOrganizers(organizerRes.data);
-            setClients(response.data);
-        }
-        loadClients();
-    }, [user]);
-
-    useEffect(() => {
-        if (user && isSignedIn) {
-            const email = user.emailAddresses[0].emailAddress;
-            const username = user.fullName;
-            const phone_number = user.phoneNumbers[0].phoneNumber;
-            const foundClient = clients.some(client => client.email === email);
-            const foundedOrganizer = organizers.some(organizer => organizer.email === email)
-
-            if (user.organizationMemberships && user.organizationMemberships.length > 0) {
-                if(!foundedOrganizer){
-                    console.log('organizador')
-                    createOrganizer({
-                        name: username,
-                        email: email,
-                        phone: phone_number
-                    });
-                }
-            }else{
-                if (!foundClient){
-                    console.log('Cliente')
-                    createClient({
-                        name: username,
-                        email: email,
-                        phone: phone_number
-                    });
-                }
-            }
-        }
-    }, [user,clients]);
-
-    return null;
+  return null;
 }

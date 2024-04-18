@@ -72,7 +72,7 @@ export function AboutUs(){
             </div>
 
             
-            <div className="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl pb-11">
+            <div className="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl md:pb-64 lg:pb-20 xl:pb-11">
                 <div className="w-full h-64 lg:w-1/2 lg:h-auto">
                     <img className="h-full w-full object-cover" src="https://purabrasaevents.com/wp-content/uploads/2022/07/28_pura_brasa_events_boda_2018_09_08.jpg" alt="Winding mountain road"/>
                 </div>

@@ -1,53 +1,101 @@
-import { useForm,Controller } from 'react-hook-form';
-import 'react-image-upload/dist/index.css';
-import Swal from 'sweetalert2';
-import { Textarea, MultiSelect, MultiSelectItem, NumberInput } from '@tremor/react';
-import { TextInputComp } from '../components/TextInput';
-import { categoryApi } from '../components/api/category';
-import { useEffect,useState } from 'react';
-import { createOrganizer } from '../components/api/organizer/post';
-import { organizerAPI } from '../components/api/organizer';
-
+import { useForm, Controller } from "react-hook-form";
+import "react-image-upload/dist/index.css";
+import Swal from "sweetalert2";
+import {
+  Textarea,
+  MultiSelect,
+  MultiSelectItem,
+  NumberInput,
+} from "@tremor/react";
+import { TextInputComp } from "../components/TextInput";
+import { createOrganizer } from "../components/api/organizer/post";
+import { useListCategory } from "../components/api/category/get";
+import { useListOrganizers } from "../components/api/organizer/get";
+import { useEffect, useState } from "react";
+import {useParams} from 'react-router-dom'
+import { useUser } from "@clerk/clerk-react";
+import { updateOrganizer } from "../components/api/organizer/put";
 
 export function CreateOrganizer() {
-    const {handleSubmit,register,control,reset} = useForm();
-    const [categories,setCategories] = useState([]);
-    const [organizers,setOrganizers] = useState([])
+  const { handleSubmit, register, control, reset,setValue } = useForm();
+  const [, setShowAlert] = useState(false);
+  const { data: categoryData } = useListCategory();
+  const { data: organizerData } = useListOrganizers();
+  const { user } = useUser();
+  const params = useParams()
+  var organizer = organizerData ? organizerData.filter((organizer) => organizer.email == user.emailAddresses[0].emailAddress) : []
 
-    useEffect(() => {
-      async function loadCategories(){
-        const response = await categoryApi();
-        const orgResponse = await organizerAPI();
-        setOrganizers(orgResponse.data)
-        setCategories(response.data)
-      }
-      loadCategories()
-    },[]);
+  useEffect(() => {
+    if(params.id && organizer){
+        setValue("name",organizer[0].name)
+        setValue("phone",organizer[0].phone)
+        setValue("cover_letter",organizer[0].cover_letter)
+        setValue("location",organizer[0].location)
+        setValue("email",organizer[0].email)
+        setValue("linkedin",organizer[0].linkedin)
+        setValue("instagram",organizer[0].instagram)
+        setValue("other",organizer[0].other)
+        setValue("eventTypes",organizer[0].event_types)
+        handleFile(organizer[0].profile_photo,'profile_photo')
+        handleFile(organizer[0].curriculum,'curriculum')
+    }
+  },[params.id,organizerData,organizer])
 
-    const onSubmit =  async (data) => {
-      const userEmail = data.email;
-      if (userEmail == organizers.map((organizer) => organizer.email)){
-        console.log("A user with the same email has made this request")
-      }else{
+  const handleFile = (e,field) =>{
+    if(typeof(e) == 'string'){
+      fetch(e)
+      .then(response => response.blob())
+      .then(blob => {
+      const name = e.split('/').pop().toLowerCase();
+      const file = new File([blob], `${name}`, { type: "application/pdf" });
+      setValue(field, file)
+    })}
+  }
+
+  const alert = (icon,title,text='') => {
+    setShowAlert(true);  
+    Swal.fire({
+      title: `Request ${title}!`,
+      icon: icon,
+      text: text,
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
+  
+  const onSubmit = async (data) => {
+    const { curriculum, cover_letter, email } = data;
+    if (curriculum.length === 0 || cover_letter.length === 0) {
+      alert('error', 'Error', 'Please attach both curriculum and cover letter.');
+    } else {
+      if(params.id){
         console.log(data)
-        createOrganizer(data)
-        reset()
-        Swal.fire({
-          title: 'Request Sended!',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 3000
-        });
-
+        updateOrganizer(params.id,data)
+        alert('success', 'Updated');
+        reset();
         setTimeout(() => {
-          window.location.href = '/';
+          window.location.href = "/";
         }, 2500);
 
-
+      }else{
+        if (organizerData.map((organizer) => organizer.email == email).length > 0) {
+          console.log(data)
+          alert('error', 'Denied', 'A user with the same email has made this request.');
+        } else {
+          console.log(data);
+          createOrganizer(data);
+          reset();
+          alert('success', 'Sent');
+          
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 2500);
+        }
       }
-    };
-  
-    return (
+    }
+  };
+
+  return (
     <div className="relative">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-40"
@@ -66,81 +114,83 @@ export function CreateOrganizer() {
             <div className="col-span-2">
               <div className="text-center">
                 <h3 className="block uppercase text-3xl font-bold dark:text-[#FD8B11]">
-                  Become An Organizer 
+                {params.id ? "Edit Your Profile" : "Become An Organizer"}
+                  
                 </h3>
               </div>
             </div>
 
-            <TextInputComp 
-              name='name'
-              label='Name / Company *'
+            <TextInputComp
+              name="name"
+              label="Name / Company *"
               placeholder="Organizer's Name"
-              type=''
+              type=""
               register={register}
             />
 
-
             <div className="w-full px-3 mb-6">
-                <label 
+              <label
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2"
-                >
-                    Phone Number * </label>
-                <NumberInput 
-                enableStepper={false} 
+              >
+                Phone Number *{" "}
+              </label>
+              <NumberInput
+                enableStepper={false}
                 placeholder="Organizer's Phone"
-                {...register('phone', {required: true})}
-                 />
+                {...register("phone", { required: true })}
+              />
             </div>
 
             <div className="w-full px-3 mb-6">
               <label
-                htmlFor="description"
+                htmlFor="Cover Letter"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
                 Description *
               </label>
-              <Textarea 
-              placeholder="Organizer's Description"
-              {...register('cover_letter', {required: true})}
+              <Textarea
+                placeholder="Organizer's Description"
+                {...register("cover_letter", { required: true })}
               />
             </div>
 
-            <TextInputComp 
-              name='location'
-              label='Location *'
+            <TextInputComp
+              name="location"
+              label="Location *"
               placeholder="Location"
-              type=''
+              type=""
               register={register}
             />
 
-            <TextInputComp 
-              name='email'
-              label='Email *'
+            <TextInputComp
+              name="email"
+              label="Email *"
               placeholder="********@*****.***"
-              type='email'
+              type="email"
               register={register}
+              disabled={true}
             />
 
-            <TextInputComp 
-              name='linkedin'
-              label='LinkedIn'
-              placeholder="Url"
-              type='url'
+            <TextInputComp
+              name="linkedin"
+              label="LinkedIn"
+              placeholder="URL"
+              type="url"
               register={register}
             />
-            <TextInputComp 
-              name='instagram'
-              label='Instagram'
-              placeholder="Url"
-              type='url'
+            <TextInputComp
+              name="instagram"
+              label="Instagram"
+              placeholder="URL"
+              type="url"
               register={register}
             />
-            <TextInputComp 
-              name='other'
-              label='Other'
-              placeholder="Url"
-              type='url'
+            <TextInputComp
+              name="other"
+              label="Other Social Media"
+              placeholder="URL"
+              type="url"
               register={register}
             />
 
@@ -149,48 +199,57 @@ export function CreateOrganizer() {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
               >
-                Types of Event Realized * 
+                Types of Event Realized *
               </label>
               <Controller
                 name="eventTypes"
                 control={control}
                 render={({ field }) => (
                   <MultiSelect
-                    placeholder='Select Types of Event'
-                    onChange={(selectedOptions) => field.onChange(selectedOptions)}
+                    placeholder="Select Types of Event"
+                    onChange={(selectedOptions) =>
+                      field.onChange(selectedOptions)
+                    }
                     value={field.value}
                   >
-                    {categories.map((category) => (
-                      <MultiSelectItem
-                        key={category.id}
-                        value={category.id}
-                      >
-                        {category.name}
-                      </MultiSelectItem>
-                    ))}
+                    {categoryData &&
+                      categoryData.map((category) => (
+                        <MultiSelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </MultiSelectItem>
+                      ))}
                   </MultiSelect>
                 )}
               />
             </div>
 
             <div className="w-full px-3 mb-6">
-              
-              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"> Profile Photo * </label>
-              <input className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"  
-              type="file" 
-              accept='image/*'
-              {...register('profile_photo', {required: true})}
+              <label className="block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2">
+                {" "}
+                Logo / Company Image *{" "}
+              </label>
+              {params.id ? <span>The last photo is already uploaded</span> : <></>}
+              <input
+                className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"
+                type="file"
+                accept="image/*"
+                {...register("profile_photo", { required: false })}
               />
-
             </div>
 
-            <div className='w-full px-3 mb-6'>
-              <label htmlFor="fileInput" className="appearance-none block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2">Upload Curriculum </label>
+            <div className="w-full px-3 mb-6">
+              <label
+                htmlFor="fileInput"
+                className="appearance-none block text-sm font-medium text-gray-700 font-bold mb-2 font-bold mb-2"
+              >
+                Curriculum *
+              </label>
+              {params.id ? <span>The last CV is already uploaded</span> : <></>}
               <input
                 type="file"
-                {...register('curriculum', {required: true})}
+                {...register("curriculum", { required: false })}
                 accept=".pdf"
-                className='appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white'
+                className="appearance-none block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white"
               />
             </div>
 
@@ -199,7 +258,7 @@ export function CreateOrganizer() {
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#FD8B11] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Send Request
+                {params.id ? "Save Profile" : "Send Request"}
               </button>
             </div>
           </form>

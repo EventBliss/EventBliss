@@ -1,25 +1,16 @@
-import { eventApi } from ".";
-import { useEffect,useState } from "react";
-
-export const getEvents = () => {
-    return eventApi.get('/');
-};
+import { useQuery } from "react-query";
+import axios from 'axios'
 
 /**
  * This funtion get all the events from the API
  * @returns events
  */
 
-export function ListEvents(){
-    const [events,setEvents] = useState();
-  
-    useEffect(() => {
-      async function loadEvents() {
-        const response = await getEvents();
-        setEvents(response.data)
-      }
-      loadEvents();
-    },[]);
+export function useListEvents() {
+  const API = import.meta.env.VITE_BACKEND_API;
 
-    return events;
+  return useQuery(['Events'], async () => {
+    const response = await axios.get(`${API}events`);
+    return response.data;
+  });
 }

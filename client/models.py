@@ -19,14 +19,6 @@ class Client(models.Model):
     def __str__(self):
         return self.name
     
-    def save(self, *args, **kwargs):
-        # Verificar si ya existe un cliente con el mismo correo electrónico
-        existing_client = Client.objects.filter(email=self.email).first()
-        if existing_client:
-            return
-
-        super(Client, self).save(*args, **kwargs)
-    
     class Meta:
         verbose_name = 'Client'
         verbose_name_plural = 'Clients'
@@ -54,14 +46,7 @@ class Organizer(models.Model):
 
     def __str__(self):
         return self.name
-    
-    def save(self, *args, **kwargs):
-        # Verificar si ya existe un cliente con el mismo correo electrónico
-        existing_client = Organizer.objects.filter(email=self.email).first()
-        if existing_client:
-            return
         
-        super(Organizer, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Organizer'

@@ -5,7 +5,7 @@ export function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [textHeight, setTextHeight] = useState(0);
   const [validation, setValidation] = useState(true)
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
@@ -15,8 +15,8 @@ export function HomePage() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    
   }, []);
-  console.log(scrollPosition)
 
   useEffect(() => {
     const textContainer = document.getElementById("text-container");
@@ -34,9 +34,6 @@ export function HomePage() {
   const Validation = () => {
     setValidation(!validation)
   }
-
-  console.log(validation)
-
 
   return (
     <div>

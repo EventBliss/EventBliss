@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@formkit/tempo": "^0.0.19",
+    "@tabler/icons-react": "^3.2.0",
+    "react-query": "^3.39.3"
+  }
+}

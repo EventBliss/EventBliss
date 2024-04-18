@@ -1,25 +1,17 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { categoryApi } from "../../components/api/category/index";
-import { ListEvents } from "../../components/api/event/get"
+import { useListEvents } from "../../components/api/event/get"
 import { Link } from "react-router-dom";
+import { useListCategory } from '../../components/api/category/get';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export function Products() {
-    const events = ListEvents();
     const [selectedCategory, setSelectedCategory] = useState("All");
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const categoriesData = await categoryApi();
-            setCategories(categoriesData.data);
-        }
-        fetchData();
-    }, []);
+    const {data} = useListEvents()
+    const {data:categoryData} = useListCategory()
 
     const truncateDescription = (description, maxLength) => {
         if (description.length > maxLength) {
@@ -30,11 +22,11 @@ export function Products() {
     };
 
     const filterEvents = (type) => {
-        if (events) {
+        if (data) {
             if (type === "All") {
-                return events.filter(event => event.package === true);
+                return data.filter(event => event.package === true);
             } else {
-                return events.filter((event) => event.category_names.includes(type) && event.package === true);
+                return data.filter((event) => event.category_names.includes(type) && event.package === true);
             }
         } else {
             return [];
@@ -86,7 +78,7 @@ export function Products() {
                                         </Link>
                                     )}
                                 </Menu.Item>
-                                {categories.map((category) => (
+                                {categoryData && categoryData.map((category) => (
                                     <Menu.Item key={category.id}>
                                         {({ active }) => (
                                             <Link
@@ -110,18 +102,18 @@ export function Products() {
             <div className="container mx-auto py-8">
                 <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-2 md:gap-16 gap-16 xl:grid-cols-3 mx-6'>
                     {filterEvents(selectedCategory).map((event) => (
-                        <Link to={`/Products/${event.id}`} key={event.id}>
+                        <Link to={`details/${event.id}`} key={event.id}>
                             <div className="card w-96 h-[550px] bg-base-100 shadow-xl">
                                 <figure ><img className='h-52 w-full' src={event.image} alt={event.name} /></figure>
                                 <div className="card-body">
                                     <h2 className="card-title">{event.name}</h2>
                                     <p>{truncateDescription(event.description, 200)}</p>
                                     {event.description.length > 200 && (
-                                        <Link to={`/Products/${event.id}`} className="text-blue-500 hover:underline focus:outline-none">
+                                        <Link to={`details/${event.id}`} className="text-blue-500 hover:underline focus:outline-none">
                                             See more
                                         </Link>
                                     )}
-                                    <p>Estimated price: ${event.price} US</p>
+                                    <p>Estimated price: ${event.price} USD</p>
                                     <div className="card-actions justify-end">
                                         <button className="btn btn-primary">Book now</button>
                                     </div>
@@ -131,6 +123,5 @@ export function Products() {
                     ))}
                 </div>
             </div>
-        </div>
-    );
+       </div>);
 }
