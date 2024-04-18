@@ -2,35 +2,35 @@ export function ConditionsTerms() {
   return (
     <div>
         <div className="grid grid-cols-1 m-10">
-            <label id="terminos" className="text-black">Términos y condiciones del evento:</label>
+            <label id="terminos" className="text-black">Terms and conditions of the event:</label>
             <textarea id="terminos" name="terminos" rows="6" cols="50" required readOnly>
-                Al enviar esta solicitud, acepto participar en el evento y estoy de
-                acuerdo con las políticas establecidas por la organización del evento.
-                También entiendo que mi participación está sujeta a la disponibilidad de
-                cupos y aprobación por parte de los organizadores. Acepto que la
-                información proporcionada en este formulario sea utilizada por la
-                organización del evento para procesar mi solicitud y comunicarse conmigo
-                en relación con el evento. Entiendo que la organización del evento se
-                reserva el derecho de realizar cambios en la programación, ubicación o
-                detalles del evento, y será responsabilidad del participante estar
-                informado de dichos cambios a través de los canales de comunicación
-                proporcionados por la organización. Además, me comprometo a cumplir con
-                las normas de conducta establecidas durante el evento y a respetar a los
-                demás participantes, ponentes y personal del evento. Estoy de acuerdo en
-                que la organización del evento no se hace responsable de ningún daño,
-                pérdida o lesión que pueda ocurrir durante mi participación en el
-                evento, y libero a la organización de cualquier responsabilidad en este
-                sentido. Acepto recibir comunicaciones relacionadas con el evento, como
-                confirmaciones de registro, actualizaciones y materiales informativos
-                por correo electrónico u otros medios de comunicación proporcionados por
-                la organización del evento. Al marcar la casilla de aceptación de
-                términos y condiciones, confirmo que he leído, comprendido y aceptado
-                todos los términos mencionados anteriormente.
+                By submitting this application, I agree to participate in the event and agree
+                in accordance with the policies established by the organization of the event.
+                I also understand that my participation is subject to the availability of
+                quotas and approval by the organizers. I accept that the
+                information provided in this form is used by the
+                event organization to process my request and contact me
+                in relation to the event. I understand that the organization of the event
+                reserves the right to make changes in programming, location or
+                details of the event, and it will be the responsibility of the participant to be
+                informed of such changes through communication channels
+                provided by the organization. Furthermore, I undertake to comply with
+                the rules of conduct established during the event and to respect the
+                other participants, speakers and event staff. I agree on
+                that the organization of the event is not responsible for any damage,
+                loss or injury that may occur during my participation in the
+                event, and I release the organization from any responsibility in this
+                sense. I agree to receive communications related to the event, such as
+                registration confirmations, updates and informational materials
+                by email or other means of communication provided by
+                the organization of the event. By checking the acceptance box
+                terms and conditions, I confirm that I have read, understood and accepted
+                all the terms mentioned above.
             </textarea>            
         </div>
         <div className="m-10">
             <input type="checkbox" id="acepto" name="acepto" required className="mr-2"/>
-            <label id="acepto" className="text-black">Acepto los términos y condiciones del evento.</label>            
+            <label id="acepto" className="text-black">I accept the terms and conditions of the event.</label>            
         </div>
 
     </div>
