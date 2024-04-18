@@ -59,7 +59,7 @@ export function CreateOrganizer() {
       icon: icon,
       text: text,
       showConfirmButton: false,
-      timer: 2000
+      timer: 3000
     });
   }
   
@@ -78,8 +78,7 @@ export function CreateOrganizer() {
         }, 2500);
 
       }else{
-        if (organizerData.map((organizer) => organizer.email == email).length > 0) {
-          console.log(data)
+        if (organizerData.map((organizer) => organizer.email == email)[0] == true) {
           alert('error', 'Denied', 'A user with the same email has made this request.');
         } else {
           console.log(data);
@@ -163,14 +162,25 @@ export function CreateOrganizer() {
               register={register}
             />
 
+
+            {params.id ?
+              <TextInputComp
+              name="email"
+              label="Email *"
+              placeholder="********@*****.***"
+              type="email"
+              register={register}
+              disabled={true} />
+            :
             <TextInputComp
               name="email"
               label="Email *"
               placeholder="********@*****.***"
               type="email"
               register={register}
-              disabled={true}
-            />
+               />
+            }
+            
 
             <TextInputComp
               name="linkedin"
